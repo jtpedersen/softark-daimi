@@ -1,0 +1,50 @@
+Build-management
+================
+
+In this exercise I took the liberty to make some 'obvious
+implementation' and proceeded with somewhat larger steps.
+
+My process was:
+
+Iteration 1
+-----------
+
+A) make the folder structure as described
+B) move the exercise skeleton code fragments into their proper places
+C) update the package statements in all
+D) ensure that the provided Ant compilation targets worked.
+This was the first green bar.
+
+Iteration 2
+-----------
+The next iteration was to make the test targets in Ant. This was quite
+easy by copying from the pay station example.
+
+Iteration 3
+-----------
+The final iteration was to move all my existing solution code from the
+betamon exercise into place. 
+
+A) I decided that GameImpl and
+MoveValidationStrategy should go to the domain package (as these are
+not variant specific implementation) and move
+AlphamonValidationStrategy, BetamonValidationStratetgy, and
+StandardBoard to the variant package. All tests however, I put in the
+domain package as the proliferation of classes is expected to be much
+smaller in the test folder hierarchy.
+
+B) Next I introduce all the package and import statements, using the
+build-all target to drive this process until everything compiles ok.
+
+C) Finally I run both testing targets and verify that the same number
+of tests are run as in the previous exercise.
+
+Green.
+
+Iteration 4
+-----------
+
+I run the make-doc and browse the docs. I find a documentation defect,
+namely that StandardBoard's JavaDoc comment has missed a * which means
+it does not properly show in the generated javadoc. I fix it and is
+done.

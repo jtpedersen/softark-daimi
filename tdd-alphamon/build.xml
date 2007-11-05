@@ -1,0 +1,88 @@
+<project name="HotGammon" default="help" basedir=".">
+    
+  <target name="help">
+    <echo message="Hotgammon build management."/>
+    <echo message="Targets:"/>
+    <echo message="  clean: Removes all bytecode."/>
+    <echo message="  build-all: Builds all code."/>
+    <echo message="  test: Runs test cases (text)."/>
+    <echo message="  test-board: Run test Board ()."/>
+    <echo message="  test-gui: Runs test cases (gui)."/>
+    <echo message="  make-doc: Generates JavaDoc."/>
+  </target>
+  
+  <property name="build" value="build"/>
+  <property name="doc" value="doc"/>
+  <property name="junit" value="lib/junit-4.1.jar"/>
+  <property name="junit-runners" value="lib/junit-ui-runners-3.8.2.jar"/>
+
+  <path id="_classpath">
+    <pathelement location="${junit}"/>
+    <pathelement location="${junit-runners}"/>
+    <pathelement path="${build}"/>
+  </path>
+
+  <target name="prepare">
+    <mkdir dir="${build}"/>
+    <mkdir dir="${doc}"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build}"/>
+    <delete dir="${doc}"/>
+  </target>
+
+  <target name="build-src" depends="prepare">
+    <javac 
+      srcdir="src"
+      destdir="${build}"
+      debug="on"
+      source="1.5">
+      <classpath refid="_classpath"/>
+    </javac>
+  </target>
+ 
+  <target name="build-test" depends="build-src">
+    <javac 
+      srcdir="test"
+      destdir="${build}"
+      debug="on"
+      source="1.6">
+      <classpath refid="_classpath"/>
+    </javac>
+  </target>
+
+  <target name="build-all" depends="build-src,build-test"/>
+  
+  <target name="test" depends="build-all">
+    <java classname="org.junit.runner.JUnitCore">
+      <arg value="hotgammon.domain.TestAll"/>
+      <classpath refid="_classpath"/>
+    </java>
+  </target>
+
+  <target name="test-gui" depends="build-all">
+    <java classname="junit.swingui.TestRunner" fork="yes">
+      <arg value="hotgammon.domain.TestAll"/>
+      <classpath refid="_classpath"/>
+    </java>
+  </target>
+
+  <target name="test-board" depends="build-all">
+    <java classname="junit.swingui.TestRunner" fork="yes">
+      <arg value="hotgammon.domain.TestBoard"/>
+      <classpath refid="_classpath"/>
+    </java>
+  </target>
+
+  <target name="make-doc" depends="build-src">
+    <javadoc
+      packagenames="hotgammon.*"
+      sourcepath="src"
+      destdir="doc"
+      windowtitle="Hotgammon exercise.">
+      <classpath refid="_classpath"/>
+    </javadoc>
+  </target>
+
+</project>
