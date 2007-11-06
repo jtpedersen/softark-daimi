@@ -3,8 +3,8 @@
  */
 package hotgammon.domain;
 
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.TreeMap;
 
 /**
@@ -59,7 +59,7 @@ public class StandardBoard implements Board {
      * @see hotgammon.domain.Board#reset()
      */
     public void reset() {
-        fields = new ArrayList();
+        fields = new ArrayList<Location>();
         fields.add(Location.B_BAR);
         fields.add(Location.R1);
         fields.add(Location.R2);

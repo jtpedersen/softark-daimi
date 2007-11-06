@@ -1,0 +1,28 @@
+test liste
+
+efter player1 kommer player 2
+
+dicerolls opfylder "The dice rolls are not random. The first two dice rolls give [1,2], the
+next two [3,4], next [5,6], and then it starts all over again."
+-- lavet en turn varible 
+
+newGame = playerInturn == Color.Black
+
+nextTurn() -> ny spiller 
+-- indført Color currentPlayer, tilpasset nextTurn()
+
+
+red winner after 6 turns
+
+der er 30 brikker på boardet
+-- har flyuttet en masse check metoder fra board over til game
+
+der er flere på et felt
+move R1 R2 -> true
+move R1 R6 -> false
+
+der er en på et felt
+move R6 R3
+move R1 R3 -> true og red bar indeholder een brik
+
+kun den der har tur må flytte
