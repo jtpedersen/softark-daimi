@@ -47,7 +47,7 @@
       srcdir="test"
       destdir="${build}"
       debug="on"
-      source="1.6">
+      source="1.5">
       <classpath refid="_classpath"/>
     </javac>
   </target>
