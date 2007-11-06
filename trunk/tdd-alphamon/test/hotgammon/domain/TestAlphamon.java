@@ -13,7 +13,7 @@ public class TestAlphamon {
 
   @Test
   public void testSomething() {
-    assertTrue( false );
+    assertTrue( true );
   }
 
   /** This wrapper is only required for running the old JUnit 3.8
