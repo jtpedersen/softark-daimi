@@ -1,7 +1,5 @@
 test liste
 
-efter player1 kommer player 2
-
 dicerolls opfylder "The dice rolls are not random. The first two dice rolls give [1,2], the
 next two [3,4], next [5,6], and then it starts all over again."
 -- lavet en turn varible 
@@ -11,18 +9,61 @@ newGame = playerInturn == Color.Black
 nextTurn() -> ny spiller 
 -- indført Color currentPlayer, tilpasset nextTurn()
 
-
-red winner after 6 turns
-
 der er 30 brikker på boardet
 -- har flyuttet en masse check metoder fra board over til game
+-- har lavet en board varibel og brugt den direkte i getCount og getColor
 
-der er flere på et felt
-move R1 R2 -> true
+--flyttet newGame ind i @before
+
+moves :
+foer move getNumberOf MovesLeft = 2
+
+move R1 R3 -> getNumberOf MovesLeft = 1
+
+kun den der har tur må flytte :
+move R1 R3  true
+at R3 indeholder een brik der er sort
+move R6 R3 false 
+
+der er nogle på et felt
+(move R1 R2 -> true) 
 move R1 R6 -> false
+og R1 indeholder 2 sorte brikker
 
+
+====
+der mangler noget med at chekke ift movesLeft, 
+jeg taeller ned i move, men ja der bliver ikke skiftet tur automatisk
+
+
+
+
+
+
+gemmer vi til en anden god gang....
+ A player may move any of his/her checkers to any point on the board
+  EXCEPT to a location that has 1 or more of the opponents checkers
+  (thus there is no blots, and no coupling to the values of the dice)
 der er en på et felt
-move R6 R3
-move R1 R3 -> true og red bar indeholder een brik
+move R1 R3
+move R1 R4
+nextTurn()
+move R6 R3 -> true og black bar indeholder een brik
 
-kun den der har tur må flytte
+/**
+	 * der er en på et felt move R1 R3 move R1 R4 nextTurn() move R6 R3 -> true
+	 * og black bar indeholder een brik
+	 */
+	@Test
+	public void onlyOneChekerAtMoveToLocation() {
+		game.move(Location.R1, Location.R3);
+		game.move(Location.R1, Location.R4);
+		game.nextTurn();
+		assertTrue(game.move(Location.R6, Location.R3));
+		assertEquals(1, game.getCount(Location.B_BAR));
+		assertEquals(Color.BLACK, game.getColor(Location.B_BAR));
+	}
+
+
+
+red winner after 6 turns
