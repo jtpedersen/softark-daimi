@@ -25,8 +25,8 @@ public class AlphamonGame implements Game {
         turn = 0;
         diceThrown = null;
         movesLeft = null;
-	numberOfMovesLeft = 0;
-	winner = Color.NONE;
+        numberOfMovesLeft = 0;
+        winner = Color.NONE;
     }
 
     /**
@@ -55,9 +55,9 @@ public class AlphamonGame implements Game {
         numberOfMovesLeft = 2; // there is alwas to moves
         this.throwDice();
         turn++;
-	if (turn >= 6) {
-	    winner = Color.RED;
-	}
+        if (turn >= 6) {
+            winner = Color.RED;
+        }
     }
 
     /**
@@ -70,14 +70,14 @@ public class AlphamonGame implements Game {
      * @return false if the indicated move is illegal
      */
     public boolean move(Location from, Location to) {
-	if (this.getNumberOfMovesLeft() == 0)
-	    return false;
-	if (board.getCount(from) == 0)
-	    return false;
-	/* This only applys for spikes.
-        if (board.getCount(to) >= 5)
+        if (this.getNumberOfMovesLeft() == 0)
             return false;
-	*/
+        if (board.getCount(from) == 0)
+            return false;
+        /* This only applys for spikes.
+           if (board.getCount(to) >= 5)
+           return false;
+        */
         if (board.getColor(from) != currentPlayer)
             return false;
         if (board.getColor(to) != Color.NONE
@@ -141,12 +141,12 @@ public class AlphamonGame implements Game {
         movesLeft[3] = 0;
     }
     public void removeDiceValue(int die) {
-	die = Math.abs(die);
+        die = Math.abs(die);
 
         for(int i = 0; i<4; i++) {
             if (movesLeft[i] == die) {
                 movesLeft[i] = 0;
-		break;
+                break;
             }
         }
         Arrays.sort(movesLeft);
