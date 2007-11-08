@@ -1,13 +1,17 @@
 package hotgammon.domain;
 
 import java.util.Iterator;
+import java.util.Arrays;
 
 public class AlphamonGame implements Game {
 
     private int turn;
     private Color currentPlayer;
+    private Color winner;
     private Board board;
     private int numberOfMovesLeft;
+    private int[] diceThrown;
+    private int[] movesLeft;
 
     /**
      * Reset the entire game to start from scratch. No player is in turn, and
@@ -17,7 +21,12 @@ public class AlphamonGame implements Game {
      */
     public void newGame() {
         board = new StandardBoard();
-        nextTurn();
+        currentPlayer = Color.NONE;
+        turn = 0;
+        diceThrown = null;
+        movesLeft = null;
+	numberOfMovesLeft = 0;
+	winner = Color.NONE;
     }
 
     /**
@@ -37,13 +46,18 @@ public class AlphamonGame implements Game {
      * to make moves.
      */
     public void nextTurn() {
-        if (currentPlayer == null)
+        if (currentPlayer == null 
+            || currentPlayer == Color.NONE 
+            || currentPlayer == Color.RED)
             currentPlayer = Color.BLACK;
-        else if (currentPlayer.equals(Color.RED))
-            currentPlayer = Color.BLACK;
-        else
+        else 
             currentPlayer = Color.RED;
         numberOfMovesLeft = 2; // there is alwas to moves
+        this.throwDice();
+        turn++;
+	if (turn >= 6) {
+	    winner = Color.RED;
+	}
     }
 
     /**
@@ -56,17 +70,25 @@ public class AlphamonGame implements Game {
      * @return false if the indicated move is illegal
      */
     public boolean move(Location from, Location to) {
-        if (!board.getColor(from).equals(currentPlayer))
+	if (this.getNumberOfMovesLeft() == 0)
+	    return false;
+	if (board.getCount(from) == 0)
+	    return false;
+	/* This only applys for spikes.
+        if (board.getCount(to) >= 5)
             return false;
-
-        if (board.getColor(to).equals(Color.NONE)
-                || (board.getColor(to).equals(currentPlayer) && board.getCount(to) < 5)) {
-            board.move(from, to);
-            numberOfMovesLeft--;
-            return true;
-        } else
+	*/
+        if (board.getColor(from) != currentPlayer)
             return false;
+        if (board.getColor(to) != Color.NONE
+            && board.getColor(to) != currentPlayer)
+            return false;
+        
+        board.move(from, to);
+        numberOfMovesLeft--;
+        removeDiceValue( Location.distance(from, to) );
 
+        return true;
     }
 
     /**
@@ -77,7 +99,7 @@ public class AlphamonGame implements Game {
      *         exhausted (that is, getNumberOfMovesLeft == 0).
      */
     public Color getPlayerInTurn() {
-        return currentPlayer;
+        return this.getNumberOfMovesLeft() == 0 ? Color.NONE : currentPlayer;
     }
 
     /**
@@ -97,6 +119,44 @@ public class AlphamonGame implements Game {
         return numberOfMovesLeft;
     }
 
+    private void throwDice() {
+        switch (turn%5) {
+        case 0:
+        case 1:
+            diceThrown = new int[] { 1, 2 }; 
+            break;
+        case 2:
+        case 3:
+            diceThrown = new int[] { 3, 4 };
+            break;
+        case 4:
+            diceThrown = new int[] { 5, 6 };
+            break;
+        }
+
+        movesLeft = new int[4];
+        movesLeft[0] = diceThrown[1];
+        movesLeft[1] = diceThrown[0];
+        movesLeft[2] = 0;
+        movesLeft[3] = 0;
+    }
+    public void removeDiceValue(int die) {
+	die = Math.abs(die);
+
+        for(int i = 0; i<4; i++) {
+            if (movesLeft[i] == die) {
+                movesLeft[i] = 0;
+		break;
+            }
+        }
+        Arrays.sort(movesLeft);
+        int[] tmp = movesLeft.clone();
+        movesLeft[0] = tmp[3];
+        movesLeft[1] = tmp[2];
+        movesLeft[2] = tmp[1];
+        movesLeft[3] = tmp[0];
+    }
+
     /**
      * Return an integer array of size exactly 2 containing the values of the
      * dice thrown.
@@ -104,23 +164,7 @@ public class AlphamonGame implements Game {
      * @return array of two integers defining the dice values rolled last.
      */
     public int[] diceThrown() {
-
-        turn++;
-        if (turn > 4)
-            turn = 1;
-        switch (turn) {
-        case 1:
-            return new int[] { 1, 2 };
-        case 2:
-        case 3:
-            return new int[] { 3, 4 };
-        case 4:
-            return new int[] { 5, 6 };
-        default:
-            break;
-        }
-
-        return null;
+        return diceThrown;
     }
 
     /**
@@ -136,7 +180,7 @@ public class AlphamonGame implements Game {
      * @return int array of unused die values.
      */
     public int[] diceValuesLeft() {
-        return null;
+        return movesLeft;
     }
 
     /**
@@ -146,7 +190,7 @@ public class AlphamonGame implements Game {
      *         Color.NONE is returned.
      */
     public Color winner() {
-        return null;
+        return winner;
     }
 
     /**
