@@ -3,7 +3,7 @@
  */
 package hotgammon.domain;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.TreeMap;
 
@@ -14,7 +14,6 @@ import java.util.TreeMap;
 public class StandardBoard implements Board {
 
 
-    private ArrayList<Location> fields;
     private TreeMap<Location,Integer> counts;
     private TreeMap<Location,Color> colors;
 
@@ -41,7 +40,7 @@ public class StandardBoard implements Board {
      * @see hotgammon.domain.Board#iterator()
      */
     public Iterator<Location> iterator() {
-        return fields.iterator();
+        return Arrays.asList(Location.values()).iterator(); // meget nemmere end at adde dem manuelt
     }
 
     /* (non-Javadoc)
@@ -59,35 +58,7 @@ public class StandardBoard implements Board {
      * @see hotgammon.domain.Board#reset()
      */
     public void reset() {
-        fields = new ArrayList<Location>();
-        fields.add(Location.B_BAR);
-        fields.add(Location.R1);
-        fields.add(Location.R2);
-        fields.add(Location.R3);
-        fields.add(Location.R4);
-        fields.add(Location.R5);
-        fields.add(Location.R6);
-        fields.add(Location.R7);
-        fields.add(Location.R8);
-        fields.add(Location.R9);
-        fields.add(Location.R10);
-        fields.add(Location.R11);
-        fields.add(Location.R12);
-        fields.add(Location.B12);
-        fields.add(Location.B11);
-        fields.add(Location.B10);
-        fields.add(Location.B9);
-        fields.add(Location.B8);
-        fields.add(Location.B7);
-        fields.add(Location.B6);
-        fields.add(Location.B5);
-        fields.add(Location.B4);
-        fields.add(Location.B3);
-        fields.add(Location.B2);
-        fields.add(Location.B1);
-        fields.add(Location.R_BAR);
-        fields.add(Location.B_BEAR_OFF);
-        fields.add(Location.R_BEAR_OFF);
+        
         counts = new TreeMap<Location,Integer>();
         for(Location l : this)
             counts.put(l,0);

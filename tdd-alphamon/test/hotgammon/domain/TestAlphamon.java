@@ -77,7 +77,6 @@ public class TestAlphamon {
         while (it.hasNext()) {
             Location l = it.next();
             assertNotNull(l);
-            assertEquals(l.getIndex(), i);
             i++;
         }
         assertEquals(i, 28);
