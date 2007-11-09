@@ -1,5 +1,8 @@
 package hotgammon.domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Arrays;
 
@@ -11,7 +14,7 @@ public class AlphamonGame implements Game {
     private Board board;
     private int numberOfMovesLeft;
     private int[] diceThrown;
-    private int[] movesLeft;
+    private ArrayList<Integer> movesLeft;
 
     /**
      * Reset the entire game to start from scratch. No player is in turn, and
@@ -119,7 +122,7 @@ public class AlphamonGame implements Game {
         return numberOfMovesLeft;
     }
 
-    private void throwDice() {
+	private void throwDice() {
         switch (turn%5) {
         case 0:
         case 1:
@@ -134,27 +137,19 @@ public class AlphamonGame implements Game {
             break;
         }
 
-        movesLeft = new int[4];
-        movesLeft[0] = diceThrown[1];
-        movesLeft[1] = diceThrown[0];
-        movesLeft[2] = 0;
-        movesLeft[3] = 0;
+        movesLeft = new ArrayList<Integer>();
+        for(Integer i: diceThrown)
+        	movesLeft.add(i);
     }
     public void removeDiceValue(int die) {
         die = Math.abs(die);
 
-        for(int i = 0; i<4; i++) {
-            if (movesLeft[i] == die) {
-                movesLeft[i] = 0;
-                break;
+        for(int i = 0; i<movesLeft.size(); i++) {
+            if (movesLeft.get(i) == die) {
+                movesLeft.remove(i);
             }
         }
-        Arrays.sort(movesLeft);
-        int[] tmp = movesLeft.clone();
-        movesLeft[0] = tmp[3];
-        movesLeft[1] = tmp[2];
-        movesLeft[2] = tmp[1];
-        movesLeft[3] = tmp[0];
+ 
     }
 
     /**
@@ -180,7 +175,12 @@ public class AlphamonGame implements Game {
      * @return int array of unused die values.
      */
     public int[] diceValuesLeft() {
-        return movesLeft;
+    	Collections.sort(movesLeft);
+    	Collections.reverse(movesLeft);
+    	int[] tmp = new int[movesLeft.size()];	int i= 0;
+    	for(Integer j: movesLeft)
+    		tmp[i++] =j;
+        return tmp;
     }
 
     /**
