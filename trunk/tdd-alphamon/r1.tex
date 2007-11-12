@@ -1,7 +1,7 @@
 \documentclass[a4paper]{article}
 \usepackage[latin1]{inputenc}
 \usepackage[danish]{babel}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
 
 \begin{document}
@@ -13,11 +13,110 @@
 \item Check at color er red p\aa\ B1, black p\aa\ R1 og none p\aa\ B2.
 \item flyt fra R6 til R5, check der er 1 checker p\aa\ R5 og 4 p\aa\ R6,
 flyt fra R5 til R6, check der er 5 checkers p\aa\ R6 og 0 p\aa\ R5.
+
+\item Check move R6 til R5, reset betyder at R5 count = 0 og R5 color=none
 \end{itemize}
 
-Hej verden her er jeg og her er lidt matematik 
-$\sum f(n)$ og noget fremh�vet
-\begin{equation}
-\frac{1}{3}\int_0^b f(x)\,dx
-\end{equation}
+\subsection{Iterationer}
+
+Vi implementerede testen: color er red p\aa\ B1, og s\aa\ den fejlede.
+S\aa\ fakede vi den ved at altid lade getColor() returnere Color.RED.
+Saa udvidede vi testen saa den ogs\aa\ checkede at B1 er sort.
+Den failede, og vi triangulerede og indførte et map til at holde styr
+p\aa\ farverne Map<Location, Color> og lod getColor retunere den korrekte
+farve.
+P\aa\ den m\aa de arbejede vi os igennem de ovenst\aa ende testcases
+
+
+
+\section{Alphamon}
+
+\subsection{test liste}
+
+\begin{itemize}
+\item dicerolls opfylder "The dice rolls are not random. The first two
+  dice rolls give [1,2], the next two [3,4], next [5,6], and then it starts all over again."
+\item newGame = playerInturn == Color.NONE
+
+\item nextTurn() $\rightarrow$ ny spiller\\
+indført Color currentPlayer, tilpasset nextTurn()
+
+
+\item der er 30 brikker p\aa\ boardet\\
+-- har flyttet en masse check metoder fra board over til game\\
+-- har lavet en board varibel og brugt den direkte i getCount og getColor\\
+
+
+
+
+\item f\o r move getNumberOf MovesLeft = 2
+
+
+\item move R1 R3 $\rightarrow$ getNumberOf MovesLeft = 1
+
+
+\item kun den der har tur m\aa\ flytte : 
+  \begin{itemize}
+
+  \item move R1 R3  true
+
+  \item at R3 indeholder een brik der er sort
+
+  \item move R6 R3 false 
+
+  \end{itemize}
+
+
+\item der er nogle p\aa\ et felt
+  \begin{itemize}
+  \item (move R1 R2 $\rightarrow$ true) 
+
+  \item move R1 R6 $\rightarrow$ false
+
+  \item og R1 indeholder 2 sorte brikker
+
+  \end{itemize}
+
+
+
+
+
+
+\item check diceValuesLeft: turn1, move R1, R3 $\rightarrow$ dicevaluesleft: 1
+
+\item check numberOfMovesLeft: 
+  \begin{itemize}
+  \item turn1 $\rightarrow$ 2 numberofmovesleft,
+
+  \item turn1, move(R1,R3) $\rightarrow$ 1 numberOfMovesLeft,
+
+  \item turn1, move(R1,R3), move(R1,R2) $\rightarrow$ 0 numberOfMovesLeft.
+
+  \end{itemize}
+
+
+\item check getPlayerInTurnWithNoMoves: 
+  \begin{itemize}
+  \item turn1, move(R1,R3), move(R1,R2) $\rightarrow$ getPlayerInTurn() er Color.NONE.
+
+  \end{itemize}
+\item check winner:
+  \begin{itemize}
+  \item  turn1-5 $\rightarrow$ winner = none,
+
+  \item turn6 $\rightarrow$ winner = red
+  \end{itemize}
+
+
+\item check moveWhenNoMoreMoves: turn1, move(R1,R3), move(R1,R2), move(R3,R4) $\rightarrow$ error
+
+
+\end{itemize}
+
+\section{Reflektioner}
+
+I starten var det irriterende at lave test til det hele, men da man
+skulle til at \ae ndre, refraktorer i koden vidste tdd sin styrke.
+
+
 \end{document}
