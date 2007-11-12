@@ -122,7 +122,7 @@ public class AlphamonGame implements Game {
         return numberOfMovesLeft;
     }
 
-	private void throwDice() {
+    private void throwDice() {
         switch (turn%5) {
         case 0:
         case 1:
@@ -139,7 +139,7 @@ public class AlphamonGame implements Game {
 
         movesLeft = new ArrayList<Integer>();
         for(Integer i: diceThrown)
-        	movesLeft.add(i);
+            movesLeft.add(i);
     }
     public void removeDiceValue(int die) {
         die = Math.abs(die);
@@ -175,11 +175,11 @@ public class AlphamonGame implements Game {
      * @return int array of unused die values.
      */
     public int[] diceValuesLeft() {
-    	Collections.sort(movesLeft);
-    	Collections.reverse(movesLeft);
-    	int[] tmp = new int[movesLeft.size()];	int i= 0;
-    	for(Integer j: movesLeft)
-    		tmp[i++] =j;
+        Collections.sort(movesLeft);
+        Collections.reverse(movesLeft);
+        int[] tmp = new int[movesLeft.size()];  int i= 0;
+        for(Integer j: movesLeft)
+            tmp[i++] =j;
         return tmp;
     }
 
