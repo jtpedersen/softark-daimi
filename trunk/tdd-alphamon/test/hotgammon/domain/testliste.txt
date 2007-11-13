@@ -7,9 +7,9 @@ next two [3,4], next [5,6], and then it starts all over again."
 newGame = playerInturn == Color.Black
 
 nextTurn() -> ny spiller 
--- indført Color currentPlayer, tilpasset nextTurn()
+-- indfï¿½rt Color currentPlayer, tilpasset nextTurn()
 
-der er 30 brikker på boardet
+der er 30 brikker pï¿½ boardet
 -- har flyuttet en masse check metoder fra board over til game
 -- har lavet en board varibel og brugt den direkte i getCount og getColor
 
@@ -20,12 +20,12 @@ foer move getNumberOf MovesLeft = 2
 
 move R1 R3 -> getNumberOf MovesLeft = 1
 
-kun den der har tur må flytte :
+kun den der har tur mï¿½ flytte :
 move R1 R3  true
 at R3 indeholder een brik der er sort
 move R6 R3 false 
 
-der er nogle på et felt
+der er nogle pï¿½ et felt
 (move R1 R2 -> true) 
 move R1 R6 -> false
 og R1 indeholder 2 sorte brikker
@@ -44,25 +44,13 @@ gemmer vi til en anden god gang....
  A player may move any of his/her checkers to any point on the board
   EXCEPT to a location that has 1 or more of the opponents checkers
   (thus there is no blots, and no coupling to the values of the dice)
-der er en på et felt
+der er en pï¿½ et felt
 move R1 R3
 move R1 R4
 nextTurn()
 move R6 R3 -> true og black bar indeholder een brik
 
-/**
-	 * der er en på et felt move R1 R3 move R1 R4 nextTurn() move R6 R3 -> true
-	 * og black bar indeholder een brik
-	 */
-	@Test
-	public void onlyOneChekerAtMoveToLocation() {
-		game.move(Location.R1, Location.R3);
-		game.move(Location.R1, Location.R4);
-		game.nextTurn();
-		assertTrue(game.move(Location.R6, Location.R3));
-		assertEquals(1, game.getCount(Location.B_BAR));
-		assertEquals(Color.BLACK, game.getColor(Location.B_BAR));
-	}
+
 
 
 
