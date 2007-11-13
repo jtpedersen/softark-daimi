@@ -1,5 +1,5 @@
 \documentclass[a4paper]{article}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[danish]{babel}
 %\usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
@@ -29,8 +29,8 @@ flyt fra R5 til R6, check der er 5 checkers p\aa\ R6 og 0 p\aa\ R5.
 Vi implementerede testen: color er red p\aa\ B1, og s\aa\ den fejlede.
 S\aa\ fakede vi den ved at altid lade getColor() returnere Color.RED.
 Saa udvidede vi testen saa den ogs\aa\ checkede at B1 er sort.
-Den failede, og vi triangulerede og indførte et map til at holde styr
-p\aa\ farverne Map<Location, Color> og lod getColor retunere den korrekte
+Den failede, og vi triangulerede og indf\o rte et map til at holde styr
+p\aa\ farverne Map$<$Location, Color$>$ og lod getColor retunere den korrekte
 farve.
 P\aa\ den m\aa de arbejede vi os igennem de ovenst\aa ende testcases
 
@@ -123,7 +123,11 @@ indført Color currentPlayer, tilpasset nextTurn()
 \section{Reflektioner}
 
 I starten var det irriterende at lave test til det hele, men da man
-skulle til at \ae ndre, refraktorer i koden vidste tdd sin styrke.
+skulle til at \ae ndre, refraktorer i koden vidste tdd sin
+styrke. Listen vi startede med at skrive hjalp ogs\aa\ med at sikre
+alt det n\o dvendige blev implementeret. S\aa\ l\ae nge man holder sin
+liste opdateret med de elementer man \oe nsker af koden, vil enten
+manglede checks p\aa\ listen eller fejl i tests afsl\o re manglende funktionalitet.
 
 
 \end{document}

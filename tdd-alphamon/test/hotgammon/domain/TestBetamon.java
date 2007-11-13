@@ -14,7 +14,7 @@ import org.junit.Test;
  * Testcases for Alphamon game. Author: (c) Henrik B;rbak Christensen 2007
  */
 
-public class TestAlphamon {
+public class TestBetamon {
 
 	private Game game;
 
@@ -221,6 +221,6 @@ public class TestAlphamon {
 	 * user interface on new JUnit 4 test cases
 	 */
 	public static junit.framework.Test suite() {
-		return new junit.framework.JUnit4TestAdapter(TestAlphamon.class);
+		return new junit.framework.JUnit4TestAdapter(TestBetamon.class);
 	}
 }
