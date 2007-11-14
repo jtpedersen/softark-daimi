@@ -180,7 +180,7 @@ public class TestBetamon {
 		assertEquals(2, game.getCount(Location.R1));
 	}
 
-	/**
+	/*
 	 *  4. A location with 2 or more opponent checkers is a blocked point and
       you are not allowed to move there.
 	 */
@@ -200,8 +200,6 @@ public class TestBetamon {
         game.nextTurn();
         // der staar nu to sorte paa R4 
         assertFalse(game.move(Location.R6, Location.R4));
-
-
 	}
 	
 	
@@ -281,7 +279,7 @@ public class TestBetamon {
 	
 	/**
      * der er en på et felt move R1 R3 move R1 R4 nextTurn() move R6 R3 -> true
-     * og black bar indeholder een brik
+     * og black bar indeholder een brik, blot
      */
     @Test
     public void onlyOneChekerAtMoveToLocation() {
@@ -293,7 +291,20 @@ public class TestBetamon {
         assertEquals(Color.RED, game.getColor(Location.R4));
     }
 	
-	
+	@Test 
+	public void bearOffTest() {
+		assertTrue(game.move(Location.B6, Location.B4));
+		assertTrue(game.move(Location.B4, Location.B3));
+		game.nextTurn();
+		assertTrue(game.move(Location.R6, Location.R4));
+		assertTrue(game.move(Location.R4, Location.R3));
+		game.nextTurn();
+		assertTrue(game.move(Location.B3, Location.B2));
+		assertTrue(game.move(Location.B2, Location.B_BEAR_OFF));
+		game.nextTurn();
+		assertTrue(game.move(Location.R3, Location.R2));
+		assertTrue(game.move(Location.R2, Location.R_BEAR_OFF));
+	}
 
 	/**
 	 * This wrapper is only required for running the old JUnit 3.8 graphical
