@@ -4,10 +4,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-  @Suite.SuiteClasses({ TestBoard.class,
-                        TestAlphamon.class,
-                          TestBetamon.class})
-  
+    @Suite.SuiteClasses({ TestBoard.class,
+                TestAlphamon.class,
+                TestBetamon.class,
+                TestGammamonDieStrategy.class})
+    
 /** Suite to run all test cases.  
  * Author: (c) Henrik B;rbak Christensen 2007 */
 
