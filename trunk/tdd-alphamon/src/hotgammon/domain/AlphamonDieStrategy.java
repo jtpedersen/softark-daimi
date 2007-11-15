@@ -4,12 +4,18 @@ import java.util.ArrayList;
 
 public class AlphamonDieStrategy implements DieStrategy {
 
+    
+    private int turn;
+    public AlphamonDieStrategy() {
+        this.turn = 0;
+    }
 	public void removeDie(ArrayList<Integer> dies, int die) {
 		// TODO Auto-generated method stub
 		dies.remove(0);
 	}
-	public int[] throwDice(int turn)
+	public int[] throwDice()
 	{
+	    
 		int[] diceThrown = null;
 		switch (turn % 5) {
 		case 0:
@@ -24,6 +30,7 @@ public class AlphamonDieStrategy implements DieStrategy {
 			diceThrown = new int[] { 5, 6 };
 			break;
 		}
+		turn++;
 		return diceThrown;
 	}
 	public ArrayList<Integer> getMoves(int[] diceThrown)

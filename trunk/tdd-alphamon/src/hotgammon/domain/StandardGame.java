@@ -1,10 +1,8 @@
 package hotgammon.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.Arrays;
 
 public class StandardGame implements Game {
 
@@ -59,6 +57,7 @@ public class StandardGame implements Game {
 			currentPlayer = Color.BLACK;
 		else
 			currentPlayer = Color.RED;
+		System.out.println();
 		this.throwDice();
 		turn++;
 		if (turn >= 6) {
@@ -116,21 +115,10 @@ public class StandardGame implements Game {
 	}
 
 	private void throwDice() {
-		diceThrown = ds.throwDice(turn);
+		diceThrown = ds.throwDice();
 		movesLeft = ds.getMoves(diceThrown);
 	}
 
-/*	public void removeDiceValue(int die) {
-		// die = Math.abs(die);
-		//
-		// for(int i = 0; i<movesLeft.size(); i++) {
-		// if (movesLeft.get(i) == die) {
-		// movesLeft.remove(i);
-		// }
-		// }
-		movesLeft.remove(0);
-
-	}*/
 
 	/**
 	 * Return an integer array of size exactly 2 containing the values of the

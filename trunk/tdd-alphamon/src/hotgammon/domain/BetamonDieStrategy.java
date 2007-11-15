@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class BetamonDieStrategy implements DieStrategy {
 
+    private int turn;
+    public BetamonDieStrategy(){
+        this.turn =0;
+    }
+    
     public void removeDie(ArrayList<Integer> dies, int die) {
         for (int i = 0; i<dies.size(); i++ ) {
             if (dies.get(i) == die) {
@@ -12,8 +17,9 @@ public class BetamonDieStrategy implements DieStrategy {
             }
         }
     }
-    public int[] throwDice(int turn)
+    public int[] throwDice()
     {
+     
         int[] diceThrown = null;
         switch (turn % 5) {
         case 0:
@@ -28,6 +34,7 @@ public class BetamonDieStrategy implements DieStrategy {
             diceThrown = new int[] { 5, 6 };
             break;
         }
+        turn++;
         return diceThrown;
     }
     public ArrayList<Integer> getMoves(int[] diceThrown)
