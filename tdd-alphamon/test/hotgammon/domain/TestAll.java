@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
     @Suite.SuiteClasses({ TestBoard.class,
+                TestStandardGame.class,
                 TestAlphamon.class,
                 TestBetamon.class,
                 TestGammamonDieStrategy.class})

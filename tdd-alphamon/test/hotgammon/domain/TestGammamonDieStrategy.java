@@ -1,17 +1,24 @@
 package hotgammon.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Iterator;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
 
+
 /**
- * Testcases for Alphamon game. Author: (c) Henrik B;rbak Christensen 2007
+ * Testcases for {@link GammamonDieStrategy}
+ * • Dice rolls are random as in ordinary backgammon.
+• As a consequence of the above, double rolls like [3,3] are now permit-
+  ted, and your production code must thus be augmented to handle the
+  rule in backgammon which states that double rolls allow four moves
+  to be made.
+• Also, as the player to start is determined by the first roll of the dice,
+  you will have to test that the game acts appropriately in the situation
+  where the first dice roll leads to black starting, leads to red starting,
+  or leads to a draw.
+
  */
 
 public class TestGammamonDieStrategy {
@@ -19,13 +26,41 @@ public class TestGammamonDieStrategy {
     private DieStrategy ds;
 
     @Before
-        public void setup() {
+    public void setup() {
         ds = new GammamonDieStrategy();
     }
     
-    @Test public void testfoo() {
-        assertTrue(false);
+    @Test
+    public void allValuesArePossible() {
+
+        int[] val = new int[6];
+        boolean done = false;
+        int tries = 0;
+        while(!done) {
+            int[] d = ds.throwDice();
+            assertNotNull(d);
+            
+            for(int i: d) {
+                if (i<1 || i>6)
+                    fail();
+            }
+                
+            
+            val[d[0]]++;
+            val[d[1]]++;
+            done = true;
+            for(int i: val) 
+                if (i<1) done = false;
+            
+            if(++tries>100) {
+                for(int i: val)
+                    System.out.println(i);
+                done=true;
+            }
+        }
     }
+    
+ 
 
     /**
      * This wrapper is only required for running the old JUnit 3.8 graphical

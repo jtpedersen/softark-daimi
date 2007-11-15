@@ -18,6 +18,11 @@ Betamon) except for the following specification:
 
 public class GammamonDieStrategy implements DieStrategy {
 
+    private int turn;
+    public GammamonDieStrategy() {
+        
+    }
+    
     public void removeDie(ArrayList<Integer> dies, int die) {
         for (int i = 0; i<dies.size(); i++ ) {
             if (dies.get(i) == die) {
@@ -26,22 +31,11 @@ public class GammamonDieStrategy implements DieStrategy {
             }
         }
     }
-    public int[] throwDice(int turn)
+    public int[] throwDice()
     {
-        int[] diceThrown = null;
-        switch (turn % 5) {
-        case 0:
-        case 1:
-            diceThrown = new int[] { 1, 2 };
-            break;
-        case 2:
-        case 3:
-            diceThrown = new int[] { 3, 4 };
-            break;
-        case 4:
-            diceThrown = new int[] { 5, 6 };
-            break;
-        }
+        int[] diceThrown = new int[2];
+        diceThrown[0] = (int) ((Math.random())*6);
+        diceThrown[1] = (int) ((Math.random())*6);
         return diceThrown;
     }
     public ArrayList<Integer> getMoves(int[] diceThrown)
