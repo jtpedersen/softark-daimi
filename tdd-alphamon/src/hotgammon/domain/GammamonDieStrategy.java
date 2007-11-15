@@ -14,15 +14,14 @@ Betamon) except for the following specification:
      you will have to test that the game acts appropriately in the situation
      where the first dice roll leads to black starting, leads to red starting,
      or leads to a draw.
-*/
+ */
 
 public class GammamonDieStrategy implements DieStrategy {
 
-    private int turn;
     public GammamonDieStrategy() {
-        
+
     }
-    
+
     public void removeDie(ArrayList<Integer> dies, int die) {
         for (int i = 0; i<dies.size(); i++ ) {
             if (dies.get(i) == die) {
@@ -41,8 +40,14 @@ public class GammamonDieStrategy implements DieStrategy {
     public ArrayList<Integer> getMoves(int[] diceThrown)
     {
         ArrayList<Integer> movesLeft = new ArrayList<Integer>();
-        for (Integer i : diceThrown)
-            movesLeft.add(i);
+        if (diceThrown[0] == diceThrown[1]) {
+            for (int j = 0; j < 4; j++) {
+                movesLeft.add(diceThrown[0]);
+            }
+        } else {
+            for (Integer i : diceThrown)
+                movesLeft.add(i);
+        }
         return movesLeft;
     }
 }

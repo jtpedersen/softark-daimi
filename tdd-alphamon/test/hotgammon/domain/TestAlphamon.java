@@ -55,9 +55,9 @@ public class TestAlphamon {
 		assertEquals(Color.BLACK, game.getPlayerInTurn());
 	}
 
-		private void testDie(int[] d, int a, int b) {
-		assertEquals(a, d[0]);
-		assertEquals(b, d[1]);
+	private void testDie(int[] d, int a, int b) {
+	    assertEquals(a, d[0]);
+	    assertEquals(b, d[1]);
 	}
 
 
@@ -66,21 +66,21 @@ public class TestAlphamon {
 		assertEquals(2, game.getNumberOfMovesLeft());
 	}
 
-	/**
-	 * black vil always start in alphamon
-	 */
-	@Test
-	public void onlyStartPlayerMoves() {
-		assertTrue(game.move(Location.R1, Location.R3));
-		assertEquals(1, game.getCount(Location.R3));
-		assertEquals(1, game.getCount(Location.R1));
-	}
+    /**
+     * black vil always start in alphamon
+     */
+    @Test
+    public void onlyStartPlayerMoves() {
+        assertTrue(game.move(Location.R1, Location.R3));
+        assertEquals(1, game.getCount(Location.R3));
+        assertEquals(1, game.getCount(Location.R1));
+    }
 
-	@Test
-	public void otherPlayerCantMove() {
-		assertFalse(game.move(Location.R6, Location.R3));
-		assertEquals(2, game.getCount(Location.R1));
-	}
+    @Test
+    public void otherPlayerCantMove() {
+        assertFalse(game.move(Location.R6, Location.R3));
+        assertEquals(2, game.getCount(Location.R1));
+    }
 
 	@Test
 	public void moreThanOneCheckerOnToLocation() {
