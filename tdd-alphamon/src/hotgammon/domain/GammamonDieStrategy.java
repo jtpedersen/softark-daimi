@@ -34,8 +34,8 @@ public class GammamonDieStrategy implements DieStrategy {
     public int[] throwDice()
     {
         int[] diceThrown = new int[2];
-        diceThrown[0] = (int) ((Math.random())*6);
-        diceThrown[1] = (int) ((Math.random())*6);
+        diceThrown[0] = 1+(int) ((Math.random())*6);
+        diceThrown[1] = 1+(int) ((Math.random())*6);
         return diceThrown;
     }
     public ArrayList<Integer> getMoves(int[] diceThrown)

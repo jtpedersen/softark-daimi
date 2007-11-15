@@ -42,12 +42,10 @@ public class TestGammamonDieStrategy {
             
             for(int i: d) {
                 if (i<1 || i>6)
-                    fail();
+                    fail("wrong dies");
             }
-                
-            
-            val[d[0]]++;
-            val[d[1]]++;
+            val[d[0]-1]++;
+            val[d[1]-1]++;
             done = true;
             for(int i: val) 
                 if (i<1) done = false;
@@ -64,9 +62,9 @@ public class TestGammamonDieStrategy {
 
     /**
      * This wrapper is only required for running the old JUnit 3.8 graphical
-     * user interface on new JUnit 4 test cases
+     * user interface on new JUnit 4 test cases 
      */
     public static junit.framework.Test suite() {
-        return new junit.framework.JUnit4TestAdapter(TestAlphamon.class);
+        return new junit.framework.JUnit4TestAdapter(TestGammamonDieStrategy.class);
     }
 }
