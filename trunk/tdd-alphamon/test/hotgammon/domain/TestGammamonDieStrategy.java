@@ -1,5 +1,6 @@
 package hotgammon.domain;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -53,9 +54,27 @@ public class TestGammamonDieStrategy {
             if(++tries>100) {
                 for(int i: val)
                     System.out.println(i);
-                done=true;
+                fail("didn't get alle values in 100 tries");
             }
         }
+    }
+    
+    @Test
+    public void dobbeltslag() {
+        boolean done = false;
+        int tries = 0;
+        while(!done) {
+            int[] d = ds.throwDice();
+         
+            if (d[0] == d[1]) {
+                assertEquals(4, ds.getMoves(d).size());
+                done=true;
+            }
+            
+            if(++tries>100) 
+                fail("intet dobbeltslag i 100 forsoeg");
+        }
+        
     }
     
  

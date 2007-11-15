@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
                 TestStandardGame.class,
                 TestAlphamon.class,
                 TestBetamon.class,
-                TestGammamonDieStrategy.class})
+                TestGammamonDieStrategy.class,
+                TestGammaMon.class})
     
 /** Suite to run all test cases.  
  * Author: (c) Henrik B;rbak Christensen 2007 */

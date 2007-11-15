@@ -21,10 +21,11 @@ public class TestStandardGame {
     @Before
     public void setup() {
         
-        //to "tomme" strategier
+        //to "simple" strategier
         MoveStrategy ms = new MoveStrategy(){
 
             public int move(Game game, Board board, Location from, Location to) {
+                board.move(from, to);
                 return 1;
             }
 
@@ -32,19 +33,23 @@ public class TestStandardGame {
         DieStrategy ds = new DieStrategy(){
 
             public ArrayList<Integer> getMoves(int[] thrownDice) {
-                return new ArrayList<Integer>();
+                ArrayList<Integer> movesLeft = new ArrayList<Integer>();
+                for (Integer i : thrownDice)
+                    movesLeft.add(i);
+                return movesLeft;
             }
 
             public void removeDie(ArrayList<Integer> dies, int die) { }
 
             public int[] throwDice() {
-                return new int[2];
+                return new int[] {1, 2};
             }
             
         }; 
         game = new StandardGame( ms, ds);
         game.newGame();
         game.nextTurn();
+        
     }
 
     /**
@@ -55,6 +60,42 @@ public class TestStandardGame {
         game.newGame();
         assertEquals(Color.NONE, game.getPlayerInTurn());
     }
+    private void testDie(int[] d, int a, int b) {
+        assertEquals(a, d[0]);
+        assertEquals(b, d[1]);
+    }
+    
+    public void testDiceThrown() {
+        testDie(game.diceThrown(), 1, 2);
+     
+    }
+    /**
+     * nextTurn() -> ny spiller
+     * (sort starter altid)
+     */
+    @Test
+    public void testNextPlayer() {
+        assertEquals(Color.BLACK, game.getPlayerInTurn());
+        game.nextTurn();
+        assertEquals(Color.RED, game.getPlayerInTurn());
+        game.nextTurn();
+        assertEquals(Color.BLACK, game.getPlayerInTurn());
+    }
+    
+    /**
+     * black vil always start 
+    assumes standard positions
+     */
+    @Test
+    public void movement() {
+        Location from  = Location.R1;
+        Location to = Location.R3;
+        assertTrue(game.move(from, to));
+        assertEquals(1, game.getCount(to));
+        assertEquals(1, game.getCount(from));
+        assertTrue(game.getColor(from) == game.getColor(to));
+    }
+
 
     /**
      * Test of iterator(). Checking for: - Not null - Size = 28 - Location not
