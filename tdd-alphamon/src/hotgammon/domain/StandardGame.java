@@ -29,11 +29,8 @@ public class StandardGame implements Game {
      */
     public void newGame() {
         board = new StandardBoard();
-        currentPlayer = Color.NONE;
-        lastPlayer = Color.NONE;
+        lastPlayer = currentPlayer = Color.NONE;
         turn = 0;
-//      diceThrown = null;
-//      movesLeft = new ArrayList<Integer>();
         winner = Color.NONE;
     }
 
@@ -66,6 +63,7 @@ public class StandardGame implements Game {
                 currentPlayer = lastPlayer =  Color.RED;
             else
                 currentPlayer = lastPlayer = Color.BLACK;
+            
         } else if ( lastPlayer == Color.RED)
             currentPlayer = lastPlayer = Color.BLACK;
         else 

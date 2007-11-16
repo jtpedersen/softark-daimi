@@ -29,6 +29,10 @@ public class TestStandardGame {
                 return 1;
             }
 
+            public boolean isValidMove(Game game, Location from, Location to) {
+                return true;
+            }
+
         };
         DieStrategy ds = new DieStrategy(){
 
