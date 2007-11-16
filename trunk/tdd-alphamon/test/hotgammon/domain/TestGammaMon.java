@@ -37,18 +37,30 @@ public class TestGammaMon {
         boolean blackStart = false;
         boolean redStart = false;
         int tries = 0;
-        while (!blackStart && !redStart) {
+        while (!blackStart || !redStart) {
 
+//            showDice(d);
+            
             if (d[0]>d[1]) {
                 assertEquals(Color.RED, game.getPlayerInTurn());
                 redStart = true;
-            } else {
+            } else if (d[0]<d[1]){
                 assertEquals(Color.BLACK, game.getPlayerInTurn());
                 blackStart = true;
             }
+            game.newGame();
+            game.nextTurn();
+            d = game.diceThrown();
+            
             if (++tries>100)
                 fail("The didnt both start in " + tries + "tries");
         }
+    }
+    
+    private void showDice(int[] d){
+        System.out.println("the dice");
+        for(int i: d)
+            System.out.println(i);
     }
 
 
@@ -128,7 +140,7 @@ public class TestGammaMon {
             assertTrue(game.move(Location.B2, Location.B4));
             assertTrue(game.move(Location.B3, Location.B4));
             game.nextTurn();
-            // der staar nu to sorte paa B4 
+            // der staar nu to roede paa B4 
             assertFalse(game.move(Location.B6, Location.B4));
         }
     }

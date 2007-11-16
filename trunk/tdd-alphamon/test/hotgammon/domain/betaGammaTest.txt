@@ -1,0 +1,39 @@
+Jeg har udvidet interfacet for move strategy med en isValidMove() 
+det giver god mening specielt hvis vi skal tjekke movesLeft set ift hvad man må rykke
+
+
+her er en blandet oversigt over noget af det der stadigt mangler og random rants
+
+The correct implementation of getNumberOfMovesLeft() is rather tricky.
+Consider a scenario where Black is in turn and has one checker in the
+bar. He rolls [1,2] but both R1 and R2 are blocked by red’s checkers.
+According to the specification in the Game interface, the getNum-
+berOfMovesLeft() must return 0 and not 2. Thus your implementa-
+tion should ideally generate all possible moves for black in the given
+situation on the board in order to find out whether the number of
+legal moves is actually below 2. You are allowed to disregard this
+requirement, as the learning objective is not algorithms.
+
+jeg her flyttet turn ind som intstans variabel i dieStrategy, det giver ikke mening at terningslag afhænger af turen generelt.
+
+der skal laves en :
+• Test stub rolls. These should be configurable by the JUnit test cases
+  to return a specific sequence. For instance, the test case may config-
+  ure the sequence of die rolls to be [6,3,3,3,1,5] via some kind of set
+  method. You should use this die roll strategy to augment your im-
+  plementation of the Game interface such that it can handle the added
+  requirements of a Gammamon game (handle double rolls and handle
+  determining which player starts the game.)
+
+tilføje en setSequence arrayList<int[]> i dieStrategy ? eller int[turn][values] 
+hmm nej det er nok fint bare med et array af slag som han har
+
+
+manglende tjek, betamon 
+man ikke kan flytte hvis man har en brik inde på baren, KUN flytte den den/dem der er på baren
+
+
+tanker :
+kun sende game til moveStrategy, og lade game om at håndterer boardet, hvis et move er valid laver den det, herunder at slå hjem
+da alphamon ikke kan slå hjem vil det stadigt virke. (og jeg ville gerne sende game med i konstruktoren til movestrategy) 
+

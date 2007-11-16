@@ -4,15 +4,7 @@ public class BetamonMoveStrategy implements MoveStrategy {
 
     public int move(Game game, Board board, Location from, Location to) {
 
-        int move = Location.distance(from, to);
-        if (game.getPlayerInTurn() != board.getColor(from))
-            return -1;
-        if (board.getCount(to) > 1
-                && game.getColor(to) != game.getPlayerInTurn())
-            return -1;
-        if (move < 0 && game.getPlayerInTurn() == Color.BLACK)
-            return -1;
-        if (move > 0 && game.getPlayerInTurn() == Color.RED)
+        if (!isValidMove(game, from, to))
             return -1;
         if (board.getCount(to) == 1
                 && board.getColor(to) != game.getPlayerInTurn()) {
@@ -24,7 +16,21 @@ public class BetamonMoveStrategy implements MoveStrategy {
 
         board.move(from, to);
 
-        return Math.abs(move);
+        return Math.abs(Location.distance(from, to));
+    }
+
+    public boolean isValidMove(Game game, Location from, Location to) {
+        int move = Location.distance(from, to);
+        if (game.getPlayerInTurn() != game.getColor(from))
+            return false;
+        if (game.getCount(to) > 1
+                && game.getColor(to) != game.getPlayerInTurn())
+            return false;
+        if (move < 0 && game.getPlayerInTurn() == Color.BLACK)
+            return false;
+        if (move > 0 && game.getPlayerInTurn() == Color.RED)
+            return false;
+        return true;
     }
 
 }
