@@ -1,8 +1,9 @@
+
+her er en blandet oversigt over noget af det der stadigt mangler og random rants
+
 Jeg har udvidet interfacet for move strategy med en isValidMove() 
 det giver god mening specielt hvis vi skal tjekke movesLeft set ift hvad man må rykke
 
-
-her er en blandet oversigt over noget af det der stadigt mangler og random rants
 
 The correct implementation of getNumberOfMovesLeft() is rather tricky.
 Consider a scenario where Black is in turn and has one checker in the
@@ -27,13 +28,15 @@ der skal laves en :
 
 tilføje en setSequence arrayList<int[]> i dieStrategy ? eller int[turn][values] 
 hmm nej det er nok fint bare med et array af slag som han har
+------Lavet en contructor der tager et int[], så man kan ikke ændre sekvensen for en dieStrategy, men lave en ny me en ny sekvens
+
 
 
 manglende tjek, betamon 
 man ikke kan flytte hvis man har en brik inde på baren, KUN flytte den den/dem der er på baren
-
+----- den skulle gerne vaere fikset, dog kun testet for sort slaaet hjem...
 
 tanker :
-kun sende game til moveStrategy, og lade game om at håndterer boardet, hvis et move er valid laver den det, herunder at slå hjem
+kun sende game til moveStrategy, og lade game om at håndterer boardet, hvis et move er valid laver GAME det, herunder at slå hjem
 da alphamon ikke kan slå hjem vil det stadigt virke. (og jeg ville gerne sende game med i konstruktoren til movestrategy) 
 

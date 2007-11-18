@@ -48,6 +48,11 @@ public class TestStandardGame {
             public int[] throwDice() {
                 return new int[] {1, 2};
             }
+
+            public void setSequence(int[] sequence) {
+                throw new UnsupportedOperationException();
+                
+            }
             
         }; 
         game = new StandardGame( ms, ds);

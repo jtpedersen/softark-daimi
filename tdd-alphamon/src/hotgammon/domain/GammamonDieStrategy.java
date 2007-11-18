@@ -50,4 +50,9 @@ public class GammamonDieStrategy implements DieStrategy {
         }
         return movesLeft;
     }
+
+    public void setSequence(int[] sequence) {
+        throw new UnsupportedOperationException("theese dice are random");
+        
+    }
 }
