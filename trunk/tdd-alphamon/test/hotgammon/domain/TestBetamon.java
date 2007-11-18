@@ -243,6 +243,24 @@ public class TestBetamon {
 		assertTrue(game.move(Location.R2, Location.R_BEAR_OFF));
 	}
 
+	@Test
+	public void blackOnBarGettingBack() {
+//	    onlyOneChekerAtMoveToLocation(); // laver de samme moves r'd har een ener tilbage
+	    
+	    game.move(Location.R1, Location.R3);
+        game.move(Location.R3, Location.R4);
+        game.nextTurn();
+        assertTrue(game.move(Location.R6, Location.R4));
+        assertEquals(1, game.getCount(Location.B_BAR));
+        assertEquals(Color.RED, game.getColor(Location.R4));
+	    
+	    assertTrue(game.move(Location.R6, Location.R5));
+	    game.nextTurn();
+	    assertFalse(game.move(Location.R1, Location.R2));
+	    assertTrue(game.move(Location.B_BAR, Location.R2));
+	    assertTrue(game.move(Location.R1, Location.R2));
+	}
+	
 	/**
 	 * This wrapper is only required for running the old JUnit 3.8 graphical
 	 * user interface on new JUnit 4 test cases

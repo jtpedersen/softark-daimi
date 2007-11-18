@@ -6,7 +6,17 @@ public class AlphamonDieStrategy implements DieStrategy {
 
     
     private int turn;
+    private int[] sequence;
     public AlphamonDieStrategy() {
+        this.turn = 0;
+        sequence = new int[] {1,2,1,2,3,4,3,4,5,6,1,2}; // standard for alphamon
+    }
+    /**
+     * sets a dice sequence and resets the turn counter
+     * @param sequence
+     */
+    public void setSequence(int[] sequence) {
+        this.sequence = sequence;
         this.turn = 0;
     }
 	public void removeDie(ArrayList<Integer> dies, int die) {
@@ -15,21 +25,9 @@ public class AlphamonDieStrategy implements DieStrategy {
 	}
 	public int[] throwDice()
 	{
-	    
-		int[] diceThrown = null;
-		switch (turn % 5) {
-		case 0:
-		case 1:
-			diceThrown = new int[] { 1, 2 };
-			break;
-		case 2:
-		case 3:
-			diceThrown = new int[] { 3, 4 };
-			break;
-		case 4:
-			diceThrown = new int[] { 5, 6 };
-			break;
-		}
+	    int[] diceThrown = new int[2];
+		diceThrown[0] =sequence[(turn*2)%sequence.length];
+		diceThrown[1] =sequence[(1+turn*2)%sequence.length];
 		turn++;
 		return diceThrown;
 	}

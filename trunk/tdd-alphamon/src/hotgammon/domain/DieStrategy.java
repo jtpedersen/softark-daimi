@@ -7,4 +7,5 @@ public interface DieStrategy {
 //	public int[] diceValuesLeft() {
 	public int[] throwDice();
 	public ArrayList<Integer> getMoves(int[] thrownDice);
+	public void setSequence(int[] sequence);
 }
