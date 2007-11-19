@@ -15,6 +15,7 @@ situation on the board in order to find out whether the number of
 legal moves is actually below 2. You are allowed to disregard this
 requirement, as the learning objective is not algorithms.
 
+
 jeg her flyttet turn ind som intstans variabel i dieStrategy, det giver ikke mening at terningslag afhænger af turen generelt.
 
 der skal laves en :
@@ -39,4 +40,31 @@ man ikke kan flytte hvis man har en brik inde på baren, KUN flytte den den/dem 
 tanker :
 kun sende game til moveStrategy, og lade game om at håndterer boardet, hvis et move er valid laver GAME det, herunder at slå hjem
 da alphamon ikke kan slå hjem vil det stadigt virke. (og jeg ville gerne sende game med i konstruktoren til movestrategy) 
+
+
+
+
+aaargh den ville ikke...
+if (currentPlayer == Color.NONE)
+            return 0;
+        int[] moves = new int[6];
+        for (Location from : board) {
+            if (board.getColor(from) == currentPlayer) 
+                for (Location to : board)
+                    // lousy tid....
+                    if ( to!=from && ms.isValidMove(this, from, to) ) {
+                        int dice = Math.abs(Location.distance(from, to));
+                        if (dice<7)
+                            moves[dice - 1]++;
+                    }
+        }
+
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        for (int i = 6; i >0; i--)
+            if (movesLeft.contains(i) && moves[i - 1] > 0) {
+                tmp.add(i);
+                moves[i - 1]--; // terningen bliver brugt
+            }
+
+        return tmp.size();
 
