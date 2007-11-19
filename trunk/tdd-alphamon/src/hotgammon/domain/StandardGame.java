@@ -85,14 +85,22 @@ public class StandardGame implements Game {
      * @return false if the indicated move is illegal
      */
     public boolean move(Location from, Location to) {
-        int die = ms.move(this, board, from, to);
-        if (die > 0) {
 
-            ds.removeDie(movesLeft, die);
-            return true;
+        if (!ms.isValidMove(this, from, to))
+            return false;
+
+        if (board.getCount(to) == 1
+                && board.getColor(to) != this.getPlayerInTurn()) {
+            if (this.getPlayerInTurn() == Color.BLACK)
+                board.move(to, Location.R_BAR);
+            else
+                board.move(to, Location.B_BAR);
         }
-        return false;
 
+        board.move(from, to);
+
+	ds.removeDie(movesLeft, Math.abs(Location.distance(from, to)));
+	return true;
     }
 
     /**

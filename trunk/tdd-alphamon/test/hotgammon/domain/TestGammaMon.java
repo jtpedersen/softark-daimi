@@ -155,7 +155,7 @@ public class TestGammaMon {
             game.move(Location.R1, Location.R2);
             assertEquals(movesLeft-2, game.getNumberOfMovesLeft());
         } else {
-            game.move(Location.B1, Location.B3);
+            assertTrue( game.move(Location.B1, Location.B3) );
             assertEquals(movesLeft-1, game.getNumberOfMovesLeft());
             game.move(Location.B1, Location.B2);
             assertEquals(movesLeft-2, game.getNumberOfMovesLeft());
