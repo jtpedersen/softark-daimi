@@ -53,22 +53,22 @@ public class StandardGame implements Game {
     public void nextTurn() {
         this.throwDice();
 
-        if (lastPlayer == Color.NONE ) {
-            while(diceThrown[0]==diceThrown[1]) {
+        if (lastPlayer == Color.NONE) {
+            while (diceThrown[0] == diceThrown[1]) {
                 throwDice();
-//                System.out.println("dobbeltslag");
+                // System.out.println("dobbeltslag");
             }
 
-            if (diceThrown[0]>diceThrown[1])
-                currentPlayer = lastPlayer =  Color.RED;
+            if (diceThrown[0] > diceThrown[1])
+                currentPlayer = lastPlayer = Color.RED;
             else
                 currentPlayer = lastPlayer = Color.BLACK;
-            
-        } else if ( lastPlayer == Color.RED)
+
+        } else if (lastPlayer == Color.RED)
             currentPlayer = lastPlayer = Color.BLACK;
-        else 
-            currentPlayer = lastPlayer =  Color.RED;
-        
+        else
+            currentPlayer = lastPlayer = Color.RED;
+
         turn++;
         if (turn >= 6) {
             winner = Color.RED;
@@ -85,14 +85,13 @@ public class StandardGame implements Game {
      * @return false if the indicated move is illegal
      */
     public boolean move(Location from, Location to) {
-        int die =ms.move(this, board, from, to);
-        if (die>0) {
+        int die = ms.move(this, board, from, to);
+        if (die > 0) {
 
             ds.removeDie(movesLeft, die);
             return true;
         }
         return false;
-
 
     }
 
@@ -121,14 +120,13 @@ public class StandardGame implements Game {
      *         rules of backgammon.
      */
     public int getNumberOfMovesLeft() {
-        return movesLeft.size();
+                return movesLeft.size();
     }
 
     private void throwDice() {
         diceThrown = ds.throwDice();
         movesLeft = ds.getMoves(diceThrown);
     }
-
 
     /**
      * Return an integer array of size exactly 2 containing the values of the
@@ -153,13 +151,14 @@ public class StandardGame implements Game {
      * @return int array of unused die values.
      */
     public int[] diceValuesLeft() {
-        Collections.sort(movesLeft);
-        Collections.reverse(movesLeft);
-        int[] tmp = new int[movesLeft.size()];
-        int i = 0;
-        for (Integer j : movesLeft)
-            tmp[i++] = j;
-        return tmp;
+
+         Collections.sort(movesLeft);
+         Collections.reverse(movesLeft);
+         int[] tmp = new int[movesLeft.size()];
+         int i = 0;
+         for (Integer j : movesLeft)
+         tmp[i++] = j;
+         return tmp;
     }
 
     /**
