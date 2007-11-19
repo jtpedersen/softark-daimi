@@ -19,24 +19,24 @@ public class AlphamonDieStrategy implements DieStrategy {
         this.sequence = sequence;
         this.turn = 0;
     }
-	public void removeDie(ArrayList<Integer> dies, int die) {
-		// TODO Auto-generated method stub
-		dies.remove(0);
-	}
-	public int[] throwDice()
-	{
-	    int[] diceThrown = new int[2];
-		diceThrown[0] =sequence[(turn*2)%sequence.length];
-		diceThrown[1] =sequence[(1+turn*2)%sequence.length];
-		turn++;
-		return diceThrown;
-	}
-	public ArrayList<Integer> getMoves(int[] diceThrown)
-	{
-		ArrayList<Integer> movesLeft = new ArrayList<Integer>();
-		for (Integer i : diceThrown)
-			movesLeft.add(i);
-		return movesLeft;
-	}
+    public void removeDie(ArrayList<Integer> dies, int die) {
+	// TODO Auto-generated method stub
+	dies.remove(0);
+    }
+    public int[] throwDice()
+    {
+	int[] diceThrown = new int[2];
+	diceThrown[0] =sequence[(turn*2)%sequence.length];
+	diceThrown[1] =sequence[(1+turn*2)%sequence.length];
+	turn++;
+	return diceThrown;
+    }
+    public ArrayList<Integer> getMoves(int[] diceThrown)
+    {
+	ArrayList<Integer> movesLeft = new ArrayList<Integer>();
+	for (Integer i : diceThrown)
+	    movesLeft.add(i);
+	return movesLeft;
+    }
 
 }
