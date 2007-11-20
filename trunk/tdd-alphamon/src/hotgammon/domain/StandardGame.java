@@ -14,11 +14,19 @@ public class StandardGame implements Game {
     private ArrayList<Integer> movesLeft;
     private MoveStrategy ms;
     private DieStrategy ds;
+    private WinnerStrategy ws;
     private Color lastPlayer;
 
+    /*
     public StandardGame(MoveStrategy ms, DieStrategy ds) {
         this.ds = ds;
         this.ms = ms;
+    }
+    */
+    public StandardGame(MonFactory factory) {
+        this.ds = factory.createDieStrategy();
+        this.ms = factory.createMoveStrategy();
+        this.ws = factory.createWinnerStrategy();
     }
 
     /**
@@ -176,7 +184,7 @@ public class StandardGame implements Game {
      *         Color.NONE is returned.
      */
     public Color winner() {
-        return winner;
+        return ws.winner(this, turn);
     }
 
     /**
