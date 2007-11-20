@@ -4,6 +4,7 @@
 %\usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
 \usepackage{fancyhdr}
+\usepackage[dvipdfm]{graphicx}
 \pagestyle{fancy}
 
 \begin{document}
@@ -12,122 +13,45 @@
 \rhead{}
 
 
-\section{Board implementation}
-\subsection{test list}
-\begin{itemize}
-\item Check om iteratoren indeholder pr\ae cis 28 ikke-null v\ae rdier.
-\item Check der er pr\ae cis 30 checker spredt omkring p\aa\ boardet.
-\item Check at color er red p\aa\ B1, black p\aa\ R1 og none p\aa\ B2.
-\item flyt fra R6 til R5, check der er 1 checker p\aa\ R5 og 4 p\aa\ R6,
-flyt fra R5 til R6, check der er 5 checkers p\aa\ R6 og 0 p\aa\ R5.
+\section{Betamon Implementation}
+\subsection{Refactoring}
+Vi startede med at finde de ting i betamon-specifikationen der variere,
+som var move-validering og terning-kast. Så vi implementerede et interface
+til hver af disse og implementere med hensyn til strategy patternet. Vi
+sørgede for at få alphamon til at virke med refactoringeringer før vi
+begyndte at implementere betamon.
+\subsection{Problems}
+Vi diskuterede om hvor meget terning strategi interfaced skulle indeholder.
+Mere specifikt, om den skulle indeholde alle data omkring terning-kast (
+altser tilstand af terning-kast, og funktioner til at kaste, hente værdier,
+og hente moves left. Eller om den bare skulle indeholde funktioner der
+kaster terninger og fjerner terning-værdier.
+Den første har den primære fordel at den incapsulere alt kode mht. til terning og
+være helt fri for at lade Game tænke på det, hvormod den anden metode var
+at terning-strategien ikke skulle vide noget om tilstanden, og pga. det
+vil det være mere fleksibelt at ændre på strategien undervejs.
+Vi blev aldrig enige om hvorvidt den ene eller anden var bedst, og endte med
+at implementere metode nummer 2.
 
-\item Check move R6 til R5, reset betyder at R5 count = 0 og R5 color=none
-\end{itemize}
+\section{Gammamon Implementation}
+\subsection{Refactoring}
+Der er ikke flere ting der variere i gammamon end i betamon, så vi indførte
+ingen nye interfaces.
+\subsection{Problems}
+Det åbenlyse problem er at en tilfældig terning gør det meget dumt at 
+inføre automatiske tests. Vi lavede testene først og endte med at lave
+dumme tests der løkker indtil den har fundet alle værdier, og en anden
+der løkker indtil den finder et dobbeltslag. Og da start-spilleren også
+er tilfældigt valgt, indførte vi en masse if-statements der checker hvilken
+spiller der startede, for at teste move-specifikationerne.
+Vi tilføjede en sequence DieStrategy da vi så efter hvor dumme vi var,
+så vi kunne havde simplificeret testene en del.
 
-\subsection{Iterationer}
+\section{UML class diagram}
+\includegraphics[width=410]{uml_class_2.eps}
 
-Vi implementerede testen: color er red p\aa\ B1, og s\aa\ den fejlede.
-S\aa\ fakede vi den ved at altid lade getColor() returnere Color.RED.
-Saa udvidede vi testen saa den ogs\aa\ checkede at B1 er sort.
-Den failede, og vi triangulerede og indf\o rte et map til at holde styr
-p\aa\ farverne Map$<$Location, Color$>$ og lod getColor retunere den korrekte
-farve.
-P\aa\ den m\aa de arbejede vi os igennem de ovenst\aa ende testcases
-
-
-
-\section{Alphamon}
-
-\subsection{test liste}
-
-\begin{itemize}
-\item dicerolls opfylder "The dice rolls are not random. The first two
-  dice rolls give [1,2], the next two [3,4], next [5,6], and then it starts all over again."
-\item newGame = playerInturn == Color.NONE
-
-\item nextTurn() $\rightarrow$ ny spiller\\
-indført Color currentPlayer, tilpasset nextTurn()
-
-
-\item der er 30 brikker p\aa\ boardet\\
--- har flyttet en masse check metoder fra board over til game\\
--- har lavet en board varibel og brugt den direkte i getCount og getColor\\
-
-
-
-
-\item f\o r move getNumberOf MovesLeft = 2
-
-
-\item move R1 R3 $\rightarrow$ getNumberOf MovesLeft = 1
-
-
-\item kun den der har tur m\aa\ flytte : 
-  \begin{itemize}
-
-  \item move R1 R3  true
-
-  \item at R3 indeholder een brik der er sort
-
-  \item move R6 R3 false 
-
-  \end{itemize}
-
-
-\item der er nogle p\aa\ et felt
-  \begin{itemize}
-  \item (move R1 R2 $\rightarrow$ true) 
-
-  \item move R1 R6 $\rightarrow$ false
-
-  \item og R1 indeholder 2 sorte brikker
-
-  \end{itemize}
-
-
-
-
-
-
-\item check diceValuesLeft: turn1, move R1, R3 $\rightarrow$ dicevaluesleft: 1
-
-\item check numberOfMovesLeft: 
-  \begin{itemize}
-  \item turn1 $\rightarrow$ 2 numberofmovesleft,
-
-  \item turn1, move(R1,R3) $\rightarrow$ 1 numberOfMovesLeft,
-
-  \item turn1, move(R1,R3), move(R1,R2) $\rightarrow$ 0 numberOfMovesLeft.
-
-  \end{itemize}
-
-
-\item check getPlayerInTurnWithNoMoves: 
-  \begin{itemize}
-  \item turn1, move(R1,R3), move(R1,R2) $\rightarrow$ getPlayerInTurn() er Color.NONE.
-
-  \end{itemize}
-\item check winner:
-  \begin{itemize}
-  \item  turn1-5 $\rightarrow$ winner = none,
-
-  \item turn6 $\rightarrow$ winner = red
-  \end{itemize}
-
-
-\item check moveWhenNoMoreMoves: turn1, move(R1,R3), move(R1,R2), move(R3,R4) $\rightarrow$ error
-
-
-\end{itemize}
-
-\section{Reflektioner}
-
-I starten var det irriterende at lave test til det hele, men da man
-skulle til at \ae ndre, refraktorer i koden vidste tdd sin
-styrke. Listen vi startede med at skrive hjalp ogs\aa\ med at sikre
-alt det n\o dvendige blev implementeret. S\aa\ l\ae nge man holder sin
-liste opdateret med de elementer man \oe nsker af koden, vil enten
-manglede checks p\aa\ listen eller fejl i tests afsl\o re manglende funktionalitet.
+\section{UML sequence diagram}
+\includegraphics[width=410]{uml_seq_2.eps}
 
 
 \end{document}
