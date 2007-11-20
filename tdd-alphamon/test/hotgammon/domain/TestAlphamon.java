@@ -17,7 +17,7 @@ public class TestAlphamon {
 
 	@Before
 	public void setup() {
-		game = new StandardGame( new AlphamonMoveStrategy(), new AlphamonDieStrategy());
+		game = new StandardGame( new AlphamonFactory() );
 		game.newGame();
 		game.nextTurn();
 	}

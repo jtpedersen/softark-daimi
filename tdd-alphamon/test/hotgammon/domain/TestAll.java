@@ -9,7 +9,9 @@ import org.junit.runners.Suite;
                 TestAlphamon.class,
                 TestBetamon.class,
                 TestGammamonDieStrategy.class,
-                TestGammaMon.class})
+                TestGammaMon.class,
+                TestDeltaMon.class
+                })
     
 /** Suite to run all test cases.  
  * Author: (c) Henrik B;rbak Christensen 2007 */

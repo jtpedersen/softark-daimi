@@ -44,7 +44,7 @@ public class TestBetamon {
 
     @Before
 	public void setup() {
-	game = new StandardGame( new BetamonMoveStrategy(), new BetamonDieStrategy());
+	game = new StandardGame( new BetamonFactory() );
 	game.newGame();
 	game.nextTurn();
     }
@@ -263,7 +263,7 @@ public class TestBetamon {
 
     @Test
 	public void sequence1() {
-	game = new StandardGame(new BetamonMoveStrategy(), new BetamonDieStrategy());
+	game = new StandardGame( new BetamonFactory() );
 	game.newGame();
 	game.nextTurn(); //roll dice
 	assertTrue( game.move(Location.R1, Location.R3) );

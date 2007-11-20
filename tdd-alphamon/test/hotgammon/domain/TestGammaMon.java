@@ -20,7 +20,7 @@ public class TestGammaMon {
 
     @Before
     public void setup() {
-        game = new StandardGame( new AlphamonMoveStrategy(), new GammamonDieStrategy());
+        game = new StandardGame( new GammamonFactory() );
         game.newGame();
         game.nextTurn();
     }

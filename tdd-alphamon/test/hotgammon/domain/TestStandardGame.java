@@ -22,40 +22,8 @@ public class TestStandardGame {
     public void setup() {
         
         //to "simple" strategier
-        MoveStrategy ms = new MoveStrategy(){
-
-            public int move(Game game, Board board, Location from, Location to) {
-                board.move(from, to);
-                return 1;
-            }
-
-            public boolean isValidMove(Game game, Location from, Location to) {
-                return true;
-            }
-
-        };
-        DieStrategy ds = new DieStrategy(){
-
-            public ArrayList<Integer> getMoves(int[] thrownDice) {
-                ArrayList<Integer> movesLeft = new ArrayList<Integer>();
-                for (Integer i : thrownDice)
-                    movesLeft.add(i);
-                return movesLeft;
-            }
-
-            public void removeDie(ArrayList<Integer> dies, int die) { }
-
-            public int[] throwDice() {
-                return new int[] {1, 2};
-            }
-
-            public void setSequence(int[] sequence) {
-                throw new UnsupportedOperationException();
-                
-            }
-            
-        }; 
-        game = new StandardGame( ms, ds);
+        MonFactory factory = new SimpleFactory();
+        game = new StandardGame( factory );
         game.newGame();
         game.nextTurn();
         
