@@ -1,0 +1,46 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[danish]{babel}
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage[dvipdfm]{graphicx}
+\pagestyle{fancy}
+
+\begin{document}
+\chead{dSoftArk 2007 -- group 20 -- uge 3}
+\lhead{}
+\rhead{}
+
+
+\section{Abstract Factory Implementation}
+\subsection{Refactoring}
+Vi ændrede vores test setup metoder til at tage en factory i constructuren
+istedet for vores 2 strategier, og så javac fejle.
+Så indførte vi i vores StandardGame så den tog en factory i constructuren
+og hentede og satte instansvariabler til vores 2 strategier.
+Så indføte vi vores Factory interface, MonFactory med create-metoder til
+hver af vores strategier og indførte null-implementationer og så koden
+compile og en masse testcases fejle.
+Så implementerede vi de rigtige factory klasser for alphamon, betamon og 
+gammamon, og alle tests kørte igen.
+
+\section{Deltamon Implementation}
+\subsection{Refactoring}
+Vi startede med at indse at winner kom til at ændre sig, vi kunne indkredse
+dette ansvar til en winner metoder der returnede en Color. Derefter flyttede
+vi ansvaret ud i et WinnerStrategy. (3-1-2)
+\subsection{Problems}
+Vi kom til at tænke på hvordan man skulle implmentere nye movestrategy'er der
+indeholder meget af det samme logik vi har indført i de tidligere. Vi endte
+med bare at copy-paste sammen fra 2 strategier, men hvis vi skulle have gjort
+det uden at copy-paste, kunne vi have en instans af vores alphamonMoveStrategy
+og refactore MoveCorrectDirectionMoveStrategy ud fra BetaMon og bruge den
+strartegy i deltamon- og betamonMoveStrategy.
+Der var ingen problemer med at indføre winnerStrategy.
+
+\section{UML class diagram}
+\includegraphics[width=410]{uml_class_3.eps}
+
+
+\end{document}
