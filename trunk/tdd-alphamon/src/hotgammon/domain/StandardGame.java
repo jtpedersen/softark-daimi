@@ -64,7 +64,6 @@ public class StandardGame implements Game {
 	 */
 	public void nextTurn() {
 		this.throwDice();
-		turn++;
 		if (lastPlayer == Color.NONE) {
 			while (diceThrown[0] == diceThrown[1]) {
 				throwDice();
@@ -81,6 +80,9 @@ public class StandardGame implements Game {
 		else
 			currentPlayer = lastPlayer = Color.RED;
 
+	      turn++;
+
+		notifyBoardChanged();
 	}
 
 	/**
@@ -106,9 +108,10 @@ public class StandardGame implements Game {
 		}
 
 		board.move(from, to);
-		notifyBoardChanged();
+		
 
 		ds.removeDie(movesLeft, Math.abs(Location.distance(from, to)));
+		notifyBoardChanged();
 		return true;
 	}
 
