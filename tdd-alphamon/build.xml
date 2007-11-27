@@ -1,14 +1,25 @@
 <project name="HotGammon" default="help" basedir=".">
     
   <target name="help">
-    <echo message="Hotgammon build management."/>
-    <echo message="Targets:"/>
-    <echo message="  clean: Removes all bytecode."/>
-    <echo message="  build-all: Builds all code."/>
-    <echo message="  test: Runs test cases (text)."/>
-    <echo message="  test-board: Run test Board ()."/>
-    <echo message="  test-gui: Runs test cases (gui)."/>
-    <echo message="  make-doc: Generates JavaDoc."/>
+    <echo>
+Hotgammon build management.
+Targets:
+  clean: Removes all bytecode.
+  build-all: Builds all code.
+  test: Runs test cases (text).
+  test-gui: Runs test cases (gui).
+  make-doc: Generates JavaDoc.
+
+GUI Targets:
+  show-dice: Demonstrate graphical output of the dice.
+  checker-adjusting: Move checkers and see their position adjust
+  dice-rolling: Click dice to make the game instance roll them
+  domain-update: Click to see game state changes reflected on gui
+  game-state: Test alternating between checker move and die roll tool
+
+ Each of these are isolated tests of GUI behaviour. Read the title
+ bar to see what to do.
+    </echo>
   </target>
   
   <property name="build" value="build"/>
@@ -16,7 +27,13 @@
   <property name="junit" value="lib/junit-4.1.jar"/>
   <property name="junit-runners" value="lib/junit-ui-runners-3.8.2.jar"/>
 
+  <!-- Minidraw/GUI properties -->
+  <property name="minidraw-jar" value="lib/minidraw.jar"/>
+  <property name="resource" value="resource"></property>
+
+
   <path id="_classpath">
+    <pathelement location="${minidraw-jar}"/>
     <pathelement location="${junit}"/>
     <pathelement location="${junit-runners}"/>
     <pathelement path="${build}"/>
@@ -68,13 +85,6 @@
     </java>
   </target>
 
-  <target name="test-board" depends="build-all">
-    <java classname="junit.swingui.TestRunner" fork="yes">
-      <arg value="hotgammon.domain.TestBoard"/>
-      <classpath refid="_classpath"/>
-    </java>
-  </target>
-
   <target name="make-doc" depends="build-src">
     <javadoc
       packagenames="hotgammon.*"
@@ -84,5 +94,54 @@
       <classpath refid="_classpath"/>
     </javadoc>
   </target>
+
+
+  <!-- Graphical User Interface / MiniDraw -->
+  <property name="minidraw-jar" value="lib/minidraw.jar"/>
+  <property name="resource" value="resource"></property>
+
+  <target name="build-for-gui" depends="build-all,copy_resource"/>
+
+  <target name="copy_resource" depends="prepare">
+    <copy todir="${build}\${resource}" >
+      <fileset dir="${resource}">
+	<include name="*.gif"/>
+	<include name="*.lst"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- Graphical User Interface Testing targets -->
+  
+  <target name="show-dice" depends="build-for-gui">
+    <java fork="yes" classname="hotgammon.view.ShowDice">
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>
+  </target>
+ 
+  <target name="checker-adjusting" depends="build-for-gui">
+    <java fork="yes" classname="hotgammon.view.TestCheckerAdjusting">
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>
+  </target>
+
+  <target name="dice-rolling" depends="build-for-gui">
+    <java fork="yes" classname="hotgammon.view.TestDiceRolling">
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>
+  </target>
+
+  <target name="domain-update" depends="build-for-gui">
+    <java fork="yes" classname="hotgammon.view.TestDomainUpdate">
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>
+  </target>
+
+  <target name="game-state" depends="build-for-gui">
+    <java fork="yes" classname="hotgammon.view.TestGameStateChange">
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>
+  </target>
+
 
 </project>

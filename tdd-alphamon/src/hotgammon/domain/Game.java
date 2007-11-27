@@ -16,6 +16,7 @@ import java.util.Iterator;
  * Author: Henrik Bærbak Christensen 
 */
 
+
 public interface Game {
   /** Reset the entire game to start from scratch.  No player is in
    * turn, and the game awaits a call to nextTurn to start a game.
@@ -109,4 +110,10 @@ public interface Game {
    * @return a integer value showing the number of checkers on this location.
    */
   public int getCount(Location location);
+
+  /** Add an observer that observes this game instance.
+   * @param gl the observer on this game
+   */
+  public void addGameListener(GameListener gl);
+
 }
