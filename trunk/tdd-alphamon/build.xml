@@ -16,6 +16,8 @@ GUI Targets:
   dice-rolling: Click dice to make the game instance roll them
   domain-update: Click to see game state changes reflected on gui
   game-state: Test alternating between checker move and die roll tool
+    	
+    	test-alpha : tests alphamon gui stuff
 
  Each of these are isolated tests of GUI behaviour. Read the title
  bar to see what to do.
@@ -130,7 +132,14 @@ GUI Targets:
       <classpath> <path refid="_classpath"/> </classpath>
     </java>
   </target>
-
+	
+	
+	<target name="test-alpha" depends="build-for-gui">
+	    <java fork="yes" classname="hotgammon.view.TestAlphaUpdate">
+	      <classpath> <path refid="_classpath"/> </classpath>
+	    </java>
+	  </target>
+	
   <target name="domain-update" depends="build-for-gui">
     <java fork="yes" classname="hotgammon.view.TestDomainUpdate">
       <classpath> <path refid="_classpath"/> </classpath>

@@ -12,7 +12,7 @@ import minidraw.standard.*;
  * graphical board and are moved in response to state changes in the
  * underlying board object.
  *
- * Author: Henrik Bærbak Christensen
+ * Author: Henrik Bï¿½rbak Christensen
  */
 
 public class TestDomainUpdate {

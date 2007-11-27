@@ -26,7 +26,8 @@ public class StandardGame implements Game {
 		this.ds = factory.createDieStrategy();
 		this.ms = factory.createMoveStrategy();
 		this.ws = factory.createWinnerStrategy();
-listeners = new ArrayList<GameListener>();
+		listeners = new ArrayList<GameListener>();
+		
 	}
 
 	/**
@@ -39,6 +40,10 @@ listeners = new ArrayList<GameListener>();
 		board = new StandardBoard();
 		lastPlayer = currentPlayer = Color.NONE;
 		turn = 0;
+		movesLeft = new ArrayList<Integer>();
+		diceThrown = new int[] { 1, 1 };
+		notifyBoardChanged();
+		notifyDiceRolled();
 	}
 
 	/**
@@ -59,7 +64,7 @@ listeners = new ArrayList<GameListener>();
 	 */
 	public void nextTurn() {
 		this.throwDice();
-turn++;
+		turn++;
 		if (lastPlayer == Color.NONE) {
 			while (diceThrown[0] == diceThrown[1]) {
 				throwDice();
@@ -101,6 +106,7 @@ turn++;
 		}
 
 		board.move(from, to);
+		notifyBoardChanged();
 
 		ds.removeDie(movesLeft, Math.abs(Location.distance(from, to)));
 		return true;
@@ -137,6 +143,7 @@ turn++;
 	private void throwDice() {
 		diceThrown = ds.throwDice();
 		movesLeft = ds.getMoves(diceThrown);
+		notifyDiceRolled();
 	}
 
 	/**
@@ -215,7 +222,17 @@ turn++;
 
 	public void addGameListener(GameListener gl) {
 		listeners.add(gl);
-
 	}
 
+	private void notifyBoardChanged() {
+		for (GameListener l : listeners) {
+			l.boardChange();
+		}
+	}
+
+	private void notifyDiceRolled() {
+		for (GameListener l : listeners) {
+			l.diceRolled();
+		}
+	}
 }
