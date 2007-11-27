@@ -1,21 +1,20 @@
 package hotgammon.view.tools;
 
-import hotgammon.domain.*;
-import hotgammon.view.*;
-import hotgammon.view.figures.*;
+import hotgammon.domain.Location;
+import hotgammon.view.BackgammonUserInterface;
+import hotgammon.view.BoardLayout;
+import hotgammon.view.figures.CheckerFigure;
 
 import java.awt.event.MouseEvent;
-import java.util.Iterator;
-import java.util.List;
 
-import minidraw.framework.*;
-import minidraw.standard.*;
+import minidraw.framework.Figure;
+import minidraw.standard.NullTool;
 
 /** Tool to specifically move checkers. Note that this tool is tightly
  * coupled to the BoardLayout as it uses its definitions to match
  * graphical location with game locations.
  * 
- * Author Henrik Bærbak Christensen
+ * Author Henrik Bï¿½rbak Christensen
 */
 
 public class CheckerMoveTool extends NullTool  {
@@ -28,7 +27,8 @@ public class CheckerMoveTool extends NullTool  {
   public CheckerMoveTool(BackgammonUserInterface ui) {
     this.objectServer = ui;
     draggedFigure = null;
-  }
+    
+     }
   
   public void mouseDown(MouseEvent e, int x, int y) {
     fStartX = x;
