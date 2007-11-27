@@ -8,7 +8,7 @@ import minidraw.framework.*;
 
 /** Test the DieRollToll that allows the user to roll the dice.
  *
- * @author Henrik Bærbak Christensen (c) 2003
+ * @author Henrik Bï¿½rbak Christensen (c) 2003
  */
 public class TestDiceRolling {
 
@@ -22,7 +22,7 @@ public class TestDiceRolling {
     
     editor.open();
     
-    //editor.setTool( new DieRollTool(ui) );
+    editor.setTool( new DieRollTool(ui) );
 
     ui.getGame().nextTurn();
   }
