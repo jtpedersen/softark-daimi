@@ -10,10 +10,10 @@ import org.junit.Test;
 /**
  * Testcases for Betamon game.
  * 
- *    1. A checker may only move in the direction of the playerâ€™s own inner
+ *    1. A checker may only move in the direction of the playerï¿½â€™s own inner
  table.
  2. The distance travelled must equal the value of a rolled die, and a die
- value must only be â€usedâ€ once. That is, roll [2,3] allows one checker
+ value must only be ï¿½â€usedï¿½â€ once. That is, roll [2,3] allows one checker
  to move 2 and one checker to move 3: it should not be allowed to
  move a checker, say 3 and then 3 again.
  3. A player moving a checker to a location where the opponent has ex-
@@ -23,7 +23,7 @@ import org.junit.Test;
  red checker at R BAR.
  4. A location with 2 or more opponent checkers is a blocked point and
  you are not allowed to move there.
- 5. A checker in the bar must move to the opponentâ€™s inner table. For
+ 5. A checker in the bar must move to the opponentï¿½â€™s inner table. For
  instance if Black has a checker in the bar and rolls [1,4] then he must
  see if he can move a checker to either R1 or R4.
  6. Moves on the board are not allowed until the player has no more
@@ -67,6 +67,8 @@ public class TestBetamon {
 	game.nextTurn();
 	testDie(game.diceThrown(), 1, 2);
 	game.nextTurn();
+	
+    
     }
 
     /**
@@ -215,7 +217,7 @@ public class TestBetamon {
 
 	
     /**
-     * der er en pÃ¥ et felt move R1 R3 move R1 R4 nextTurn() move R6 R3 -> true
+     * der er en pï¿½Ãï¿½ et felt move R1 R3 move R1 R4 nextTurn() move R6 R3 -> true
      * og black bar indeholder een brik, blot
      */
     @Test
