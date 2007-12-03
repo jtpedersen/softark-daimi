@@ -134,11 +134,11 @@ public class TestBetamon {
         assertTrue(game.move(Location.R6, Location.R5));
         assertTrue(game.move(Location.R8, Location.R6));
         game.nextTurn();
-        assertTrue(game.move(Location.R2, Location.R4));
-        assertTrue(game.move(Location.R3, Location.R4));
+        assertTrue(game.move(Location.R2, Location.R5));
+        assertTrue(game.move(Location.R3, Location.R7));
         game.nextTurn();
         // der staar nu to sorte paa R4 
-        assertFalse(game.move(Location.R6, Location.R4));
+        assertFalse(game.move(Location.R6, Location.R3));
     }
 	
 	
@@ -238,11 +238,11 @@ public class TestBetamon {
 	assertTrue(game.move(Location.R6, Location.R4));
 	assertTrue(game.move(Location.R4, Location.R3));
 	game.nextTurn();
-	assertTrue(game.move(Location.B3, Location.B2));
-	assertTrue(game.move(Location.B2, Location.B_BEAR_OFF));
+	assertTrue(game.move(Location.B3, Location.B_BEAR_OFF));
+//	assertTrue(game.move(Location.B2, Location.B_BEAR_OFF));
 	game.nextTurn();
-	assertTrue(game.move(Location.R3, Location.R2));
-	assertTrue(game.move(Location.R2, Location.R_BEAR_OFF));
+//	assertTrue(game.move(Location.R3, Location.R2));
+	assertTrue(game.move(Location.R3, Location.R_BEAR_OFF));
     }
 
     @Test
@@ -259,8 +259,8 @@ public class TestBetamon {
 	assertTrue(game.move(Location.R6, Location.R5));
 	game.nextTurn();
 	assertFalse(game.move(Location.R1, Location.R2));
-	assertTrue(game.move(Location.B_BAR, Location.R2));
-	assertTrue(game.move(Location.R1, Location.R2));
+	assertTrue(game.move(Location.B_BAR, Location.R3));
+	assertTrue(game.move(Location.R1, Location.R5));
     }
 
     @Test
@@ -270,6 +270,26 @@ public class TestBetamon {
 	game.nextTurn(); //roll dice
 	assertTrue( game.move(Location.R1, Location.R3) );
     }
+    @Test
+	public void diceMatchMove() {
+	assertEquals(this.atos(new int[] { 2, 1 }), this.atos(game
+							      .diceValuesLeft()));
+	assertFalse(game.move(Location.R1, Location.R4));
+	assertEquals(this.atos(new int[] { 2, 1 }), this.atos(game
+							   .diceValuesLeft()));
+	assertTrue(game.move(Location.R1, Location.R2));
+	/*assertEquals("", this.atos(game.diceValuesLeft()));
+
+	game.nextTurn();
+
+	assertEquals(this.atos(new int[] { 2, 1 }), this.atos(game
+							      .diceValuesLeft()));
+	assertTrue(game.move(Location.B1, Location.B2));
+	assertEquals(this.atos(new int[] { 2 }), this.atos(game
+							   .diceValuesLeft()));
+	assertTrue(game.move(Location.B1, Location.B3));
+	assertEquals("", this.atos(game.diceValuesLeft()));*/
+    }	
 	
     /**
      * This wrapper is only required for running the old JUnit 3.8 graphical

@@ -3,7 +3,14 @@ package hotgammon.domain;
 public class BetamonMoveStrategy implements MoveStrategy {
     public boolean isValidMove(Game game, Location from, Location to) {
         int move = Location.distance(from, to);
-        
+	boolean contains = false;
+        for(int i : game.diceValuesLeft())
+		if(i == Math.abs(move))
+			contains = true;
+
+	if(!contains)
+		return false;
+		
         // are there chekers in the bar ?
         if (game.getPlayerInTurn() == Color.BLACK
             && game.getCount(Location.B_BAR) > 0) {

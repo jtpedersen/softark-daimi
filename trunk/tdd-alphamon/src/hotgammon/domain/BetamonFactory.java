@@ -1,6 +1,6 @@
 package hotgammon.domain;
 
-class BetamonFactory implements MonFactory {
+public class BetamonFactory implements MonFactory {
     public DieStrategy createDieStrategy() {
         return new BetamonDieStrategy();
     }
