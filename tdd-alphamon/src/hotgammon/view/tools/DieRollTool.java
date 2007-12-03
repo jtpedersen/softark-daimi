@@ -15,12 +15,11 @@ import minidraw.standard.NullTool;
 */
 
 public class DieRollTool extends NullTool  {
-
   
   private BackgammonUserInterface objectServer;
+
   public DieRollTool(BackgammonUserInterface ui) {
-    this.objectServer = ui;
-    
+    this.objectServer = ui;    
   }
   
   public void mouseDown(MouseEvent e, int x, int y) {

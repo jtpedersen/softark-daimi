@@ -1,6 +1,6 @@
 package hotgammon.domain;
 
-class DeltamonFactory implements MonFactory {
+public class DeltamonFactory implements MonFactory {
     public DieStrategy createDieStrategy() {
         return new AlphamonDieStrategy();
     }

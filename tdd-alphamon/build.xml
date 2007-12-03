@@ -151,6 +151,30 @@ GUI Targets:
       <classpath> <path refid="_classpath"/> </classpath>
     </java>
   </target>
+  <target name="alphamon" depends="build-for-gui">
+    <java fork="yes" classname="hotgammon.view.MonUserInterface">
+      <arg value="alphamon" />
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>
+  </target>
+  <target name="betamon" depends="build-for-gui">
+    <java fork="yes" classname="hotgammon.view.MonUserInterface">
+      <arg value="betamon" />
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>
+  </target>
+  <target name="gammamon" depends="build-for-gui">
+    <java fork="yes" classname="hotgammon.view.MonUserInterface">
+      <arg value="gammamon" />
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>
+  </target>
+  <target name="deltamon" depends="build-for-gui">
+    <java fork="yes" classname="hotgammon.view.MonUserInterface">
+      <arg value="deltamon" />
+      <classpath> <path refid="_classpath"/> </classpath>
+    </java>
+  </target>
 
 
 </project>

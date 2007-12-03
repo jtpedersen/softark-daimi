@@ -96,6 +96,9 @@ public class StandardGame implements Game {
 	 */
 	public boolean move(Location from, Location to) {
 
+		if (to == from)
+			return false;
+
 		if (!ms.isValidMove(this, from, to))
 			return false;
 
