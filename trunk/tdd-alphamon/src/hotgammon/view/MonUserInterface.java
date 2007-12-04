@@ -1,12 +1,17 @@
 package hotgammon.view;
 
-import hotgammon.domain.*;
-import hotgammon.view.*;
-
-import minidraw.framework.*;
-import minidraw.standard.*;
-
-import hotgammon.view.tools.*;
+import hotgammon.domain.AlphamonFactory;
+import hotgammon.domain.BetamonFactory;
+import hotgammon.domain.DeltamonFactory;
+import hotgammon.domain.Game;
+import hotgammon.domain.GammamonFactory;
+import hotgammon.domain.MonFactory;
+import hotgammon.domain.RealBackgammonFactory;
+import hotgammon.domain.SemimonFactory;
+import hotgammon.domain.StandardGame;
+import hotgammon.view.tools.MonTool;
+import minidraw.framework.DrawingEditor;
+import minidraw.standard.MiniDrawApplication;
 
 /** An object server that instantiates some predefined
  * stub objects that serves for testing purposes.
@@ -64,6 +69,11 @@ implements BackgammonUserInterface {
 			factory = new SemimonFactory();
 			title = "Semimon!!";
 		}
+		else if (args[0].equalsIgnoreCase("backgammon"))
+        {
+            factory = new RealBackgammonFactory();
+            title = "Real Backgammon";
+        }
 			
 		BackgammonUserInterface ui = 
       			new MonUserInterface(title,factory);

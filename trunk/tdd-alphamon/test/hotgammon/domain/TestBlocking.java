@@ -24,7 +24,16 @@ public class TestBlocking {
 
     private class BlockedBoardFactory extends BetamonFactory {
         public Board createBoard() {
-            return new BlockedBoardSetup();
+            BoardConfiguration[] config = new BoardConfiguration[] {
+            new BoardConfiguration(Location.B1,Color.BLACK,3),
+            new BoardConfiguration(Location.B2,Color.BLACK,3),
+            new BoardConfiguration(Location.B3,Color.BLACK,3),
+            new BoardConfiguration(Location.B4,Color.BLACK,3),
+            new BoardConfiguration(Location.B5,Color.BLACK,3),
+            new BoardConfiguration(Location.B6,Color.BLACK,3),
+            
+            new BoardConfiguration(Location.R_BAR,Color.RED,3)};
+            return new FixedBoardSetup(config);
         }
     }
 

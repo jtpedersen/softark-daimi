@@ -2,7 +2,7 @@ package hotgammon.domain;
 
 public class BetamonFactory implements MonFactory {
     public DieStrategy createDieStrategy() {
-        return new BetamonDieStrategy();
+        return new AlphamonDieStrategy();
     }
     public MoveStrategy createMoveStrategy() {
         return new BetamonMoveStrategy();

@@ -212,5 +212,14 @@ GUI Targets:
 		</java>
 	</target>
 
+	<target name="backgammon" depends="build-for-gui">
+			<java fork="yes" classname="hotgammon.view.MonUserInterface">
+				<arg value="backgammon" />
+				<classpath>
+					<path refid="_classpath" />
+				</classpath>
+			</java>
+		</target>
+	
 
 </project>
