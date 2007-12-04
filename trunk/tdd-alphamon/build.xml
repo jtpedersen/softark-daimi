@@ -1,7 +1,7 @@
 <project name="HotGammon" default="help" basedir=".">
-    
-  <target name="help">
-    <echo>
+
+	<target name="help">
+		<echo>
 Hotgammon build management.
 Targets:
   clean: Removes all bytecode.
@@ -22,159 +22,186 @@ GUI Targets:
  Each of these are isolated tests of GUI behaviour. Read the title
  bar to see what to do.
     </echo>
-  </target>
-  
-  <property name="build" value="build"/>
-  <property name="doc" value="doc"/>
-  <property name="junit" value="lib/junit-4.1.jar"/>
-  <property name="junit-runners" value="lib/junit-ui-runners-3.8.2.jar"/>
+	</target>
 
-  <!-- Minidraw/GUI properties -->
-  <property name="minidraw-jar" value="lib/minidraw.jar"/>
-  <property name="resource" value="resource"></property>
+	<property name="build" value="build" />
+	<property name="doc" value="doc" />
+	<property name="junit" value="lib/junit-4.1.jar" />
+	<property name="junit-runners" value="lib/junit-ui-runners-3.8.2.jar" />
 
-
-  <path id="_classpath">
-    <pathelement location="${minidraw-jar}"/>
-    <pathelement location="${junit}"/>
-    <pathelement location="${junit-runners}"/>
-    <pathelement path="${build}"/>
-  </path>
-
-  <target name="prepare">
-    <mkdir dir="${build}"/>
-    <mkdir dir="${doc}"/>
-  </target>
-
-  <target name="clean">
-    <delete dir="${build}"/>
-    <delete dir="${doc}"/>
-  </target>
-
-  <target name="build-src" depends="prepare">
-    <javac 
-      srcdir="src"
-      destdir="${build}"
-      debug="on"
-      source="1.5">
-      <classpath refid="_classpath"/>
-    </javac>
-  </target>
- 
-  <target name="build-test" depends="build-src">
-    <javac 
-      srcdir="test"
-      destdir="${build}"
-      debug="on"
-      source="1.5">
-      <classpath refid="_classpath"/>
-    </javac>
-  </target>
-
-  <target name="build-all" depends="build-src,build-test"/>
-  
-  <target name="test" depends="build-all">
-    <java classname="org.junit.runner.JUnitCore">
-      <arg value="hotgammon.domain.TestAll"/>
-      <classpath refid="_classpath"/>
-    </java>
-  </target>
-
-  <target name="test-gui" depends="build-all">
-    <java classname="junit.swingui.TestRunner" fork="yes">
-      <arg value="hotgammon.domain.TestAll"/>
-      <classpath refid="_classpath"/>
-    </java>
-  </target>
-
-  <target name="make-doc" depends="build-src">
-    <javadoc
-      packagenames="hotgammon.*"
-      sourcepath="src"
-      destdir="doc"
-      windowtitle="Hotgammon exercise.">
-      <classpath refid="_classpath"/>
-    </javadoc>
-  </target>
+	<!-- Minidraw/GUI properties -->
+	<property name="minidraw-jar" value="lib/minidraw.jar" />
+	<property name="resource" value="resource">
+	</property>
 
 
-  <!-- Graphical User Interface / MiniDraw -->
-  <property name="minidraw-jar" value="lib/minidraw.jar"/>
-  <property name="resource" value="resource"></property>
+	<path id="_classpath">
+		<pathelement location="${minidraw-jar}" />
+		<pathelement location="${junit}" />
+		<pathelement location="${junit-runners}" />
+		<pathelement path="${build}" />
+	</path>
 
-  <target name="build-for-gui" depends="build-all,copy_resource"/>
+	<target name="prepare">
+		<mkdir dir="${build}" />
+		<mkdir dir="${doc}" />
+	</target>
 
-  <target name="copy_resource" depends="prepare">
-    <copy todir="${build}\${resource}" >
-      <fileset dir="${resource}">
-	<include name="*.gif"/>
-	<include name="*.lst"/>
-      </fileset>
-    </copy>
-  </target>
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${doc}" />
+	</target>
 
-  <!-- Graphical User Interface Testing targets -->
-  
-  <target name="show-dice" depends="build-for-gui">
-    <java fork="yes" classname="hotgammon.view.ShowDice">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
- 
-  <target name="checker-adjusting" depends="build-for-gui">
-    <java fork="yes" classname="hotgammon.view.TestCheckerAdjusting">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
+	<target name="build-src" depends="prepare">
+		<javac srcdir="src" destdir="${build}" debug="on" source="1.5">
+			<classpath refid="_classpath" />
+		</javac>
+	</target>
 
-  <target name="dice-rolling" depends="build-for-gui">
-    <java fork="yes" classname="hotgammon.view.TestDiceRolling">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
-	
-	
+	<target name="build-test" depends="build-src">
+		<javac srcdir="test" destdir="${build}" debug="on" source="1.5">
+			<classpath refid="_classpath" />
+		</javac>
+	</target>
+
+	<target name="build-all" depends="build-src,build-test" />
+
+	<target name="test" depends="build-all">
+		<java classname="org.junit.runner.JUnitCore">
+			<arg value="hotgammon.domain.TestAll" />
+			<classpath refid="_classpath" />
+		</java>
+	</target>
+
+	<target name="test-gui" depends="build-all">
+		<java classname="junit.swingui.TestRunner" fork="yes">
+			<arg value="hotgammon.domain.TestAll" />
+			<classpath refid="_classpath" />
+		</java>
+	</target>
+
+	<target name="make-doc" depends="build-src">
+		<javadoc packagenames="hotgammon.*" sourcepath="src" destdir="doc" windowtitle="Hotgammon exercise.">
+			<classpath refid="_classpath" />
+		</javadoc>
+	</target>
+
+
+	<!-- Graphical User Interface / MiniDraw -->
+	<property name="minidraw-jar" value="lib/minidraw.jar" />
+	<property name="resource" value="resource">
+	</property>
+
+	<target name="build-for-gui" depends="build-all,copy_resource" />
+
+	<target name="copy_resource" depends="prepare">
+		<copy todir="${build}\${resource}">
+			<fileset dir="${resource}">
+				<include name="*.gif" />
+				<include name="*.lst" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- Graphical User Interface Testing targets -->
+
+	<target name="show-dice" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.ShowDice">
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="checker-adjusting" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.TestCheckerAdjusting">
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="dice-rolling" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.TestDiceRolling">
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+
+
 	<target name="test-alpha" depends="build-for-gui">
-	    <java fork="yes" classname="hotgammon.view.TestAlphaUpdate">
-	      <classpath> <path refid="_classpath"/> </classpath>
-	    </java>
-	  </target>
-	
-  <target name="domain-update" depends="build-for-gui">
-    <java fork="yes" classname="hotgammon.view.TestDomainUpdate">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
+		<java fork="yes" classname="hotgammon.view.TestAlphaUpdate">
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
 
-  <target name="game-state" depends="build-for-gui">
-    <java fork="yes" classname="hotgammon.view.TestGameStateChange">
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
-  <target name="alphamon" depends="build-for-gui">
-    <java fork="yes" classname="hotgammon.view.MonUserInterface">
-      <arg value="alphamon" />
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
-  <target name="betamon" depends="build-for-gui">
-    <java fork="yes" classname="hotgammon.view.MonUserInterface">
-      <arg value="betamon" />
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
-  <target name="gammamon" depends="build-for-gui">
-    <java fork="yes" classname="hotgammon.view.MonUserInterface">
-      <arg value="gammamon" />
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
-  <target name="deltamon" depends="build-for-gui">
-    <java fork="yes" classname="hotgammon.view.MonUserInterface">
-      <arg value="deltamon" />
-      <classpath> <path refid="_classpath"/> </classpath>
-    </java>
-  </target>
+	<target name="domain-update" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.TestDomainUpdate">
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="AlphaMon-updateState" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.TestAlphaMonState">
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="Beta-updateState" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.TestBetaMonUpdate">
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+
+
+	<target name="game-state" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.TestGameStateChange">
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+	<target name="alphamon" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.MonUserInterface">
+			<arg value="alphamon" />
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+	<target name="betamon" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.MonUserInterface">
+			<arg value="betamon" />
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+	<target name="gammamon" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.MonUserInterface">
+			<arg value="gammamon" />
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+	<target name="deltamon" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.MonUserInterface">
+			<arg value="deltamon" />
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
 
 
 </project>
