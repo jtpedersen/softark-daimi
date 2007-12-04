@@ -5,12 +5,8 @@ import java.util.ArrayList;
 class SimpleFactory implements MonFactory {
     public MoveStrategy createMoveStrategy() {
         return new MoveStrategy() {
-            public int move(Game game, Board board, Location from, Location to) {
-                board.move(from, to);
-                return 1;
-            }
-            public boolean isValidMove(Game game, Location from, Location to) {
-                return true;
+        	public int isValidMove(Game game, Location from, Location to) {
+                return game.diceValuesLeft()[0];
             }
         };
     }

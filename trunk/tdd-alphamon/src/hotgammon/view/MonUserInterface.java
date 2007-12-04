@@ -58,6 +58,11 @@ implements BackgammonUserInterface {
 		{
 			factory = new DeltamonFactory();
 			title = "Deltamon!!";
+		} 
+		else if (args[0].equalsIgnoreCase("semimon"))
+		{
+			factory = new SemimonFactory();
+			title = "Semimon!!";
 		}
 			
 		BackgammonUserInterface ui = 

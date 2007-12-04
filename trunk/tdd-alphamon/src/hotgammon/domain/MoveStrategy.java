@@ -1,5 +1,5 @@
 package hotgammon.domain;
 
 public interface MoveStrategy {
-    public boolean isValidMove(Game game, Location from, Location to);
+    public int isValidMove(Game game, Location from, Location to);
 }

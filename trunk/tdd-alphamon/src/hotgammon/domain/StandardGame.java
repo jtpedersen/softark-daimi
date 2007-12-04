@@ -98,12 +98,15 @@ public class StandardGame implements Game {
 
 		if (to == from)
 			return false;
-
-		if (!ms.isValidMove(this, from, to))
+		int dice = ms.isValidMove(this, from, to);
+	
+		if (dice<1)
 			return false;
-
+		
+		removeDice(dice);
+		
 		if (board.getCount(to) == 1
-				&& board.getColor(to) != this.getPlayerInTurn()) {
+				&& board.getColor(to) != board.getColor(from)) {
 			if (this.getPlayerInTurn() == Color.BLACK)
 				board.move(to, Location.R_BAR);
 			else
@@ -113,9 +116,12 @@ public class StandardGame implements Game {
 		board.move(from, to);
 		
 
-		ds.removeDie(movesLeft, Math.abs(Location.distance(from, to)));
 		notifyBoardChanged();
 		return true;
+	}
+
+	private void removeDice(int dice) {
+		movesLeft.remove(new Integer(dice));
 	}
 
 	/**
