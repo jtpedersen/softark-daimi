@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Iterator;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,7 +35,7 @@ public class TestDeltaMon {
         assertTrue( game.move( Location.R1, Location.B2 ));
         assertTrue( game.move( Location.R1, Location.B2 ));
         game.nextTurn(); game.nextTurn();
-        showLocationCount(Color.BLACK);
+     
         assertEquals( Color.NONE, game.winner() );
         assertTrue( game.move( Location.R12, Location.B3 ));
         assertTrue( game.move( Location.R12, Location.B3 ));
@@ -55,20 +53,12 @@ public class TestDeltaMon {
         assertTrue( game.move( Location.B8, Location.B4 ));
         assertTrue( game.move( Location.B8, Location.B4 ));
         
-        showLocationCount(Color.BLACK);
+     
 
         
         assertEquals( Color.BLACK, game.winner() );
     }
 
-    private void showLocationCount(Color c) {
-        Iterator<Location> it = game.boardIterator();
-        while (it.hasNext()) {
-			Location location = (Location) it.next();
-			if (game.getColor(location) == c)
-				System.out.println(location + " " + game.getCount(location));
-		}
-    }
     
     /**
      * This wrapper is only required for running the old JUnit 3.8 graphical

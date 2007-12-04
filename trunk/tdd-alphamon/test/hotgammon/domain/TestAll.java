@@ -11,7 +11,8 @@ import org.junit.runners.Suite;
                 TestGammamonDieStrategy.class,
                 TestGammaMon.class,
                 TestDeltaMon.class,
-                TestSemimon.class
+                TestSemimon.class,
+                TestBlocking.class
                 })
     
 /** Suite to run all test cases.  
