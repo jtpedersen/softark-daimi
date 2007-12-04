@@ -10,4 +10,8 @@ public class GammamonFactory implements MonFactory {
     public WinnerStrategy createWinnerStrategy() {
         return new SixTurnRedWinnerStrategy();
     }
+
+    public Board createBoard() {
+        return new StandardBoard();
+    }
 }

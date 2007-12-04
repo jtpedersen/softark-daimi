@@ -5,7 +5,7 @@ import java.util.ArrayList;
 class SimpleFactory implements MonFactory {
     public MoveStrategy createMoveStrategy() {
         return new MoveStrategy() {
-        	public int isValidMove(Game game, Location from, Location to) {
+            public int isValidMove(Game game, Location from, Location to) {
                 return game.diceValuesLeft()[0];
             }
         };
@@ -24,8 +24,9 @@ class SimpleFactory implements MonFactory {
                 return new int[] {1, 2};
             }
         };
-    }
 
+       
+    }
 
     public WinnerStrategy createWinnerStrategy() {
         return new WinnerStrategy() {
@@ -34,5 +35,7 @@ class SimpleFactory implements MonFactory {
             }
         };
     }
-
+    public Board createBoard() {
+        return new StandardBoard();
+    }
 }

@@ -47,7 +47,9 @@ public class TestAlphamon {
 	 */
 	@Test
 	public void testNextPlayer() {
-
+//    for(int i: game.diceValuesLeft())
+//        System.out.println(i);
+//    System.out.println(game.getNumberOfMovesLeft());
 		assertEquals(Color.BLACK, game.getPlayerInTurn());
 		game.nextTurn();
 		assertEquals(Color.RED, game.getPlayerInTurn());

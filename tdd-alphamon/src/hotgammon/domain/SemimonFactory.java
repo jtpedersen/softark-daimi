@@ -43,4 +43,7 @@ public class SemimonFactory implements MonFactory {
 		return new AllInInnerFieldWinnerStrategy();
 	}
 
+    public Board createBoard() {
+        return new StandardBoard();
+    }
 }
