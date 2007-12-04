@@ -30,7 +30,6 @@ public class TestRealBackgammon {
         game = new StandardGame(new TestRealBackGammonFactory());
         game.newGame();
         game.nextTurn();
-
         assertFalse(game.move(Location.B1, Location.B_BEAR_OFF));
         assertFalse(game.move(Location.B2, Location.B_BEAR_OFF));
 
@@ -39,19 +38,6 @@ public class TestRealBackgammon {
         assertEquals(Color.NONE, game.winner());
         game.nextTurn();
         assertEquals(Color.NONE, game.winner());
-
-    }
-
-    @Test
-    public void AssureBlackeWinsWith15lInBearOff() {
-        // return new SequenceDieStrategy(new int[] {1,2}); det er en test med
-        // fast terning slag
-        game = new StandardGame(new RealBackgammonWinningFactory());
-        game.newGame();
-        game.nextTurn();
-        assertEquals(Color.NONE, game.winner());
-        assertTrue(game.move(Location.B2, Location.B_BEAR_OFF));
-        assertEquals(Color.BLACK, game.winner());
 
     }
 
@@ -75,6 +61,20 @@ public class TestRealBackgammon {
         }
     }
 
+
+    @Test
+    public void AssureBlackeWinsWith15lInBearOff() {
+        // return new SequenceDieStrategy(new int[] {1,2}); det er en test med
+        // fast terning slag
+        game = new StandardGame(new RealBackgammonWinningFactory());
+        game.newGame();
+        game.nextTurn();
+        assertEquals(Color.NONE, game.winner());
+        assertTrue(game.move(Location.B2, Location.B_BEAR_OFF));
+        assertEquals(Color.BLACK, game.winner());
+
+    }
+
     private class RealBackgammonWinningFactory extends RealBackgammonFactory {
         public DieStrategy createDieStrategy() {
             return new SequenceDieStrategy(new int[] { 1, 2 });
@@ -88,6 +88,57 @@ public class TestRealBackgammon {
                     new BoardConfiguration(Location.R1, Color.RED, 5),
                     new BoardConfiguration(Location.R8, Color.RED, 5),
                     new BoardConfiguration(Location.R9, Color.RED, 5) };
+            return new FixedBoardSetup(config);
+        }
+    }
+
+    @Test
+    public void AssureBearOffWorks() {
+        // return new SequenceDieStrategy(new int[] {1,2}); det er en test med
+        // fast terning slag
+        game = new StandardGame(new RealBackgammonBearOffTestFactory());
+        game.newGame();
+        game.nextTurn();
+        
+        
+        assertEquals(Color.NONE, game.winner());
+        assertEquals(Color.RED, game.getPlayerInTurn());
+        assertEquals(Color.NONE, game.getColor(Location.B3));
+        
+        assertTrue(game.move(Location.R2, Location.R_BEAR_OFF));
+        
+        assertEquals(Color.RED, game.getPlayerInTurn());
+        assertFalse(game.move(Location.R2, Location.R_BEAR_OFF));
+        //wrapping around the board we do not like it 
+        assertFalse(game.move(Location.B3, Location.R_BEAR_OFF));
+//        Helpers.showLocationCount(game, Color.RED);
+//        Helpers.showDice(game.diceValuesLeft());
+        //stupid bug that allowed movement to bar.
+      assertFalse(game.move(Location.R2, Location.B_BAR));
+        assertTrue(game.move(Location.R3, Location.R_BEAR_OFF));
+        assertEquals(0, game.getNumberOfMovesLeft());
+        game.nextTurn();
+        assertEquals(Color.NONE, game.getPlayerInTurn());
+        game.nextTurn();
+
+        assertTrue(game.move(Location.R3, Location.R_BEAR_OFF));
+        assertEquals(Color.RED, game.winner());
+        
+        
+
+    }
+    private class RealBackgammonBearOffTestFactory extends RealBackgammonFactory {
+        public DieStrategy createDieStrategy() {
+            return new SequenceDieStrategy(new int[] { 5, 2 , 1,1, 4,1});
+        }
+
+        public Board createBoard() {
+            BoardConfiguration[] config = new BoardConfiguration[] {
+                    new BoardConfiguration(Location.R2, Color.RED, 1),
+                    new BoardConfiguration(Location.R3, Color.RED, 2),
+                    new BoardConfiguration(Location.R_BEAR_OFF, Color.RED, 12),
+
+     };
             return new FixedBoardSetup(config);
         }
     }

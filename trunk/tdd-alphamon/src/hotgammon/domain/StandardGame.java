@@ -98,7 +98,8 @@ public class StandardGame implements Game {
      */
     public boolean move(Location from, Location to) {
 
-        if (to == from)
+        //basic general movement thats not allowed as a *mon move
+        if (to == from || getColor(from) == Color.NONE || to==Location.R_BAR || to==Location.B_BAR)
             return false;
         int dice = ms.isValidMove(this, from, to);
 
@@ -159,12 +160,13 @@ public class StandardGame implements Game {
      * @return
      */
     private boolean existsAValidMove() {
-
+        
         for (Location from : board) {
-            if (getColor(from) == currentPlayer && getCount(from)>0) {
+            if (getColor(from) == currentPlayer && getCount(from) > 0) {
                 for (Location to : board) {
                     int move = ms.isValidMove(this, from, to);
                     if (move > 0) {
+//                        System.out.println("Legal move from " + from + " to " + to + " with dice " + move);
                         return true;
                     }
                 }
@@ -177,13 +179,13 @@ public class StandardGame implements Game {
     private void calculateNumberMovesLeft() {
 
         numberOfMovesLeft = movesLeft.size();
-        
+
         if (getPlayerInTurn() == Color.NONE)
             return;
 
         if (numberOfMovesLeft > 0 && !existsAValidMove())
             numberOfMovesLeft = 0;
-        
+
     }
 
     private void throwDice() {

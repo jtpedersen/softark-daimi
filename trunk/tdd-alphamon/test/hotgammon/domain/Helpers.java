@@ -21,4 +21,11 @@ public class Helpers {
         return out;
     }
 
+    public static void showDice(int[] diceValuesLeft) {
+        System.out.println("dice :");
+        for (int i: diceValuesLeft)
+            System.out.print(i + "\t");
+        System.out.println();
+    }
+
 }

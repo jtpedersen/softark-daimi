@@ -3,12 +3,16 @@ package hotgammon.domain;
 public class BetamonMoveStrategy implements MoveStrategy {
     public int isValidMove(Game game, Location from, Location to) {
 
-        //er det den korekte spiller der flytter?
+        //er det den korekte spiller der flytter og er der en brik?
         if (game.getPlayerInTurn() != game.getColor(from))
             return -1;
         
 //        er det et reeelt move
         if (to==from)
+            return -1;
+        
+        //man må ikke flytte væk fra bearoff
+        if (from == Location.B_BEAR_OFF || from == Location.R_BEAR_OFF)
             return -1;
 
         //passer det med et terningslag
