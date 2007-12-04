@@ -274,6 +274,7 @@ public class TestBetamon {
          * assertEquals("", Helpers.atos(game.diceValuesLeft()));
          */
     }
+    
 
     /**
      * This wrapper is only required for running the old JUnit 3.8 graphical
