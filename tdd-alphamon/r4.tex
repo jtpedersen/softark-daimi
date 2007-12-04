@@ -1,0 +1,65 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[danish]{babel}
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage[dvipdfm]{graphicx}
+\pagestyle{fancy}
+
+\begin{document}
+\chead{dSoftArk 2007 -- group 20 -- uge 4}
+\lhead{}
+\rhead{}
+
+
+\section*{Exercise 30.8}
+\textit{Product: A short explanations of your analysis and design choices.}
+Vi lavede en simple extends NullTool og sikrede at der kun hvis der
+blev trykket på en terning blev der kaldt next turn.
+\begin{verbatim}
+   Figure f = objectServer.getEditor().drawing().
+      findFigure(e.getX(), e.getY());
+    if (f instanceof DieFigure) {
+    	objectServer.getGame().nextTurn();
+    } 
+\end{verbatim}
+
+
+\section*{Exercise 30.9}
+\textit{Product: A short explanations of your analysis and design choices.}
+Vi sørgede for at tilføje den nye metode addListener til Game, så vi
+havde en liste med gameListernes, og i vores standard board tilføjede vi
+to private metoder. NotifyBoardChange og NotifyDiceRolled, som
+søgrede for at kalde de relevante metoder på alle de listeners der var
+tilføjet. Vi kaldte disse metoder efter bla move og nextTurn.
+
+Vi brugte AlphaMon til som game til udvikle udfra.
+
+
+\section*{Exercise 30.10}
+\textit{Product: A short explanations of your analysis and design choices.}
+Vi lavede et MonTool, med et statepattern. Det kan veksle mellem rulle
+terninger (diceRollTool) eller flytte brikker(checkerMoveTool) og
+sidst et GameWonTool. MonTool satte sig på som gameListener på vores
+game og hvergang der blev kaldt tilbage, chekkede vi state, ved at
+undersøge om spillet var vundet eller ved at se hvormange moves der
+var tilbage. Således kunne vi vælge hvilket tool som MonTool skulle
+opføre sig som.
+
+
+
+\section*{Exercies 30.11}
+Vi lavede to nye ant targets med AlphaMonUpdateState State og
+BetaUpdateState, som kunne afvikle nogle moves ved hjælp af en stub
+metode, så vi kunne lave et monUserInterface, som tager en appTitle og
+en factory i konstruktoren og laver et game.
+
+Slutteligt satte vi det sammen og tilføjede ant targets til *mon, hvor
+monUserInterFacer og MonTool bliver brugt. Der med kan man nu spille
+*mon med et GUI.
+
+
+
+
+\end{document}
