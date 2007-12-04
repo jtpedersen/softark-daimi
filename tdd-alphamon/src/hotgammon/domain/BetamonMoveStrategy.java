@@ -1,7 +1,7 @@
 package hotgammon.domain;
 
 public class BetamonMoveStrategy implements MoveStrategy {
-    public boolean isValidMove(Game game, Location from, Location to) {
+    public int isValidMove(Game game, Location from, Location to) {
         int move = Location.distance(from, to);
 	boolean contains = false;
         for(int i : game.diceValuesLeft())
@@ -9,34 +9,34 @@ public class BetamonMoveStrategy implements MoveStrategy {
 			contains = true;
 
 	if(!contains)
-		return false;
+		return -1;
 		
         // are there chekers in the bar ?
         if (game.getPlayerInTurn() == Color.BLACK
             && game.getCount(Location.B_BAR) > 0) {
             if (from != Location.B_BAR) // only move from bar
-                return false;
+                return -1;
             if ( !(to.getIndex()>0 && to.getIndex()<7 ) ) //only move to otherplayers home
-                return false;
+                return -1;
         } else if (game.getPlayerInTurn() == Color.RED
                    && game.getCount(Location.R_BAR) > 0) {
             if (from != Location.R_BAR) // only move from bar
-                return false;
+                return -1;
             if ( !(to.getIndex()>18 && to.getIndex()<25 ) ) //only move to otherplayers home
-                return false;
+                return -1;
         }
 
         
 
         if (game.getPlayerInTurn() != game.getColor(from))
-            return false;
+            return -1;
         if (game.getCount(to) > 1
             && game.getColor(to) != game.getPlayerInTurn())
-            return false;
+            return -1;
         if (move < 0 && game.getPlayerInTurn() == Color.BLACK)
-            return false;
+            return -1;
         if (move > 0 && game.getPlayerInTurn() == Color.RED)
-            return false;
-        return true;
+            return -1;
+        return Math.abs(move);
     }
 }

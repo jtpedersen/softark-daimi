@@ -90,7 +90,7 @@ public class TestAlphamon {
 
 	@Test
 	public void numberOfMovesLeftAfterMove() {
-		game.move(Location.R1, Location.R3);
+		assertTrue( game.move(Location.R1, Location.R3) );
 		assertEquals(1, game.getNumberOfMovesLeft());
 		game.move(Location.R1, Location.R2);
 		assertEquals(0, game.getNumberOfMovesLeft());

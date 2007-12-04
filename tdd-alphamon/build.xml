@@ -203,5 +203,14 @@ GUI Targets:
 		</java>
 	</target>
 
+	<target name="semimon" depends="build-for-gui">
+		<java fork="yes" classname="hotgammon.view.MonUserInterface">
+			<arg value="semimon" />
+			<classpath>
+				<path refid="_classpath" />
+			</classpath>
+		</java>
+	</target>
+
 
 </project>

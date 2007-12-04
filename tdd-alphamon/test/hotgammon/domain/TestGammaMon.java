@@ -10,8 +10,6 @@ import org.junit.Test;
 
 /**
 testCases for gammaMon primært {@link GammamonDieStrategy}
-
- * 
  */
 
 public class TestGammaMon {
@@ -150,14 +148,14 @@ public class TestGammaMon {
     public void numberOfMovesLeftAfterMove() {
         int movesLeft = game.getNumberOfMovesLeft();
         if (game.getPlayerInTurn() == Color.BLACK) {
-            game.move(Location.R1, Location.R3);
+            assertTrue(game.move(Location.R1, Location.R3));
             assertEquals(movesLeft-1, game.getNumberOfMovesLeft());
-            game.move(Location.R1, Location.R2);
+            assertTrue(game.move(Location.R1, Location.R2));
             assertEquals(movesLeft-2, game.getNumberOfMovesLeft());
         } else {
             assertTrue( game.move(Location.B1, Location.B3) );
             assertEquals(movesLeft-1, game.getNumberOfMovesLeft());
-            game.move(Location.B1, Location.B2);
+            assertTrue(game.move(Location.B1, Location.B2));
             assertEquals(movesLeft-2, game.getNumberOfMovesLeft());
         }
     }
