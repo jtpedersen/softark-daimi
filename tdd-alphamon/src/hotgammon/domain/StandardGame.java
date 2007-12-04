@@ -44,7 +44,7 @@ public class StandardGame implements Game {
         lastPlayer = currentPlayer = Color.NONE;
         turn = 0;
         movesLeft = new ArrayList<Integer>();
-        diceThrown = new int[] { 1, 1 };
+        diceThrown = new int[] { 0, 0 };
         notifyBoardChanged();
         notifyDiceRolled();
     }

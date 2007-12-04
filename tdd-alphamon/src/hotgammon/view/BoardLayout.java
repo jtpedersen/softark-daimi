@@ -1,20 +1,16 @@
 package hotgammon.view;
 
-import hotgammon.domain.*;
-import hotgammon.view.figures.*;
+import hotgammon.domain.Location;
 
-import minidraw.standard.*;
-import minidraw.framework.*;
-
-import java.awt.Point;
 import java.awt.Rectangle;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /** A singleton instance to help calculate positions on the
  * Backgammon board.
  *
- * Author Henrik Bærbak Christensen
+ * Author Henrik Bï¿½rbak Christensen
  *
  */
 
@@ -82,11 +78,11 @@ public class BoardLayout {
     processADropSiteCreationForLocation(Location.R1, new Rectangle(300 + 5 * 40, 217, 40, 200));
     
     // black special points
-    processADropSiteCreationForLocation(Location.R_BAR, new Rectangle(260, 220, 36, 200));
+    processADropSiteCreationForLocation(Location.B_BAR, new Rectangle(260, 220, 36, 200));
     processADropSiteCreationForLocation(Location.B_BEAR_OFF, new Rectangle(545, 12, 40, 200));
     
     // red special points
-    processADropSiteCreationForLocation(Location.B_BAR, new Rectangle(260, 12, 36, 200));
+    processADropSiteCreationForLocation(Location.R_BAR, new Rectangle(260, 12, 36, 200));
     processADropSiteCreationForLocation(Location.R_BEAR_OFF, new Rectangle(545, 220, 40, 200));
   }
    

@@ -83,15 +83,7 @@ public class TestBetamon {
         assertEquals(b, d[1]);
     }
 
-    private String atos(int[] arr) {
-        String out = "";
-        for (int i = 0; i < arr.length; i++) {
-            out += arr[i] + "_";
-        }
-        return out;
-    }
-
-    @Test
+     @Test
     public void numberOfMovesLeftBeforeMove() {
         assertEquals(2, game.getNumberOfMovesLeft());
     }
@@ -187,23 +179,23 @@ public class TestBetamon {
 
     @Test
     public void diceValuesLeft() {
-        assertEquals(this.atos(new int[] { 2, 1 }),
-                this.atos(game.diceValuesLeft()));
+        assertEquals(Helpers.atos(new int[] { 2, 1 }),
+                Helpers.atos(game.diceValuesLeft()));
         assertTrue(game.move(Location.R1, Location.R3));
-        assertEquals(this.atos(new int[] { 1 }),
-                this.atos(game.diceValuesLeft()));
+        assertEquals(Helpers.atos(new int[] { 1 }),
+                Helpers.atos(game.diceValuesLeft()));
         assertTrue(game.move(Location.R1, Location.R2));
-        assertEquals("", this.atos(game.diceValuesLeft()));
+        assertEquals("", Helpers.atos(game.diceValuesLeft()));
 
         game.nextTurn();
 
-        assertEquals(this.atos(new int[] { 2, 1 }),
-                this.atos(game.diceValuesLeft()));
+        assertEquals(Helpers.atos(new int[] { 2, 1 }),
+                Helpers.atos(game.diceValuesLeft()));
         assertTrue(game.move(Location.B1, Location.B2));
-        assertEquals(this.atos(new int[] { 2 }),
-                this.atos(game.diceValuesLeft()));
+        assertEquals(Helpers.atos(new int[] { 2 }),
+                Helpers.atos(game.diceValuesLeft()));
         assertTrue(game.move(Location.B1, Location.B3));
-        assertEquals("", this.atos(game.diceValuesLeft()));
+        assertEquals("", Helpers.atos(game.diceValuesLeft()));
     }
 
     /**
@@ -264,22 +256,22 @@ public class TestBetamon {
 
     @Test
     public void diceMatchMove() {
-        assertEquals(this.atos(new int[] { 2, 1 }),
-                this.atos(game.diceValuesLeft()));
+        assertEquals(Helpers.atos(new int[] { 2, 1 }),
+                Helpers.atos(game.diceValuesLeft()));
         assertFalse(game.move(Location.R1, Location.R4));
-        assertEquals(this.atos(new int[] { 2, 1 }),
-                this.atos(game.diceValuesLeft()));
+        assertEquals(Helpers.atos(new int[] { 2, 1 }),
+                Helpers.atos(game.diceValuesLeft()));
         assertTrue(game.move(Location.R1, Location.R2));
         /*
-         * assertEquals("", this.atos(game.diceValuesLeft()));
+         * assertEquals("", Helpers.atos(game.diceValuesLeft()));
          * 
          * game.nextTurn();
          * 
-         * assertEquals(this.atos(new int[] { 2, 1 }), this.atos(game
+         * assertEquals(Helpers.atos(new int[] { 2, 1 }), Helpers.atos(game
          * .diceValuesLeft())); assertTrue(game.move(Location.B1, Location.B2));
-         * assertEquals(this.atos(new int[] { 2 }), this.atos(game
+         * assertEquals(Helpers.atos(new int[] { 2 }), Helpers.atos(game
          * .diceValuesLeft())); assertTrue(game.move(Location.B1, Location.B3));
-         * assertEquals("", this.atos(game.diceValuesLeft()));
+         * assertEquals("", Helpers.atos(game.diceValuesLeft()));
          */
     }
 

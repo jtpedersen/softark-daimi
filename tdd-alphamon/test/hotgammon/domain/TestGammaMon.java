@@ -54,26 +54,6 @@ public class TestGammaMon {
                 fail("The didnt both start in " + tries + "tries");
         }
     }
-    
-    private void showDice(int[] d){
-        System.out.println("the dice");
-        for(int i: d)
-            System.out.println(i);
-    }
-
-
-    private void testDie(int[] d, int a, int b) {
-        assertEquals(a, d[0]);
-        assertEquals(b, d[1]);
-    }
-
-    private String atos(int[] arr) {
-        String out = "";
-        for (int i = 0; i < arr.length; i++) {
-            out += arr[i] + "_";
-        }
-        return out;
-    }
 
     @Test
     public void numberOfMovesLeftBeforeMove() {

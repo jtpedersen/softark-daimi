@@ -12,5 +12,13 @@ public class Helpers {
                 System.out.println(location + " " + game.getCount(location));
         }
     }
+    
+    public static String atos(int[] arr) {
+        String out = "";
+        for (int i = 0; i < arr.length; i++) {
+            out += arr[i] + "_";
+        }
+        return out;
+    }
 
 }
