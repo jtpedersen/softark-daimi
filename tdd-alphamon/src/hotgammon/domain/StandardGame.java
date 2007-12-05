@@ -98,9 +98,9 @@ public class StandardGame implements Game {
      */
     public boolean move(Location from, Location to) {
 
-        //basic general movement thats not allowed as a *mon move
-        if (to == from || getColor(from) == Color.NONE || to==Location.R_BAR || to==Location.B_BAR)
+        if (!this.isValidMove(from, to))
             return false;
+
         int dice = ms.isValidMove(this, from, to);
 
         if (dice < 1)
@@ -155,25 +155,42 @@ public class StandardGame implements Game {
 
     /**
      * PRECONDITION There are a dice value Left... It only calculates if there
-     * are at least ONE valid move
+     * are at least ONE valid move in O(Location^2)
      * 
      * @return
      */
     private boolean existsAValidMove() {
-        
         for (Location from : board) {
             if (getColor(from) == currentPlayer && getCount(from) > 0) {
                 for (Location to : board) {
-                    int move = ms.isValidMove(this, from, to);
-                    if (move > 0) {
-//                        System.out.println("Legal move from " + from + " to " + to + " with dice " + move);
-                        return true;
+                    if (this.isValidMove(from, to)) {
+                        int move = ms.isValidMove(this, from, to);
+                        if (move > 0) {
+                            // System.out.println("Legal move from " + from + "
+                            // to "
+                            // + to + " with dice " + move);
+                            return true;
+                        }
                     }
                 }
             }
         }
         return false;
+    }
 
+    /**
+     * basic general movement thats not allowed as a *mon move
+     * 
+     * @param from
+     * @param to
+     * @return
+     */
+    private boolean isValidMove(Location from, Location to) {
+        if (to == from || getColor(from) == Color.NONE || to == Location.R_BAR
+                || to == Location.B_BAR || currentPlayer != getColor(from))
+            return false;
+
+        return true;
     }
 
     private void calculateNumberMovesLeft() {

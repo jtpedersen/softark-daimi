@@ -9,7 +9,7 @@ public class Helpers {
         while (it.hasNext()) {
             Location location = (Location) it.next();
             if (game.getColor(location) == c)
-                System.out.println(location + " " + game.getCount(location));
+                System.out.println(location + " has " + game.getCount(location) + " " + c + " checkers");
         }
     }
     
