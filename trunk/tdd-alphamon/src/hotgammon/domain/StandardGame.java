@@ -186,10 +186,6 @@ public class StandardGame implements Game {
 
     /**
      * basic general movement thats not allowed as a *mon move
-     * 
-     * @param from
-     * @param to
-     * @return
      */
     private boolean isValidMove(Location from, Location to) {
         if (to == from || getColor(from) == Color.NONE || to == Location.R_BAR
