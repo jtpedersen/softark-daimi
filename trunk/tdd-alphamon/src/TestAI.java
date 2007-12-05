@@ -41,16 +41,17 @@ public class TestAI implements GameListener {
     private BackgammonUserInterface ui;
     private Color player;
     private MoveStrategy ms;
+    private Game game;
 
     public TestAI(BackgammonUserInterface ui, Color c) {
         this.ui = ui;
         this.player = c;
         this.ms = new RealBackgammonMoveStrategy();
+        this.game = ui.getGame();
     }
 
     private void generateMove() {
 //        System.out.println("generate move");
-        Game game = ui.getGame();
         Iterator<Location> itfrom = game.boardIterator();
         while (itfrom.hasNext()) {
             Location from = (Location) itfrom.next();
@@ -62,8 +63,8 @@ public class TestAI implements GameListener {
                         int move = ms.isValidMove(game, from, to);
                         if (move > 0) {
                             game.move(from, to);
-                            if (game.getNumberOfMovesLeft()==0)
-                                game.nextTurn();
+//                            if (game.getNumberOfMovesLeft()==0)
+//                                game.nextTurn();
                             return;
                         }
                     }
@@ -74,8 +75,12 @@ public class TestAI implements GameListener {
 
     public void boardChange() {
 //        System.out.println("BoardChange til player " + ui.getGame().getPlayerInTurn());
-        if (ui.getGame().winner() != Color.NONE)
+        if (game.winner() != Color.NONE)
             return;
+        
+        if (game.getPlayerInTurn() != player && game.getPlayerInTurn() != Color.NONE 
+                && game.getNumberOfMovesLeft() == 0) 
+            game.nextTurn(); 
         
         if (player == ui.getGame().getPlayerInTurn())
             generateMove();
