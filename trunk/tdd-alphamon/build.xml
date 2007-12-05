@@ -99,6 +99,7 @@ GUI Targets:
 			<fileset dir="${resource}">
 				<include name="*.gif" />
 				<include name="*.lst" />
+				<include name="*.wav" />
 			</fileset>
 		</copy>
 	</target>

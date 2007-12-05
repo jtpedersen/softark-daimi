@@ -1,12 +1,9 @@
 package hotgammon.view;
 
-import hotgammon.domain.*;
-import hotgammon.view.helper.*;
-
-import java.awt.event.MouseEvent;
-
-import minidraw.framework.*;
-import minidraw.standard.*;
+import hotgammon.domain.AlphamonFactory;
+import hotgammon.domain.Color;
+import hotgammon.domain.Location;
+import minidraw.framework.DrawingEditor;
 
 /** Test that graphical checkers are populated correctly onto the
  * graphical board and are moved in response to state changes in the

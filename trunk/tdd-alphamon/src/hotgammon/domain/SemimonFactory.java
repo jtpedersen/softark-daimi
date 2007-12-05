@@ -3,6 +3,10 @@
  */
 package hotgammon.domain;
 
+import Sound.EffectPlayer;
+import Sound.MonSoundEffect;
+import Sound.NullPlayer;
+
 /**
  * @author jacob
  * 
@@ -16,34 +20,32 @@ package hotgammon.domain;
  */
 public class SemimonFactory implements MonFactory {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see hotgammon.domain.MonFactory#createDieStrategy()
-	 */
-	public DieStrategy createDieStrategy() {
-		return new GammamonDieStrategy();
-	}
+    private boolean sound = false;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see hotgammon.domain.MonFactory#createMoveStrategy()
-	 */
-	public MoveStrategy createMoveStrategy() {
-		return new BetamonMoveStrategy();
-	}
+    public SemimonFactory(boolean sound) {
+        this.sound = sound;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see hotgammon.domain.MonFactory#createWinnerStrategy()
-	 */
-	public WinnerStrategy createWinnerStrategy() {
-		return new AllInInnerFieldWinnerStrategy();
-	}
+    public SemimonFactory() {
+    }
+
+    public DieStrategy createDieStrategy() {
+        return new GammamonDieStrategy();
+    }
+
+    public MoveStrategy createMoveStrategy() {
+        return new BetamonMoveStrategy();
+    }
+
+    public WinnerStrategy createWinnerStrategy() {
+        return new AllInInnerFieldWinnerStrategy();
+    }
 
     public Board createBoard() {
         return new StandardBoard();
+    }
+
+    public MonSoundEffect createEffectPlayer() {
+        return (sound) ? new EffectPlayer() : new NullPlayer();
     }
 }

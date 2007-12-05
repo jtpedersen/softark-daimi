@@ -1,16 +1,17 @@
 package hotgammon.view.figures;
 
-import hotgammon.domain.*;
+import hotgammon.domain.Color;
+import hotgammon.domain.Location;
 
 import java.awt.Image;
 import java.awt.Point;
-import java.util.Vector;
 
-import minidraw.standard.*;
+import minidraw.standard.ImageFigure;
+import minidraw.standard.ImageManager;
 
 /** A MiniDraw figure that displays a backgammon checker.
  *
- * Author Henrik Bærbak Christensen
+ * Author Henrik Bï¿½rbak Christensen
  */
 public class CheckerFigure extends ImageFigure {
 

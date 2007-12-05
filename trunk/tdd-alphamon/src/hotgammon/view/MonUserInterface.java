@@ -46,32 +46,32 @@ implements BackgammonUserInterface {
 		MonFactory factory = null;
 		if(args[0].equalsIgnoreCase("alphamon"))
 		{
-			factory = new AlphamonFactory();
+			factory = new AlphamonFactory(true);
 			title = "Alphamon!!";
 		}
 		else if(args[0].equalsIgnoreCase("betamon"))
 		{
-			factory = new BetamonFactory();
+			factory = new BetamonFactory(true);
 			title = "Betamon!!";
 		}
 		else if(args[0].equalsIgnoreCase("gammamon"))
 		{
-			factory = new GammamonFactory();
+			factory = new GammamonFactory(true);
 			title = "Gammamon!!";
 		}
 		else if(args[0].equalsIgnoreCase("deltamon"))
 		{
-			factory = new DeltamonFactory();
+			factory = new DeltamonFactory(true);
 			title = "Deltamon!!";
 		} 
 		else if (args[0].equalsIgnoreCase("semimon"))
 		{
-			factory = new SemimonFactory();
+			factory = new SemimonFactory(true);
 			title = "Semimon!!";
 		}
 		else if (args[0].equalsIgnoreCase("backgammon"))
         {
-            factory = new RealBackgammonFactory();
+            factory = new RealBackgammonFactory(true);
             title = "Real Backgammon";
         }
 			

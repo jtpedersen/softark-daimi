@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 class AllInInnerFieldWinnerStrategy implements WinnerStrategy {
     public Color winner( Game game, int turn ) {
-        Color player = game.getPlayerInTurn();
         int blackCheckers, redCheckers;
         blackCheckers = redCheckers = 0;
 

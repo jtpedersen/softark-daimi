@@ -1,18 +1,13 @@
 package hotgammon.view;
 
-import hotgammon.domain.*;
-import hotgammon.view.helper.*;
-import hotgammon.view.tools.*;
-
-import java.awt.event.MouseEvent;
-
-import minidraw.framework.*;
-import minidraw.standard.*;
+import hotgammon.view.helper.BackgammonUserInterfaceTester;
+import hotgammon.view.tools.CheckerMoveTool;
+import minidraw.framework.DrawingEditor;
 
 /** Test that graphical checkers are populated correctly onto the
  * graphical board and are moved in response to state changes
  * in the underlying board object.
- * @author Henrik Bærbak Christensen (c) 2004
+ * @author Henrik Bï¿½rbak Christensen (c) 2004
  */
 
 public class TestCheckerAdjusting {

@@ -2,6 +2,9 @@ package hotgammon.domain;
 
 import java.util.ArrayList;
 
+import Sound.MonSoundEffect;
+import Sound.NullPlayer;
+
 class SimpleFactory implements MonFactory {
     public MoveStrategy createMoveStrategy() {
         return new MoveStrategy() {
@@ -19,13 +22,12 @@ class SimpleFactory implements MonFactory {
                     movesLeft.add(i);
                 return movesLeft;
             }
-            public void removeDie(ArrayList<Integer> dies, int die) { }
+
             public int[] throwDice() {
-                return new int[] {1, 2};
+                return new int[] { 1, 2 };
             }
         };
 
-       
     }
 
     public WinnerStrategy createWinnerStrategy() {
@@ -35,7 +37,12 @@ class SimpleFactory implements MonFactory {
             }
         };
     }
+
     public Board createBoard() {
         return new StandardBoard();
+    }
+
+    public MonSoundEffect createEffectPlayer() {
+        return new NullPlayer();
     }
 }
