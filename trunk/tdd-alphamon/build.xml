@@ -222,5 +222,15 @@ GUI Targets:
 			</java>
 		</target>
 	
+	<target name="aimon" depends="build-for-gui">
+				<java fork="yes" classname="hotgammon.AI.TestAI">
+					<arg value="backgammon" />
+					<classpath>
+						<path refid="_classpath" />
+					</classpath>
+				</java>
+			</target>
+		
+	
 
 </project>
