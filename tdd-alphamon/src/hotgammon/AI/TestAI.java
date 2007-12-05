@@ -1,3 +1,4 @@
+package hotgammon.AI;
 import hotgammon.domain.Color;
 import hotgammon.domain.Game;
 import hotgammon.domain.GameListener;
