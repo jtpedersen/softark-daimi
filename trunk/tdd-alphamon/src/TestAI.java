@@ -24,7 +24,7 @@ public class TestAI implements GameListener {
         String title = null;
         MonFactory factory = null;
 
-        factory = new RealBackgammonFactory(true);
+        factory = new RealBackgammonFactory(false);
         title = "Real Backgammon";
 
         BackgammonUserInterface ui = new MonUserInterface(title, factory);
@@ -32,6 +32,7 @@ public class TestAI implements GameListener {
 
         editor.open();
         ui.getGame().addGameListener(new TestAI(ui, Color.BLACK));
+        ui.getGame().addGameListener(new TestAI(ui, Color.RED));
         ui.getGame().newGame();
 
         editor.setTool(new MonTool(ui));
@@ -48,6 +49,7 @@ public class TestAI implements GameListener {
     }
 
     private void generateMove() {
+//        System.out.println("generate move");
         Game game = ui.getGame();
         Iterator<Location> itfrom = game.boardIterator();
         while (itfrom.hasNext()) {
@@ -60,6 +62,8 @@ public class TestAI implements GameListener {
                         int move = ms.isValidMove(game, from, to);
                         if (move > 0) {
                             game.move(from, to);
+                            if (game.getNumberOfMovesLeft()==0)
+                                game.nextTurn();
                             return;
                         }
                     }
@@ -69,15 +73,17 @@ public class TestAI implements GameListener {
     }
 
     public void boardChange() {
-        if (ui.getGame().winner() == Color.NONE)
+//        System.out.println("BoardChange til player " + ui.getGame().getPlayerInTurn());
+        if (ui.getGame().winner() != Color.NONE)
             return;
+        
         if (player == ui.getGame().getPlayerInTurn())
             generateMove();
 
     }
 
     public void diceRolled() {
-
+//        System.out.println("Dierolled");
         // checkState();
 
     }
@@ -87,8 +93,9 @@ public class TestAI implements GameListener {
      */
     private boolean isValidMove(Location from, Location to) {
         Game game = ui.getGame();
-        if (to == from || game.getColor(from) == Color.NONE || to == Location.R_BAR
-                || to == Location.B_BAR || game.getPlayerInTurn() != game.getColor(from))
+        if (to == from || game.getColor(from) == Color.NONE
+                || to == Location.R_BAR || to == Location.B_BAR
+                || game.getPlayerInTurn() != game.getColor(from))
             return false;
 
         return true;
