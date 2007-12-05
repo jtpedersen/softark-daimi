@@ -11,8 +11,7 @@ public class RealBackgammonFactory implements MonFactory {
     }
 
     public MoveStrategy createMoveStrategy() {
-        return new RealBackgammonMoveStrategy(
-                new AllInInnerFieldWinnerStrategy(), new BetamonMoveStrategy());
+        return new RealBackgammonMoveStrategy();
     }
 
     public WinnerStrategy createWinnerStrategy() {
