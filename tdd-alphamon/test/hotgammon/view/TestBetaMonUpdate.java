@@ -1,11 +1,8 @@
 package hotgammon.view;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import hotgammon.domain.BetamonFactory;
 import hotgammon.domain.Color;
 import hotgammon.domain.Location;
-import hotgammon.view.helper.BackgammonUserInterfaceTester;
 import minidraw.framework.DrawingEditor;
 
 /**

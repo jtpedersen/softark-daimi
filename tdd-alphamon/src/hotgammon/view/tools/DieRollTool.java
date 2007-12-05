@@ -28,6 +28,7 @@ public class DieRollTool extends NullTool  {
       findFigure(e.getX(), e.getY());
     if (f instanceof DieFigure) {
     	objectServer.getGame().nextTurn();
+    	
     } 
   }
 }

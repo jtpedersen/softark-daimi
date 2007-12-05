@@ -1,7 +1,19 @@
 package hotgammon.domain;
 
-public class RealBackgammonFactory implements MonFactory {
+import Sound.EffectPlayer;
+import Sound.MonSoundEffect;
+import Sound.NullPlayer;
 
+public class RealBackgammonFactory implements MonFactory {
+    private boolean sound = false;
+
+    public RealBackgammonFactory(boolean sound) {
+        this.sound = sound;
+    }
+    
+    public RealBackgammonFactory() {
+    }
+    
     public Board createBoard() {
         return new StandardBoard();
     }
@@ -16,6 +28,10 @@ public class RealBackgammonFactory implements MonFactory {
 
     public WinnerStrategy createWinnerStrategy() {
         return new RealBackgammonWinnerStrategy();
+    }
+    
+    public MonSoundEffect createEffectPlayer() {
+        return (sound) ? new EffectPlayer() : new NullPlayer();
     }
 
 }
