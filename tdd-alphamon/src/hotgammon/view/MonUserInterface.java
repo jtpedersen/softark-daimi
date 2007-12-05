@@ -27,8 +27,7 @@ implements BackgammonUserInterface {
 	public MonUserInterface( String applTitle , MonFactory monFactory ) {
 		BackgammonFactory factory = new BackgammonFactory();
 
-		editor =
-			new MiniDrawApplication( applTitle, factory );
+		editor = new MiniDrawApplication( applTitle, factory );
 		game = new StandardGame(monFactory);
 
 		// we need to set the dependency between game and
@@ -70,10 +69,10 @@ implements BackgammonUserInterface {
 			title = "Semimon!!";
 		}
 		else if (args[0].equalsIgnoreCase("backgammon"))
-        {
-            factory = new RealBackgammonFactory(true);
-            title = "Real Backgammon";
-        }
+                {
+                    factory = new RealBackgammonFactory(true);
+                    title = "Real Backgammon";
+                }
 			
 		BackgammonUserInterface ui = 
       			new MonUserInterface(title,factory);

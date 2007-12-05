@@ -50,14 +50,15 @@ public class MonTool extends NullTool implements GameListener {
             return;
         } 
         Color player = objectServer.getGame().getPlayerInTurn();
+        int movesLeft = objectServer.getGame().getNumberOfMovesLeft();
         
         if ( objectServer.getGame().getPlayerInTurn() == Color.NONE) {
             objectServer.getEditor().showStatus("Please click dice to roll");
             currentTool = dieTool;
         } else {
-            objectServer.getEditor().showStatus(player + " please move a checker");
-            currentTool = checkerTool;
-            
+            objectServer.getEditor().showStatus(player + " please move a checker (" +
+                                                movesLeft + " moves left)");
+            currentTool = checkerTool;            
         }
 
         // objectServer.getEditor().showStatus(
