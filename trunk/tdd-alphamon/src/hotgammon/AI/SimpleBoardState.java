@@ -79,7 +79,7 @@ public class SimpleBoardState implements BoardState {
         }
         if (movesExhausted) {
             addValidState(this);
-            System.out.println("whouuops no more moves using this dicesequence");
+//            System.out.println("whouuops no more moves using this dicesequence");
         }
     }
 
@@ -117,8 +117,7 @@ public class SimpleBoardState implements BoardState {
         for (Location location : board) {
             int count = board.getCount(location);
             if (count > 0) {
-                bc.add(new BoardConfiguration(location,
-                        board.getColor(location), count));
+                bc.add(new BoardConfiguration(location, board.getColor(location), count));
             }
         }
 

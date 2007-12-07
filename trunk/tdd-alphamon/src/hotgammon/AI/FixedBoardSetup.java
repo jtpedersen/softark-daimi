@@ -49,6 +49,15 @@ public class FixedBoardSetup implements Board {
      * @see hotgammon.domain.Board#move(hotgammon.domain.Location, hotgammon.domain.Location)
      */
     public void move(Location from, Location to) {
+        if (counts.get(to) == 1
+                && colors.get(to) != colors.get(from)) {
+            if (colors.get(from) == Color.BLACK) {
+                move(to, Location.R_BAR);
+            } else {
+                move(to, Location.B_BAR);
+            }
+        }
+        
         counts.put(from,getCount(from)-1);
         counts.put(to,getCount(to)+1);
         colors.put(to,getColor(from));
