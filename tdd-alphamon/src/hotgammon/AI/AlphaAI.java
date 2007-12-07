@@ -18,7 +18,7 @@ public class AlphaAI implements AI {
     }
 
     public void move() {
-        System.out.println("move");
+        // System.out.println("move");
         BoardState bs = new SimpleBoardState(game.diceValuesLeft(), player,
                 game);
         // System.out.println(bs.getValidStates().size());
@@ -28,8 +28,13 @@ public class AlphaAI implements AI {
         List<GameMove> gm = moveSelector.getMoves(bs.getValidStates());
 
         for (GameMove g : gm) {
-            System.out.println(g);
-            game.move(g.from, g.to);
+            // System.out.println(g);
+            if (!game.move(g.from, g.to)) {
+                
+                System.out.println(g + " AAAAAAATGH");
+                for (GameMove gin : gm)
+                    System.out.println(gin);
+            }
         }
 
     }
