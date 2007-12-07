@@ -27,7 +27,17 @@ public class TestRealBackgammon {
     public void AssureOnlyToBearOffWhenAllInInnerField() {
         // return new SequenceDieStrategy(new int[] {1,2}); det er en test med
         // fast terning slag
-        game = new StandardGame(new TestRealBackGammonFactory());
+        BoardConfiguration[] config = new BoardConfiguration[] {
+                new BoardConfiguration(Location.B1, Color.BLACK, 5),
+                new BoardConfiguration(Location.B2, Color.BLACK, 5),
+                new BoardConfiguration(Location.B3, Color.BLACK, 3),
+                new BoardConfiguration(Location.B7, Color.BLACK, 2),
+
+                new BoardConfiguration(Location.R1, Color.RED, 5),
+                new BoardConfiguration(Location.R8, Color.RED, 5),
+                new BoardConfiguration(Location.R9, Color.RED, 5) };
+        
+        game = new StandardGame(new MonTestFactory(config, new int[] { 1, 2 }));
         game.newGame();
         game.nextTurn();
         assertFalse(game.move(Location.B1, Location.B_BEAR_OFF));
@@ -41,30 +51,19 @@ public class TestRealBackgammon {
 
     }
 
-    private class TestRealBackGammonFactory extends RealBackgammonFactory {
-        public DieStrategy createDieStrategy() {
-            return new SequenceDieStrategy(new int[] { 1, 2 });
-        }
-
-        public Board createBoard() {
-            BoardConfiguration[] config = new BoardConfiguration[] {
-                    new BoardConfiguration(Location.B1, Color.BLACK, 5),
-                    new BoardConfiguration(Location.B2, Color.BLACK, 5),
-                    new BoardConfiguration(Location.B3, Color.BLACK, 3),
-                    new BoardConfiguration(Location.B7, Color.BLACK, 2),
-
-                    new BoardConfiguration(Location.R1, Color.RED, 5),
-                    new BoardConfiguration(Location.R8, Color.RED, 5),
-                    new BoardConfiguration(Location.R9, Color.RED, 5) };
-            return new FixedBoardSetup(config);
-        }
-    }
-
     @Test
     public void AssureBlackeWinsWith15lInBearOff() {
         // return new SequenceDieStrategy(new int[] {1,2}); det er en test med
         // fast terning slag
-        game = new StandardGame(new RealBackgammonWinningFactory());
+        BoardConfiguration[] config = new BoardConfiguration[] {
+                new BoardConfiguration(Location.B_BEAR_OFF, Color.BLACK, 14),
+                new BoardConfiguration(Location.B2, Color.BLACK, 1),
+
+                new BoardConfiguration(Location.R1, Color.RED, 5),
+                new BoardConfiguration(Location.R8, Color.RED, 5),
+                new BoardConfiguration(Location.R9, Color.RED, 5) };
+        
+        game = new StandardGame( new MonTestFactory(config, new int[] { 1, 2 }));
         game.newGame();
         game.nextTurn();
         assertEquals(Color.NONE, game.winner());
@@ -73,26 +72,16 @@ public class TestRealBackgammon {
 
     }
 
-    private class RealBackgammonWinningFactory extends RealBackgammonFactory {
-        public DieStrategy createDieStrategy() {
-            return new SequenceDieStrategy(new int[] { 1, 2 });
-        }
-
-        public Board createBoard() {
-            BoardConfiguration[] config = new BoardConfiguration[] {
-                    new BoardConfiguration(Location.B_BEAR_OFF, Color.BLACK, 14),
-                    new BoardConfiguration(Location.B2, Color.BLACK, 1),
-
-                    new BoardConfiguration(Location.R1, Color.RED, 5),
-                    new BoardConfiguration(Location.R8, Color.RED, 5),
-                    new BoardConfiguration(Location.R9, Color.RED, 5) };
-            return new FixedBoardSetup(config);
-        }
-    }
-
     @Test
     public void AssureBearOffWorks() {
-        game = new StandardGame(new RealBackgammonBearOffTestFactory());
+        BoardConfiguration[] config = new BoardConfiguration[] {
+                new BoardConfiguration(Location.R2, Color.RED, 1),
+                new BoardConfiguration(Location.R3, Color.RED, 2),
+                new BoardConfiguration(Location.R_BEAR_OFF, Color.RED, 12),
+
+        };
+        game = new StandardGame(new MonTestFactory(new RealBackgammonFactory(), config,
+                new int[] { 5, 2, 1, 1, 4, 1 }));
         game.newGame();
         game.nextTurn();
 
@@ -132,57 +121,31 @@ public class TestRealBackgammon {
         assertEquals(Color.RED, game.winner());
 
     }
+    
+    @Test
+    public void assureBearOffOnlyForHighLocation() {
+        BoardConfiguration[] config = new BoardConfiguration[] {
+                new BoardConfiguration(Location.R1, Color.RED, 1),
+                new BoardConfiguration(Location.R2, Color.RED, 1),
+                new BoardConfiguration(Location.R3, Color.RED, 1),
+                new BoardConfiguration(Location.R_BEAR_OFF, Color.RED, 12),
 
-    private class RealBackgammonBearOffTestFactory extends
-            RealBackgammonFactory {
-        public DieStrategy createDieStrategy() {
-            return new SequenceDieStrategy(new int[] { 5, 2, 1, 1, 4, 1 });
-        }
-
-        public Board createBoard() {
-            BoardConfiguration[] config = new BoardConfiguration[] {
-                    new BoardConfiguration(Location.R2, Color.RED, 1),
-                    new BoardConfiguration(Location.R3, Color.RED, 2),
-                    new BoardConfiguration(Location.R_BEAR_OFF, Color.RED, 12),
-
-            };
-            return new FixedBoardSetup(config);
-        }
+        };
+        game = new StandardGame(new MonTestFactory(new RealBackgammonFactory(), config,
+                new int[] { 5, 4 }));
+        game.newGame();
+        game.nextTurn();
+        assertEquals(Color.NONE, game.winner());
+        assertEquals(Color.RED, game.getPlayerInTurn());
+        
+        assertFalse(game.move(Location.R1, Location.R_BEAR_OFF));
+        assertFalse(game.move(Location.R2, Location.R_BEAR_OFF));
+        assertTrue(game.move(Location.R3, Location.R_BEAR_OFF));
+        assertFalse(game.move(Location.R1, Location.R_BEAR_OFF));
+        assertTrue(game.move(Location.R2, Location.R_BEAR_OFF));
     }
-    /**
-     * there might be some problem with existAValidMove for black when bearing off
-     * , i couldnt reproduce it..
-     */
-//    @Test
-//    public void bugBlackBearOff() {
-//        game = new StandardGame(new BlackBearOffBackGammonFactory());
-//        game.newGame();
-//        game.nextTurn();
-//
-//        assertEquals(Color.NONE, game.winner());
-//        assertEquals(Color.BLACK, game.getPlayerInTurn());
-//        assertEquals(2, game.getNumberOfMovesLeft());
-//    }
-//    
-//    private class BlackBearOffBackGammonFactory extends RealBackgammonFactory {
-//        public DieStrategy createDieStrategy() {
-//            return new SequenceDieStrategy(new int[] { 3, 5 });
-//        }
-//
-//        public Board createBoard() {
-//            BoardConfiguration[] config = new BoardConfiguration[] {
-//                    new BoardConfiguration(Location.B1, Color.BLACK, 3),
-//                    new BoardConfiguration(Location.B2, Color.BLACK, 1),
-//                    new BoardConfiguration(Location.B_BEAR_OFF, Color.BLACK, 11)
-//                    
-////
-////                    new BoardConfiguration(Location.R1, Color.RED, 5),
-////                    new BoardConfiguration(Location.R8, Color.RED, 5),
-////                    new BoardConfiguration(Location.R9, Color.RED, 5) 
-//                    };
-//            return new FixedBoardSetup(config);
-//        }
-//    }
+
+    
     
 
     /**

@@ -49,6 +49,7 @@ public class StandardGame implements Game {
         turn = 0;
         movesLeft = new ArrayList<Integer>();
         diceThrown = new int[] { 0, 0 };
+        calculateNumberMovesLeft();
         notifyBoardChanged();
         notifyDiceRolled();
     }
@@ -83,12 +84,13 @@ public class StandardGame implements Game {
 
         } else if (lastPlayer == Color.RED)
             currentPlayer = lastPlayer = Color.BLACK;
-        else
+        else if (lastPlayer == Color.BLACK)
             currentPlayer = lastPlayer = Color.RED;
 
         turn++;
         calculateNumberMovesLeft();
         effect.playDie();
+        notifyDiceRolled();
         notifyBoardChanged();
     }
 
@@ -103,21 +105,10 @@ public class StandardGame implements Game {
      */
     public boolean move(Location from, Location to) {
 
-        if (!this.isValidMove(from, to))
-            return false;
-
         int dice = ms.isValidMove(this, from, to);
 
         if (dice < 1)
             return false;
-
-        if (board.getCount(to) == 1
-                && board.getColor(to) != board.getColor(from)) {
-            if (this.getPlayerInTurn() == Color.BLACK)
-                board.move(to, Location.R_BAR);
-            else
-                board.move(to, Location.B_BAR);
-        }
 
         board.move(from, to);
         removeDice(dice);
@@ -169,30 +160,17 @@ public class StandardGame implements Game {
         for (Location from : board) {
             if (getColor(from) == currentPlayer && getCount(from) > 0) {
                 for (Location to : board) {
-                    if (this.isValidMove(from, to)) {
-                        int move = ms.isValidMove(this, from, to);
-                        if (move > 0) {
-                            // System.out.println("Legal move from " + from + "
-                            // to "
-                            // + to + " with dice " + move);
-                            return true;
-                        }
+                    int move = ms.isValidMove(this, from, to);
+                    if (move > 0) {
+                        // System.out.println("Legal move from " + from + "
+                        // to "
+                        // + to + " with dice " + move);
+                        return true;
                     }
                 }
             }
         }
         return false;
-    }
-
-    /**
-     * basic general movement thats not allowed as a *mon move
-     */
-    private boolean isValidMove(Location from, Location to) {
-        if (to == from || getColor(from) == Color.NONE || to == Location.R_BAR
-                || to == Location.B_BAR || currentPlayer != getColor(from))
-            return false;
-
-        return true;
     }
 
     private void calculateNumberMovesLeft() {
@@ -210,7 +188,6 @@ public class StandardGame implements Game {
     private void throwDice() {
         diceThrown = ds.throwDice();
         movesLeft = ds.getMoves(diceThrown);
-        notifyDiceRolled();
     }
 
     /**
@@ -302,5 +279,6 @@ public class StandardGame implements Game {
             l.diceRolled();
         }
     }
-
+    
+   
 }

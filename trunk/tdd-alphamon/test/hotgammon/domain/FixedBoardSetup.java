@@ -2,15 +2,20 @@ package hotgammon.domain;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeMap;
 
 public class FixedBoardSetup implements Board {
     
     private TreeMap<Location,Integer> counts;
     private TreeMap<Location,Color> colors;
-    private BoardConfiguration[] config;
+    private List<BoardConfiguration> config;
 
     public FixedBoardSetup(BoardConfiguration[] config)   {
+        this.config = Arrays.asList(config);
+        this.reset();
+    }
+    public FixedBoardSetup(List<BoardConfiguration> config)   {
         this.config = config;
         this.reset();
     }

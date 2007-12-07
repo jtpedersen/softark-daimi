@@ -1,24 +1,26 @@
-/**
- * 
- */
-package hotgammon.domain;
+package hotgammon.AI;
+
+import hotgammon.domain.Board;
+import hotgammon.domain.Color;
+import hotgammon.domain.Location;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeMap;
 
-/**
- * @author jacob
- *
- */
-public class StandardBoard implements Board {
-
-
+public class FixedBoardSetup implements Board {
+    
     private TreeMap<Location,Integer> counts;
     private TreeMap<Location,Color> colors;
+    private List<BoardConfiguration> config;
 
-    public StandardBoard()
-    {
+    public FixedBoardSetup(BoardConfiguration[] config)   {
+        this.config = Arrays.asList(config);
+        this.reset();
+    }
+    public FixedBoardSetup(List<BoardConfiguration> config)   {
+        this.config = config;
         this.reset();
     }
     /* (non-Javadoc)
@@ -47,16 +49,6 @@ public class StandardBoard implements Board {
      * @see hotgammon.domain.Board#move(hotgammon.domain.Location, hotgammon.domain.Location)
      */
     public void move(Location from, Location to) {
-        
-        if (counts.get(to) == 1
-                && colors.get(to) != colors.get(from)) {
-            if (colors.get(from) == Color.BLACK) {
-                move(to, Location.R_BAR);
-            } else {
-                move(to, Location.B_BAR);
-            }
-        }
-        
         counts.put(from,getCount(from)-1);
         counts.put(to,getCount(to)+1);
         colors.put(to,getColor(from));
@@ -72,26 +64,15 @@ public class StandardBoard implements Board {
         counts = new TreeMap<Location,Integer>();
         for(Location l : this)
             counts.put(l,0);
-        counts.put(Location.B1,2);
-        counts.put(Location.R1,2);
-        counts.put(Location.B6,5);
-        counts.put(Location.R6,5);
-        counts.put(Location.B8,3);
-        counts.put(Location.R8,3);
-        counts.put(Location.B12,5);
-        counts.put(Location.R12,5);
+        
         colors = new TreeMap<Location,Color>();
         for(Location l : this)
             colors.put(l,Color.NONE);
-        colors.put(Location.B1,Color.RED);
-        colors.put(Location.R1,Color.BLACK);
-        colors.put(Location.B6,Color.BLACK);
-        colors.put(Location.R6,Color.RED);
-        colors.put(Location.B8,Color.BLACK);
-        colors.put(Location.R8,Color.RED);
-        colors.put(Location.B12,Color.RED);
-        colors.put(Location.R12,Color.BLACK);
+        
+        for(BoardConfiguration b: config) {
+            counts.put(b.place, b.count);
+            colors.put(b.place, b.c);
+        }
 
     }
-    
 }
