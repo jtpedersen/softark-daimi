@@ -10,6 +10,9 @@ public class BearOffMoveStrategy implements MoveStrategy {
     // Precondition to is bearOff
     public int isValidMove(Game game, Location from, Location to) {
 
+        if(!BasicValidation.isValidMove(game, from, to))
+            return -1;
+        
         int move = Math.abs(Location.distance(from, to));
 
         if (game.getPlayerInTurn() == Color.BLACK) {
@@ -41,7 +44,7 @@ public class BearOffMoveStrategy implements MoveStrategy {
                 return move;
         
 //        System.out.println("move " + move + " high " + high);
-        if (high <= game.diceValuesLeft()[0] && move <= high)
+        if (high <= game.diceValuesLeft()[0] && move == high)
             return game.diceValuesLeft()[0];
         
         

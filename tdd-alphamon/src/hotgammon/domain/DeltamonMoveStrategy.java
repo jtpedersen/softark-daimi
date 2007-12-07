@@ -2,10 +2,12 @@ package hotgammon.domain;
 
 public class DeltamonMoveStrategy implements MoveStrategy {
     public int isValidMove(Game game, Location from, Location to) {
-        //code duplication from alphamon and betamon!
-//      er det et reeelt move
-        if (to==from)
+        
+        if(!BasicValidation.isValidMove(game, from, to))
             return -1;
+        
+        //code duplication from alphamon and betamon!
+
         
         if (game.getPlayerInTurn() != game.getColor(from))
             return -1;

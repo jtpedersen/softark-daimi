@@ -11,6 +11,10 @@ public class RealBackgammonMoveStrategy implements MoveStrategy {
     }
 
     public int isValidMove(Game game, Location from, Location to) {
+        
+        if(!BasicValidation.isValidMove(game, from, to))
+            return -1;
+        
         // man må ikke flytte væk fra bearoff og der skal v;re noget at rykke med
         if (from == Location.B_BEAR_OFF || from == Location.R_BEAR_OFF || game.getNumberOfMovesLeft() == 0)
             return -1;
