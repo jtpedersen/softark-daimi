@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses( { TestBoardState.class, TestAIvsAI.class, TestAlphaAI.class })
+@Suite.SuiteClasses( { TestBoardState.class, TestBlotHungry.class, TestAIvsAI.class })
 /**
  * Suite to run all test cases. Author: (c) Henrik B;rbak Christensen 2007
  */

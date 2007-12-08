@@ -1,5 +1,7 @@
 package hotgammon.domain;
 
+import hotgammon.AI.BoardConfiguration;
+import hotgammon.AI.FixedBoardSetup;
 import Sound.MonSoundEffect;
 
 public class MonTestFactory implements MonFactory {

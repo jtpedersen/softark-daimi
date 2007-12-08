@@ -142,11 +142,12 @@ public class MonEffects {
             });
 
             audioClip.open(audioStream);
+            audioClip.start();
         } catch (Exception e) {
             e.printStackTrace();
             return;
         }
-        audioClip.start();
+        
 
     }
 
