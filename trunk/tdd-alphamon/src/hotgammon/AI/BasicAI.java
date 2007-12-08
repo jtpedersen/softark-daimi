@@ -37,7 +37,7 @@ public class BasicAI implements AI {
         }
         Set<Info> infoKeys = overview.keySet();
 
-        Info bestKey = Collections.max(infoKeys, factory.getComparator());
+        BoardInformation bestKey = Collections.max(infoKeys, factory.getComparator());
         List<GameMove> gm = overview.get(bestKey);
 
         // System.out.println(bs.getValidStates().size());

@@ -7,7 +7,7 @@ import hotgammon.domain.Board;
 import hotgammon.domain.Color;
 import hotgammon.domain.Location;
 
-public class Info {
+public class Info implements BoardInformation {
     /**
      * 
      */
@@ -32,6 +32,9 @@ public class Info {
         }
     }
 
+    /* (non-Javadoc)
+     * @see hotgammon.AI.BoardInformation#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -43,6 +46,9 @@ public class Info {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see hotgammon.AI.BoardInformation#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

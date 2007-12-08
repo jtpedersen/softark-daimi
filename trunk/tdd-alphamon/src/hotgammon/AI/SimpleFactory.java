@@ -27,15 +27,19 @@ public class SimpleFactory implements AIFactory {
         return player;
     }
 
-    public Comparator<Info> getComparator() {
-        return new Comparator<Info>() {
-            public int compare(Info o1, Info o2) {
-                return o1.moves-o2.moves;
+    public Comparator<BoardInformation> getComparator() {
+        return new Comparator<BoardInformation>() {
+            public int compare(BoardInformation bo1, BoardInformation bo2) {
+                Info o1 = (Info) bo1;
+                Info o2 = (Info) bo2;
+                return o1.moves - o2.moves;
             }
 
         };
     }
 
-    
+    public BoardInformation getBoardInformation(BoardState bs) {
+        return new Info(bs);
+    }
 
 }

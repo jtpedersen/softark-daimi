@@ -9,5 +9,6 @@ public interface AIFactory {
     public AI getAI();
     public Game getGame();
     public Color getPlayer();
-    public Comparator<Info> getComparator();
+    public BoardInformation getBoardInformation(BoardState bs);
+    public Comparator<BoardInformation> getComparator();
 }   
