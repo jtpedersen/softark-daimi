@@ -1,9 +1,7 @@
 package hotgammon.AI;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import hotgammon.domain.BoardConfiguration;
 import hotgammon.domain.Color;
-import hotgammon.domain.FixedBoardSetup;
 import hotgammon.domain.Game;
 import hotgammon.domain.Location;
 import hotgammon.domain.MonTestFactory;

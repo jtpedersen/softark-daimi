@@ -55,9 +55,11 @@ public class Helpers {
         Iterator<Location> it = game.boardIterator();
         while (it.hasNext()) {
             Location location = (Location) it.next();
-            tmp += "new BoardConfiguration(Location." + location + ", Color."
-                    + game.getColor(location) + ", " + game.getCount(location)
-                    + "),\n";
+            if (game.getCount(location) > 0) {
+                tmp += "new BoardConfiguration(Location." + location
+                        + ", Color." + game.getColor(location) + ", "
+                        + game.getCount(location) + "),\n";
+            }
         }
 
         return tmp;

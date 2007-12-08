@@ -72,6 +72,14 @@ GUI Targets:
 			<classpath refid="_classpath" />
 		</java>
 	</target>
+	
+	<target name="test-ai" depends="build-all">
+		<java classname="org.junit.runner.JUnitCore">
+			<arg value="hotgammon.AI.TestAllAI" />
+			<classpath refid="_classpath" />
+		</java>
+	</target>
+
 
 	<target name="test-gui" depends="build-all">
 		<java classname="junit.swingui.TestRunner" fork="yes">
