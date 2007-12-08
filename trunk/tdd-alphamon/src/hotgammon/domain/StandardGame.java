@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import Sound.MonSoundEffect;
 
 public class StandardGame implements Game {
 
@@ -21,7 +20,6 @@ public class StandardGame implements Game {
     private List<GameListener> listeners;
     private MonFactory factory;
     private int numberOfMovesLeft;
-    private MonSoundEffect effect;
 
     /*
      * public StandardGame(MoveStrategy ms, DieStrategy ds) { this.ds = ds;
@@ -33,7 +31,6 @@ public class StandardGame implements Game {
         this.ws = factory.createWinnerStrategy();
         this.factory = factory;
         listeners = new ArrayList<GameListener>();
-        this.effect = factory.createEffectPlayer();
 
     }
 
@@ -89,7 +86,6 @@ public class StandardGame implements Game {
 
         turn++;
         calculateNumberMovesLeft();
-        effect.playDie();
         notifyDiceRolled();
         notifyBoardChanged();
     }
@@ -112,7 +108,6 @@ public class StandardGame implements Game {
 
         board.move(from, to);
         removeDice(dice);
-        effect.playChecker();
         notifyBoardChanged();
         return true;
     }
