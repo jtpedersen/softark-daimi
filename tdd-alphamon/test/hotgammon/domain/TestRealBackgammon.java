@@ -146,7 +146,33 @@ public class TestRealBackgammon {
         assertTrue(game.move(Location.R2, Location.R_BEAR_OFF));
     }
 
-    
+    @Test
+    public void AssureNoBearOffWithCheckersInBar() {
+
+        BoardConfiguration[] config = new BoardConfiguration[] {
+                new BoardConfiguration(Location.B1, Color.BLACK, 5),
+                new BoardConfiguration(Location.B2, Color.BLACK, 5),
+                new BoardConfiguration(Location.B3, Color.BLACK, 3),
+                new BoardConfiguration(Location.B_BAR, Color.BLACK, 1),
+
+                new BoardConfiguration(Location.R7, Color.RED, 5),
+                new BoardConfiguration(Location.R8, Color.RED, 5),
+                new BoardConfiguration(Location.R9, Color.RED, 5) };
+        
+        game = new StandardGame(new MonTestFactory(config, new int[] { 1, 2 }));
+        game.newGame();
+        game.nextTurn();
+        assertFalse(game.move(Location.B1, Location.B_BEAR_OFF));
+        assertFalse(game.move(Location.B2, Location.B_BEAR_OFF));
+
+        assertTrue(game.move(Location.B_BAR, Location.R1));
+//        System.out.println(Helpers.showBoard(game));
+//        Helpers.showDice(game.diceValuesLeft());
+        assertEquals(0, game.getCount(Location.B_BAR));
+        assertFalse(game.move(Location.B2, Location.B_BEAR_OFF));
+        assertTrue(game.move(Location.R1, Location.R3));
+
+    }
     
 
     /**

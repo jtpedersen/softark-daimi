@@ -27,20 +27,26 @@ public class AnalyzerFactory implements AIFactory {
         return player;
     }
 
-    public Comparator<Info> getComparator() {
-        return new Comparator<Info>() {
-            public int compare(Info o1, Info o2) {
+    public Comparator<BoardInformation> getComparator() {
+        return new Comparator<BoardInformation>() {
+            public int compare(BoardInformation bo1, BoardInformation bo2) {
+                Info o1 = (Info) bo1;
+                Info o2 = (Info) bo2;
                 int tmp = o2.unsafe - o1.unsafe;
-                if(tmp == 0)
+                if (tmp == 0)
                     tmp = o1.blots - o2.blots;
-                if(tmp == 0)
-                    tmp= o1.totalDistancefromHome - o2.totalDistancefromHome;
+                if (tmp == 0)
+                    tmp = o1.totalDistancefromHome - o2.totalDistancefromHome;
                 if (tmp == 0)
                     tmp = o1.moves - o2.moves;
                 return tmp;
             }
 
         };
+    }
+
+    public BoardInformation getBoardInformation(BoardState bs) {
+        return new Info(bs);
     }
 
 }

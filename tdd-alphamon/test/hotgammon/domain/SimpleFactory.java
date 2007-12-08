@@ -2,8 +2,6 @@ package hotgammon.domain;
 
 import java.util.ArrayList;
 
-import Sound.MonSoundEffect;
-import Sound.NullPlayer;
 
 class SimpleFactory implements MonFactory {
     public MoveStrategy createMoveStrategy() {
@@ -42,7 +40,4 @@ class SimpleFactory implements MonFactory {
         return new StandardBoard();
     }
 
-    public MonSoundEffect createEffectPlayer() {
-        return new NullPlayer();
-    }
 }

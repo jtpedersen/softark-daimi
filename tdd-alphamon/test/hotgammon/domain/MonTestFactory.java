@@ -2,7 +2,6 @@ package hotgammon.domain;
 
 import hotgammon.AI.BoardConfiguration;
 import hotgammon.AI.FixedBoardSetup;
-import Sound.MonSoundEffect;
 
 public class MonTestFactory implements MonFactory {
 
@@ -26,10 +25,6 @@ public class MonTestFactory implements MonFactory {
 
     public Board createBoard() {
         return (config!=null) ? new FixedBoardSetup(config): baseFactory.createBoard();
-    }
-
-    public MonSoundEffect createEffectPlayer() {
-        return baseFactory.createEffectPlayer();
     }
 
     public MoveStrategy createMoveStrategy() {
