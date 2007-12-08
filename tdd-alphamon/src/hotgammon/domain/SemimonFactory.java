@@ -3,10 +3,6 @@
  */
 package hotgammon.domain;
 
-import Sound.EffectPlayer;
-import Sound.MonSoundEffect;
-import Sound.NullPlayer;
-
 /**
  * @author jacob
  * 
@@ -19,12 +15,6 @@ import Sound.NullPlayer;
  * 
  */
 public class SemimonFactory implements MonFactory {
-
-    private boolean sound = false;
-
-    public SemimonFactory(boolean sound) {
-        this.sound = sound;
-    }
 
     public SemimonFactory() {
     }
@@ -45,7 +35,4 @@ public class SemimonFactory implements MonFactory {
         return new StandardBoard();
     }
 
-    public MonSoundEffect createEffectPlayer() {
-        return (sound) ? new EffectPlayer() : new NullPlayer();
-    }
 }

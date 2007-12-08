@@ -18,7 +18,7 @@ public class Info {
         Color player = bs.getPlayer();
         moves = bs.getGameMoves().size();
         Location bar = (player==Color.BLACK) ? Location.R_BAR : Location.B_BAR;
-        Location bear_off = (player==Color.BLACK) ? Location.B_BEAR_OFF : Location.R_BEAR_OFF;
+        Location home = (player==Color.BLACK) ? Location.B6 : Location.R6;
         for (Location l: board) {
             int checkers = board.getCount(l);
             if ( l==bar) 
@@ -26,7 +26,7 @@ public class Info {
             if (board.getColor(l) == player) {
                 if (checkers == 1)
                     unsafe++;
-                totalDistancefromHome += Math.abs(checkers * Location.distance(l, bear_off));
+                totalDistancefromHome += Math.abs(checkers * Location.distance(l, home));
             }
             
         }

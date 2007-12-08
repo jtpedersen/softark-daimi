@@ -33,6 +33,8 @@ public class AnalyzerFactory implements AIFactory {
                 int tmp = o2.unsafe - o1.unsafe;
                 if(tmp == 0)
                     tmp = o1.blots - o2.blots;
+                if(tmp == 0)
+                    tmp= o1.totalDistancefromHome - o2.totalDistancefromHome;
                 if (tmp == 0)
                     tmp = o1.moves - o2.moves;
                 return tmp;
