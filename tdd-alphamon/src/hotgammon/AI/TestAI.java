@@ -26,7 +26,7 @@ public class TestAI {
         DrawingEditor editor = ui.getEditor();
         editor.open();
         new MonPlayer(ui.getGame());
-        AIFactory aif = new AnalyzerFactory(ui.getGame(), Color.BLACK);
+        AIFactory aif = new SmartFactory(ui.getGame(), Color.BLACK);
         new AITurnHandler(aif);
 //        new AITurnHandler(ui.getGame(), Color.RED);
         

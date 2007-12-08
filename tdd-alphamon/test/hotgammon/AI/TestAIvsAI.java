@@ -38,6 +38,24 @@ public class TestAIvsAI {
         System.out.println("analyzer");
         assureAIcanPlayAndWinGame(aifBlack, aifRed);
     }
+    
+    @Test
+    public void testSmartFactory() {
+        AIFactory aifBlack = new SmartFactory(game, Color.BLACK);
+        AIFactory aifRed = new SmartFactory(game, Color.RED);
+        System.out.println("Smart");
+        assureAIcanPlayAndWinGame(aifBlack, aifRed);
+    }
+    
+    @Test
+    public void testSmartVsAnalyzer() {
+        AIFactory aifBlack = new SmartFactory(game, Color.BLACK);
+        AIFactory aifRed = new AnalyzerFactory(game, Color.RED);
+        System.out.println("Smart == black, Analyzer == RED");
+        assureAIcanPlayAndWinGame(aifBlack, aifRed);
+    }
+
+
 
     @Test
     public void testBlotter() {

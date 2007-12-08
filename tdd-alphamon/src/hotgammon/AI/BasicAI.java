@@ -13,7 +13,7 @@ public class BasicAI implements AI {
 
     private Game game;
     private Color player;
-    Map<Info, List<GameMove>> overview;
+    Map<BoardInformation, List<GameMove>> overview;
     private AIFactory factory;
 
     public BasicAI(AIFactory factory) {
@@ -29,13 +29,13 @@ public class BasicAI implements AI {
 
         List<BoardState> states = bs.getValidStates();
         player = states.get(0).getPlayer();
-        overview = new HashMap<Info, List<GameMove>>();
+        overview = new HashMap<BoardInformation, List<GameMove>>();
 
         for (BoardState b : states) {
-            Info info = new Info(b);
+            BoardInformation info = factory.getBoardInformation(b);
             overview.put(info, b.getGameMoves());
         }
-        Set<Info> infoKeys = overview.keySet();
+        Set<BoardInformation> infoKeys = overview.keySet();
 
         BoardInformation bestKey = Collections.max(infoKeys, factory.getComparator());
         List<GameMove> gm = overview.get(bestKey);
@@ -45,7 +45,7 @@ public class BasicAI implements AI {
         // System.out.println(b);
 
         for (GameMove g : gm) {
-            // System.out.println(g);
+             System.out.println(g);
             if (!game.move(g.from, g.to)) {
                 System.out.println(g + " AAAAAAATGH");
                 for (GameMove gin : gm)
