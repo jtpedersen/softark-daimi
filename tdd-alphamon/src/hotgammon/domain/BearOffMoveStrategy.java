@@ -1,5 +1,7 @@
 package hotgammon.domain;
 
+import java.util.Iterator;
+
 public class BearOffMoveStrategy implements MoveStrategy {
     private AllInInnerFieldWinnerStrategy allInInnerField;
 
@@ -10,47 +12,50 @@ public class BearOffMoveStrategy implements MoveStrategy {
     // Precondition to is bearOff
     public int isValidMove(Game game, Location from, Location to) {
 
-        if(!BasicValidation.isValidMove(game, from, to))
-            return -1;
-        
+        // if (!BasicValidation.isValidMove(game, from, to))
+        // return -1;
+
         int move = Math.abs(Location.distance(from, to));
 
-        if (game.getPlayerInTurn() == Color.BLACK) {
-            if (game.getCount(Location.B_BEAR_OFF) == 0
-                    && allInInnerField.winner(game, 1) != Color.BLACK) {
-                return -1;
-            } else {
-                // need to check whether we have larger diceValue
-                int high = getHighestInHome(game, Color.BLACK);
-                return validatedBearOff(game, move, high);
-                
-            }
-        } else {
-            if (game.getCount(Location.R_BEAR_OFF) == 0
-                    && allInInnerField.winner(game, 1) != Color.RED) {
-                return -1;
-            } else {
-                // need to check whether we have larger diceValue
-                int high = getHighestInHome(game, Color.RED);
-                return validatedBearOff(game, move, high);
+        Color player = game.getPlayerInTurn();
+        
+        Location home = (player == Color.BLACK) ? Location.B_BEAR_OFF
+                : Location.R_BEAR_OFF;
+        
+        
+        Iterator<Location> it = game.boardIterator();
+        int high = 0;
+        while (it.hasNext()) {
+            Location testFrom = (Location) it.next();
+            if (game.getColor(testFrom) == player && testFrom != home ) {
+                int dist = Math.abs(Location.distance(testFrom, home));
+                if (dist > 6)
+                    return -1;
+                else if (dist>high)
+                    high = dist;
             }
         }
+
+
+        // need to check whether we have larger diceValue
+//         = getHighestInHome(game, player);
+        return validatedBearOff(game, move, high);
+
     }
 
     private int validatedBearOff(Game game, int move, int high) {
-        //do we have an exact dice
-        for(int i: game.diceValuesLeft())
-            if (i==move)
-                return move;
-        
 //        System.out.println("move " + move + " high " + high);
+
+        // do we have an exact dice
+        for (int i : game.diceValuesLeft())
+            if (i == move)
+                return move;
+
         if (high <= game.diceValuesLeft()[0] && move == high)
             return game.diceValuesLeft()[0];
-        
-        
+
         return -1;
-        
-        
+
     }
 
     private int getHighestInHome(Game game, Color player) {

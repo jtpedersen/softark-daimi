@@ -70,10 +70,10 @@ public class TestBoardState {
         List<BoardState> states = bs.getValidStates();
         for(BoardState b: states) {
             for(GameMove gm : b.getGameMoves()) {
-                System.out.println(gm);
+//                System.out.println(gm);
                 assertTrue(game.move(gm.from, gm.to));
             }
-            System.out.println("next");
+//            System.out.println("next");
             resetGame();
         }
         

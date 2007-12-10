@@ -15,6 +15,7 @@ public class BasicAI implements AI {
     private Color player;
     Map<BoardInformation, List<GameMove>> overview;
     private AIFactory factory;
+    private boolean showMoves;
 
     public BasicAI(AIFactory factory) {
         this.game = factory.getGame();
@@ -37,15 +38,17 @@ public class BasicAI implements AI {
         }
         Set<BoardInformation> infoKeys = overview.keySet();
 
-        BoardInformation bestKey = Collections.max(infoKeys, factory.getComparator());
+        BoardInformation bestKey = Collections.max(infoKeys,
+                factory.getComparator());
         List<GameMove> gm = overview.get(bestKey);
-
+//        System.out.println(bestKey);
         // System.out.println(bs.getValidStates().size());
         // for(BoardState b: bs.getValidStates())
         // System.out.println(b);
 
         for (GameMove g : gm) {
-             System.out.println(g);
+             if(showMoves)
+                 System.out.println(g);
             if (!game.move(g.from, g.to)) {
                 System.out.println(g + " AAAAAAATGH");
                 for (GameMove gin : gm)
@@ -57,6 +60,10 @@ public class BasicAI implements AI {
 
     public Color getPlayer() {
         return player;
+    }
+
+    public void setShowMoves(boolean showMoves) {
+        this.showMoves = showMoves;
     }
 
 }

@@ -11,11 +11,11 @@ class AllInInnerFieldWinnerStrategy implements WinnerStrategy {
         Location l;
         while(i.hasNext()) {
             l = i.next();
-            if (l.getIndex() >= 1 && l.getIndex() <= 6 
+            if ( ( (l.getIndex() >= 1 && l.getIndex() <= 6) || l == Location.R_BEAR_OFF) 
                 && game.getColor(l) == Color.RED)
                     redCheckers += game.getCount(l);
 
-            if (l.getIndex() >= 19 && l.getIndex() <= 24 
+            if ( ( (l.getIndex() >= 19 && l.getIndex() <= 24) || l == Location.B_BEAR_OFF) 
                 && game.getColor(l) == Color.BLACK)
                 blackCheckers += game.getCount(l);
         }
@@ -26,4 +26,6 @@ class AllInInnerFieldWinnerStrategy implements WinnerStrategy {
             return Color.BLACK;
         return Color.NONE;
     }
+    
+    
 }

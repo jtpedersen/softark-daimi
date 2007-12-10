@@ -12,30 +12,55 @@ public class InfoMania implements BoardInformation {
      * 
      */
     int blots, unsafe, atHome, moves, inBearOff;
+    int distancesScore;
+    boolean takeHomeMode;
 
     public InfoMania(BoardState bs) {
         Board board = bs.getBoard();
         Color player = bs.getPlayer();
         moves = bs.getGameMoves().size();
+        int highOwn = 0;
+        int highOwnUnsafe = 0;
+        int lowOther = 100;
+        distancesScore = 0;
         Location bar = (player == Color.BLACK) ? Location.R_BAR
                 : Location.B_BAR;
         Location home = (player == Color.BLACK) ? Location.B_BEAR_OFF
                 : Location.R_BEAR_OFF;
         for (Location l : board) {
             int checkers = board.getCount(l);
-            if (l == bar)
-                blots = checkers;
-            else if (l == home )
-                inBearOff = checkers;
-            else if (board.getColor(l) == player) {
-                if (checkers == 1)
-                    unsafe++;
-                if (Math.abs(checkers * Location.distance(l, home)) < 7)
-                    atHome += checkers;
+            if (checkers == 0)
+                continue;
 
+            if (l == bar) {
+                blots = checkers;
+                continue;
+            }
+            if (l == home) {
+                inBearOff = checkers;
+                continue;
+            }
+            int dist = Math.abs(Location.distance(l, home));
+            if (board.getColor(l) == player) {
+                if (dist > highOwn)
+                    highOwn = dist;
+                if (checkers == 1) {
+                    unsafe++;
+                    if (dist > highOwnUnsafe)
+                        highOwnUnsafe = dist;
+                }
+                if (dist < 7)
+                    atHome += checkers;
+                distancesScore += dist*checkers;
+            } else {
+                if (dist < lowOther)
+                    lowOther = dist;
             }
 
         }
+//        if (lowOther > highOwnUnsafe)
+//            unsafe = 0;
+        takeHomeMode = lowOther > highOwn;
     }
 
     @Override
@@ -70,6 +95,16 @@ public class InfoMania implements BoardInformation {
         if (unsafe != other.unsafe)
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        String tmp = "blots " + blots + "\tunsafe " + unsafe + "\t atHome "
+                + atHome;
+        tmp += "\t moves " + moves + "\t inBearOff " + inBearOff
+                + "\tdistancesScore " + distancesScore + "\t takeHomeMode "
+                + takeHomeMode;
+        return tmp + "\n";
     }
 
 }
