@@ -138,7 +138,7 @@ GUI Targets:
 		</java>
 	</target>
 
-
+ 
 	<target name="test-alpha" depends="build-for-gui">
 		<java fork="yes" classname="hotgammon.view.TestAlphaUpdate">
 			<classpath>
@@ -220,6 +220,7 @@ GUI Targets:
 			</classpath>
 		</java>
 	</target>
+	<target name="SemiMon" depends="semimon" />
 
 	<target name="backgammon" depends="build-for-gui">
 			<java fork="yes" classname="hotgammon.view.MonUserInterface">
@@ -240,5 +241,12 @@ GUI Targets:
 			</target>
 		
 	
+
+	<target name="TestSemiMon" depends="build-all">
+		<java classname="org.junit.runner.JUnitCore">
+			<arg value="hotgammon.domain.TestSemimon" />
+			<classpath refid="_classpath" />
+		</java>
+	</target>
 
 </project>

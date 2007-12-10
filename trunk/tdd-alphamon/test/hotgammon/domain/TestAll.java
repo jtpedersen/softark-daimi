@@ -13,7 +13,8 @@ import org.junit.runners.Suite;
                 TestDeltaMon.class,
                 TestRealBackgammon.class,
                 TestBlocking.class,
-                TestRealBackgammon.class
+		TestRealBackgammon.class,
+		TestSemimon.class
                 })
     
 /** Suite to run all test cases.  
