@@ -17,7 +17,7 @@ public class TestSemimon {
 
     @Before
     public void setup() {
-        game = new StandardGame(new RealBackgammonFactory());
+        game = new StandardGame(new SemimonFactory());
         game.newGame();
         game.nextTurn();
     }
@@ -32,6 +32,7 @@ public class TestSemimon {
 
         assertEquals(Helpers.atos(new int[] { 2, 1 }),
                 Helpers.atos(game.diceValuesLeft()));
+        assertEquals(false, game.move(Location.R1, Location.B2));
         assertTrue(game.move(Location.R1, Location.R3));
 
         assertEquals(Helpers.atos(new int[] { 1 }),
@@ -47,9 +48,19 @@ public class TestSemimon {
         assertEquals(Helpers.atos(new int[] { 2 }),
                 Helpers.atos(game.diceValuesLeft()));
         assertTrue(game.move(Location.B1, Location.B3));
-
     }
 
+    // We have only 1 winner-strategy that doesnt end after 6 turns,
+    // and thats the one we want.
+    @Test public void shouldNotWinAfterSixTurns() {
+	game.nextTurn();
+	game.nextTurn();
+	game.nextTurn();
+	game.nextTurn();
+	game.nextTurn();
+	game.nextTurn();
+	assertEquals( Color.NONE, game.winner() );
+    }
 
 
     private class SemiTestSemimonFactory extends SemimonFactory {
