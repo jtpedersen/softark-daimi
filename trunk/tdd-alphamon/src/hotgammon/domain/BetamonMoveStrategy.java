@@ -3,10 +3,12 @@ package hotgammon.domain;
 public class BetamonMoveStrategy implements MoveStrategy {
     public int isValidMove(Game game, Location from, Location to) {
 
+//        System.out.println("BM ms");
+        
         if (!BasicValidation.isValidMove(game, from, to))
             return -1;
         // loft
-        if (game.getCount(to) > 4)
+        if (game.getCount(to) > 4 && ( to != Location.B_BEAR_OFF || to!= Location.R_BEAR_OFF))
             return -1;
 
         // er det den korekte spiller der flytter og er der en brik?

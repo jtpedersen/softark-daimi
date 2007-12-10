@@ -9,6 +9,7 @@ public class AnalyzerFactory implements AIFactory {
 
     private Game game;
     private Color player;
+    private AI ai;
 
     public AnalyzerFactory(Game game, Color player) {
         this.game = game;
@@ -16,7 +17,9 @@ public class AnalyzerFactory implements AIFactory {
     }
 
     public AI getAI() {
-        return new BasicAI(this);
+        if (ai == null)
+            ai = new BasicAI(this);
+        return ai;
     }
 
     public Game getGame() {

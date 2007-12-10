@@ -37,7 +37,7 @@ public class TestRealBackgammon {
                 new BoardConfiguration(Location.R1, Color.RED, 5),
                 new BoardConfiguration(Location.R8, Color.RED, 5),
                 new BoardConfiguration(Location.R9, Color.RED, 5) };
-        
+
         game = new StandardGame(new MonTestFactory(config, new int[] { 1, 2 }));
         game.newGame();
         game.nextTurn();
@@ -63,8 +63,8 @@ public class TestRealBackgammon {
                 new BoardConfiguration(Location.R1, Color.RED, 5),
                 new BoardConfiguration(Location.R8, Color.RED, 5),
                 new BoardConfiguration(Location.R9, Color.RED, 5) };
-        
-        game = new StandardGame( new MonTestFactory(config, new int[] { 1, 2 }));
+
+        game = new StandardGame(new MonTestFactory(config, new int[] { 1, 2 }));
         game.newGame();
         game.nextTurn();
         assertEquals(Color.NONE, game.winner());
@@ -81,8 +81,8 @@ public class TestRealBackgammon {
                 new BoardConfiguration(Location.R_BEAR_OFF, Color.RED, 12),
 
         };
-        game = new StandardGame(new MonTestFactory(new RealBackgammonFactory(), config,
-                new int[] { 5, 2, 1, 1, 4, 1 }));
+        game = new StandardGame(new MonTestFactory(new RealBackgammonFactory(),
+                config, new int[] { 5, 2, 1, 1, 4, 1 }));
         game.newGame();
         game.nextTurn();
 
@@ -90,26 +90,26 @@ public class TestRealBackgammon {
         assertEquals(Color.RED, game.getPlayerInTurn());
         assertEquals(Color.NONE, game.getColor(Location.B3));
 
-//        Helpers.showLocationCount(game, Color.RED);
-//        Helpers.showDice(game.diceValuesLeft());
+        // Helpers.showLocationCount(game, Color.RED);
+        // Helpers.showDice(game.diceValuesLeft());
 
         assertTrue(game.move(Location.R2, Location.R_BEAR_OFF));
         assertEquals(Helpers.atos(new int[] { 5 }),
                 Helpers.atos(game.diceValuesLeft()));
-//        Helpers.showLocationCount(game, Color.RED);
-//        Helpers.showDice(game.diceValuesLeft());
-//        
+//         Helpers.showLocationCount(game, Color.RED);
+//         Helpers.showDice(game.diceValuesLeft());
+        //        
         assertEquals(Color.RED, game.getPlayerInTurn());
         assertTrue(game.move(Location.R3, Location.R_BEAR_OFF));
         assertEquals(0, game.getNumberOfMovesLeft());
         assertEquals(Color.NONE, game.getPlayerInTurn());
-        
+
         // wrapping around the board we do not like it
         assertFalse(game.move(Location.B3, Location.R_BEAR_OFF));
-        
-//        Helpers.showLocationCount(game, Color.RED);
-//        Helpers.showDice(game.diceValuesLeft());
-//        
+
+        // Helpers.showLocationCount(game, Color.RED);
+        // Helpers.showDice(game.diceValuesLeft());
+        //        
         // stupid bug that allowed movement to bar.
         assertFalse(game.move(Location.R2, Location.B_BAR));
         assertFalse(game.move(Location.R3, Location.R_BEAR_OFF));
@@ -122,7 +122,7 @@ public class TestRealBackgammon {
         assertEquals(Color.RED, game.winner());
 
     }
-    
+
     @Test
     public void assureBearOffOnlyForHighLocation() {
         BoardConfiguration[] config = new BoardConfiguration[] {
@@ -132,13 +132,13 @@ public class TestRealBackgammon {
                 new BoardConfiguration(Location.R_BEAR_OFF, Color.RED, 12),
 
         };
-        game = new StandardGame(new MonTestFactory(new RealBackgammonFactory(), config,
-                new int[] { 5, 4 }));
+        game = new StandardGame(new MonTestFactory(new RealBackgammonFactory(),
+                config, new int[] { 5, 4 }));
         game.newGame();
         game.nextTurn();
         assertEquals(Color.NONE, game.winner());
         assertEquals(Color.RED, game.getPlayerInTurn());
-        
+
         assertFalse(game.move(Location.R1, Location.R_BEAR_OFF));
         assertFalse(game.move(Location.R2, Location.R_BEAR_OFF));
         assertTrue(game.move(Location.R3, Location.R_BEAR_OFF));
@@ -150,7 +150,7 @@ public class TestRealBackgammon {
     public void AssureNoBearOffWithCheckersInBar() {
 
         BoardConfiguration[] config = new BoardConfiguration[] {
-                new BoardConfiguration(Location.B1, Color.BLACK, 5),
+                new BoardConfiguration(Location.B_BEAR_OFF, Color.BLACK, 5),
                 new BoardConfiguration(Location.B2, Color.BLACK, 5),
                 new BoardConfiguration(Location.B3, Color.BLACK, 3),
                 new BoardConfiguration(Location.B_BAR, Color.BLACK, 1),
@@ -158,7 +158,7 @@ public class TestRealBackgammon {
                 new BoardConfiguration(Location.R7, Color.RED, 5),
                 new BoardConfiguration(Location.R8, Color.RED, 5),
                 new BoardConfiguration(Location.R9, Color.RED, 5) };
-        
+
         game = new StandardGame(new MonTestFactory(config, new int[] { 1, 2 }));
         game.newGame();
         game.nextTurn();
@@ -166,14 +166,49 @@ public class TestRealBackgammon {
         assertFalse(game.move(Location.B2, Location.B_BEAR_OFF));
 
         assertTrue(game.move(Location.B_BAR, Location.R1));
-//        System.out.println(Helpers.showBoard(game));
-//        Helpers.showDice(game.diceValuesLeft());
+        // System.out.println(Helpers.showBoard(game));
+        // Helpers.showDice(game.diceValuesLeft());
         assertEquals(0, game.getCount(Location.B_BAR));
         assertFalse(game.move(Location.B2, Location.B_BEAR_OFF));
         assertTrue(game.move(Location.R1, Location.R3));
 
     }
-    
+
+    @Test
+    public void AssureBearOffLotsOffCheckers() {
+
+        BoardConfiguration[] config = new BoardConfiguration[] {
+                new BoardConfiguration(Location.B1, Color.BLACK, 5),
+                new BoardConfiguration(Location.B2, Color.BLACK, 5),
+                new BoardConfiguration(Location.B3, Color.BLACK, 5),
+                new BoardConfiguration(Location.R1, Color.RED, 5),
+                new BoardConfiguration(Location.R2, Color.RED, 5),
+                new BoardConfiguration(Location.R3, Color.RED, 5), 
+                };
+
+        game = new StandardGame(new MonTestFactory(config, new int[] { 1, 2 }));
+        
+        game.newGame();
+//        System.out.println("bear off testing");
+//        System.out.println(Helpers.showBoard(game));
+        assertEquals(5, game.getCount(Location.B1));
+        assertEquals(5, game.getCount(Location.R1));
+        game.nextTurn();
+        assertEquals(2, game.getNumberOfMovesLeft());
+        
+        
+        assertEquals(Color.NONE, game.winner());
+        assertEquals(Color.BLACK, game.getPlayerInTurn());
+        assertTrue(game.move(Location.B1, Location.B_BEAR_OFF));
+        
+        assertTrue(game.move(Location.B2, Location.B_BEAR_OFF));
+        game.nextTurn();
+//        Helpers.showDice(game.diceValuesLeft());
+        assertTrue(game.move(Location.R1, Location.R_BEAR_OFF));
+//        Helpers.showDice(game.diceValuesLeft());
+        assertTrue(game.move(Location.R2, Location.R_BEAR_OFF));
+
+    }
 
     /**
      * This wrapper is only required for running the old JUnit 3.8 graphical

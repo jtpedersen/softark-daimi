@@ -156,15 +156,15 @@ public class StandardGame implements Game {
             if (getColor(from) == currentPlayer && getCount(from) > 0) {
                 for (Location to : board) {
                     int move = ms.isValidMove(this, from, to);
+//                    System.out.println("possible move from " + from + " to " + to + " with dice " + move);
                     if (move > 0) {
-                        // System.out.println("Legal move from " + from + "
-                        // to "
-                        // + to + " with dice " + move);
+//                         System.out.println("Legal move from " + from + " to " + to + " with dice " + move);
                         return true;
                     }
                 }
             }
         }
+//        System.out.println("no valid move");
         return false;
     }
 

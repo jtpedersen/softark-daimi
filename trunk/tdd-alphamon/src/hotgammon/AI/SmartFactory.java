@@ -9,6 +9,7 @@ public class SmartFactory implements AIFactory {
 
     private Game game;
     private Color player;
+    private AI ai;
 
     public SmartFactory(Game game, Color player) {
         this.game = game;
@@ -16,7 +17,9 @@ public class SmartFactory implements AIFactory {
     }
 
     public AI getAI() {
-        return new BasicAI(this);
+        if (ai == null)
+            ai = new BasicAI(this);
+        return ai;
     }
 
     public Game getGame() {
@@ -32,17 +35,27 @@ public class SmartFactory implements AIFactory {
             public int compare(BoardInformation bo1, BoardInformation bo2) {
                 InfoMania o1 = (InfoMania) bo1;
                 InfoMania o2 = (InfoMania) bo2;
-                int tmp;
-                tmp = o1.inBearOff - o2.inBearOff; // get them to bearOff
+                int tmp = 0;
+                // get them to bearOff
+                tmp = o1.inBearOff - o2.inBearOff;
+
+                // play safe
                 if (tmp == 0)
-                    tmp = o2.unsafe - o1.unsafe; // play safe
+                    tmp = o2.unsafe - o1.unsafe;
+                // try to kill
                 if (tmp == 0)
-                    tmp = o1.blots - o2.blots; // try to kill
+                    tmp = o1.blots - o2.blots;
+                // use as many eyes as possible
                 if (tmp == 0)
-                    tmp = o1.atHome - o2.atHome; // try to get home
+                    tmp = o1.moves - o2.moves;
+                // get them from the other end first
                 if (tmp == 0)
-                    tmp = o1.moves - o2.moves; // use as many eyes as possible
-                
+                    tmp = o2.distancesScore - o1.distancesScore;
+                // try to get home
+                if (tmp == 0)
+                    tmp = o1.atHome - o2.atHome;
+             
+
                 return tmp;
             }
 
