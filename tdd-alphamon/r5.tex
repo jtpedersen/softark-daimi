@@ -12,34 +12,131 @@
 \lhead{}
 \rhead{}
 
-\section*{4}
+\section{Use TDD to add the SemiMon variant to your portfolio of backgammon variants.}
+
+Vi havde lavet isolerede tests, så det var primært integrationen vi
+testede. Vi opdagde dog undervejs at vores dicestrategy havde fået for
+meget at lave da den skulle fjerne terninger, og vi refactorede derfor
+vores kode så standardgame kom til at håndtere det. Og skrev
+selvfølgeligt først en testcase der viste vores bug, at de rigtige
+terninger ikke blev fjernet.
+
+\textit{Product: Full zip. Ant target "TestSemiMon".}
+
+\section{ Make your SemiMon run with the GUI.}
+It just works(tm)
+
+\textit{Product: Full zip. Ant target "SemiMon".}
+
+\section{Shesh-Besh and Acey-Deucy}
+
+\textit{ There are several backgammon variants played on the
+  backgammon board. Two of these are Shesh-Besh and Acey-Deucy that
+  you can read about in the Backgammon variants page.}
+
+\subsection{Sheesh-Besh}
+
+Joker trækket kan håndteres af vores movestrategy, da den kan tjekke
+games, diceThrown, og retunere værdier værdier ligesom i alphamon.
+
+\subsection{Acey-Ducey}
+
+Her kræves der lidt mere og for at implementere det ville vi foruden
+en ny moveStrategy og to forskellige diceStrategies (manuelt valg og
+random terninger), indføre et nyt interface: TurnHandler.
+
+Turnhandleren skulle styre slagets gang i nextTurn, det vil sige at
+den skulle vælge hvilken terningstrategi vi skulle bruge og finde ud
+af hvilken spiller der var playerInTurn. Det kunne være at vi ville
+blive nødt til at huske hvile moves der blev brugt i sidste omgang. 
+
+Opstarten ville vi klare med at placere alle brikker på baren. Frem
+for at indføre et nyt Board.
+
+
+\newpage
+\section{Polymorphic semimon}
 \textit{Two implementation sketches: Use UML diagrams and pseudo-code 
 sketches to outline your proposals.} \\
-Men kan f.eks. extende fra BetaMon og s!aa copy-paste de relevante
+
+\subsection{extends betamon}
+
+
+Men kan f.eks. extende fra BetaMon og så copy-paste de relevante
 metoder fra Gamma- og Deltamon.
-\begin{verbatim}
 
-\end{verbatim}
+
 \begin{center}
-\includegraphics[width=80mm]{r5_fig2.eps}
-\end{center} \\
-
-Man kan f.eks. implementere det ved at arve fra AlphaMon, og s!aa
-
-\includegraphics[width=80mm]{r5_fig1.eps}
-
+\includegraphics[width=80mm]{fig2.eps}
+\end{center} 
 
 \begin{verbatim}
-   Figure f = objectServer.getEditor().drawing().
-      findFigure(e.getX(), e.getY());
-    if (f instanceof DieFigure) {
-        objectServer.getGame().nextTurn();
-    } 
+public class Seminmon extends Betamon {
+
+ public Color winner() {
+   ...
+ }
+
+ public void nextTurn() {
+  ...
+ }
+
+}
 \end{verbatim}
 
 
 
+\newpage
 
+\subsection{extends Alphamon}
+
+Man kan f.eks. implementere det ved at arve fra AlphaMon, og så
+
+\begin{center}
+  \includegraphics[width=80mm]{fig1.eps}
+\end{center}
+
+
+
+\begin{verbatim}
+public class Seminmon extends Alphamon {
+
+ public Color winner() {
+   ...
+ }
+
+ public void nextTurn() {
+  ...
+ }
+
+ public boolean move(Location from, Location to) {
+  ...
+ }
+
+}
+\end{verbatim}
+
+
+\section{Fordele og ulemper}
+\textit{Contrast the polymorphic proposals for SemiMon with the
+  compositional design: Analyze the benefits and liabilities of both
+  the polymorphic and compositional proposals using terminology from
+  the course literature.}
+
+
+Det ville være pænest at nedarve direkte fra alphamon, da man så
+ledes har semimon som en selvstændig entitet, men så ville man miste
+fordelene ved nedarving, fordi så skal man implementere alle metoderne
+igen.
+
+Man kunne nedarve fra en af alle de nævnte klasser, og i alle tilfælde
+vil man få et multiple maintaince problem. Derfor mener vi at den
+kompositionelle tilgang er den bedste. 
+
+\section{Backgammon}
+
+Der er et ant target, ant backgammon og ant aimon hvis man vil spille
+mod computeren.
 
 
 \end{document}

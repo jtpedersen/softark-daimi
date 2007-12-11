@@ -1,0 +1,66 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[danish]{babel}
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\pagestyle{fancy}
+%\usepackage{tabular}
+
+\begin{document}
+\chead{dSoftArk 2007 -- group 20 -- uge 6}
+\lhead{}
+\rhead{}
+
+\section{Equivalence partitions}
+
+\begin{itemize}
+\item
+\begin{verbatim}
+d(f,t) != die
+\end{verbatim}
+
+
+\item
+\begin{verbatim}
+getCount(from)>0 && getColor(from) == playerInTurn
+\end{verbatim}
+
+
+\item
+\begin{verbatim}
+to != blocked
+\end{verbatim}
+
+\end{itemize}
+
+\subsection{partitioning of the input space}
+validity = v ( move, player, board-state, die-value ) 
+
+distance-function', d(f,t) = distance between points 'f' and 't'
+
+count function :num(p) = number og checkers at point p
+
+color function :col(p) = color of checker at point p
+
+player const: oPlayer = other player 
+
+\subsection{Standardmoves}
+
+\noindent
+\begin{tabular}{l|c|c}
+Dimension & Invalid Partition & Valid Partition \\
+\hline
+move(f,t) & f,t $\in$ \{bearOff,bar\}   &  f,t $\notin$ \{bearOff,bar\}  \\
+d(f,t) & d(f,t)!=die & d(f,t)== die \\
+
+boardState &  col(bar)!= 0, num(f)<1, col(f)!= player, num(t)>1 &  \\
+ & $\wedge$ col(t)!=oPlayer  &  \\
+ & & col(f) == player $\wedge$ num(f)>0 $\wedge$
+(num(t)<2 $\vee$ col(t)==player) 
+
+\end{tabular}
+
+
+\end{document}
