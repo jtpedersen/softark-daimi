@@ -4,8 +4,10 @@
 %\usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
 \usepackage{fancyhdr}
+\usepackage{booktabs}
 \usepackage{graphicx}
 \pagestyle{fancy}
+
 %\usepackage{tabular}
 
 \begin{document}
@@ -51,15 +53,93 @@ player const: oPlayer = other player
 \noindent
 \begin{tabular}{l|c|c}
 Dimension & Invalid Partition & Valid Partition \\
-\hline
-move(f,t) & f,t $\in$ \{bearOff,bar\}   &  f,t $\notin$ \{bearOff,bar\}  \\
-d(f,t) & d(f,t)!=die & d(f,t)== die \\
+\toprule
+move(f,t) & f,t $\in$ \{bearOff,bar\} [1] & f,t $\notin$ \{bearOff,bar\} [6] \\
+\midrule
+die-value & d(f,t)!=die [2] & d(f,t)== die [7] \\
+\midrule
+boardState & num(bar) $\neq$ 0 [3];    & col(f) = player $\vee$ \\
+           & col(f) $=$ oPlayer [4]; col(f) $=$ none [9];
+              & num(t) $<$ 2 $\wedge$ \\
+           & num(t)$>$1 $\vee$ col(t) $=$ oPlayer [7] & col(t)=player
+           [8] \\
+\midrule
+player & - & player $=$ black [10]; \\
+       &   & player $=$ red [11] \\
+\bottomrule
+\end{tabular}
 
-boardState &  col(bar)!= 0, num(f)<1, col(f)!= player, num(t)>1 &  \\
- & $\wedge$ col(t)!=oPlayer  &  \\
- & & col(f) == player $\wedge$ num(f)>0 $\wedge$
-(num(t)<2 $\vee$ col(t)==player) 
+\subsection{Test cases}
+\label{1:testcases}
 
+\begin{tabular}{c|c|c}
+AEkvialensklasse        & Test                      & Output    \\
+\toprule
+$[1]$                   & $f=bar$                   & false     \\
+\midrule
+$[2]$                   & $f=R1,\ t=R3,$            & false     \\
+                        & $dice=5$                  &           \\
+\midrule
+$[3]$                   & $num(bar)=3$              & false     \\
+\midrule
+$[4]$                   & $col(R1)=BLACK,$          & false     \\
+                        & $player=RED,\ f=R1$       &           \\
+\midrule
+$[5]$                   & $col(R6)=Red,\ num(R6)=6$ & false     \\
+                        & $player=B,\ t=R6$         &           \\
+\midrule
+$[6]\times[7]\times[8]$ & $f=R1,\ t=R2,\ dice=1,$   & true      \\
+                        & $player=BLACK,$           &           \\
+                        & $num(R2)=1,col(R2)=RED$   &           \\
+\bottomrule
+\end{tabular}
+
+\section{Bar Moves}
+Vi bruger samme tabel fra foer, bare med disse aendringer:
+
+\begin{tabular}{c|c}
+EC & Repartionering \\
+\toprule
+$[1]$ & [1] [1a]; \\
+      & t $\in$ \{ bar, bearOff \} , f $\in$ \{ bearOff \}  [1b] \\
+\midrule
+$[6]$ & [6] [6a]; \\
+      & f $\notin$ \{bearOff\}, t $\notin$ \{bar, bearOff\} [6b] \\
+\midrule
+$[3]$ & [3] [3a]; \\
+      & f $\notin$ \{bar\} $\wedge$ num(bar) $>$ 0 [3b] \\
+\midrule
+$[8]$ & f $\notin$ \{bar\} $\wedge$ "[8]" [8a]; \\
+      & f $\in$ \{bar\} $\wedge$ num(bar) $>$ 0 $\wedge$ t $\in$
+        \{"opposite innerfield"\} [8b] \\
+
+\bottomrule
+\end{tabular}
+
+\subsection{Test Cases}
+
+Udvidelse fra tabellen fra (\ref{1:testcases}).
+
+\begin{tabular}{c|c|c}
+AEkvialensklasse        & Test                      & Output    \\
+\toprule
+$[1]$                   & $f=bar$                   & false     \\
+\midrule
+$[2]$                   & $f=R1,\ t=R3,$            & false     \\
+                        & $dice=5$                  &           \\
+\midrule
+$[3]$                   & $num(bar)=3$              & false     \\
+\midrule
+$[4]$                   & $col(R1)=BLACK,$          & false     \\
+                        & $player=RED,\ f=R1$       &           \\
+\midrule
+$[5]$                   & $col(R6)=Red,\ num(R6)=6$ & false     \\
+                        & $player=B,\ t=R6$         &           \\
+\midrule
+$[6]\times[7]\times[8]$ & $f=R1,\ t=R2,\ dice=1,$   & true      \\
+                        & $player=BLACK,$           &           \\
+                        & $num(R2)=1,col(R2)=RED$   &           \\
+\bottomrule
 \end{tabular}
 
 
