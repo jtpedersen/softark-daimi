@@ -58,14 +58,17 @@ move(f,t) & f,t $\in$ \{bearOff,bar\} [1] & f,t $\notin$ \{bearOff,bar\} [6] \\
 \midrule
 die-value & d(f,t)!=die [2] & d(f,t)== die [7] \\
 \midrule
-boardState & num(bar) $\neq$ 0 [3];    & col(f) = player $\vee$ \\
+boardState & num(bar) $\neq$ 0 [3];    & ( col(f) = player ) \\
            & col(f) $=$ oPlayer [4]; col(f) $=$ none [9];
-              & num(t) $<$ 2 $\wedge$ \\
-           & num(t)$>$1 $\vee$ col(t) $=$ oPlayer [7] & col(t)=player
-           [8] \\
+              & num(t) $<$ 2 $\vee$ \\
+           & num(t)$>$1 $\vee$ col(t) $=$ oPlayer [7] & col(t)=oPlayer
+           [8]; \\
+           & & num(t) = 0 [12]\\
+       &   & col(t) $=$ player [13] \\
 \midrule
 player & - & player $=$ black [10]; \\
        &   & player $=$ red [11] \\
+
 \bottomrule
 \end{tabular}
 
@@ -88,11 +91,34 @@ $[4]$                   & $col(R1)=BLACK,$          & false     \\
 $[5]$                   & $col(R6)=Red,\ num(R6)=6$ & false     \\
                         & $player=B,\ t=R6$         &           \\
 \midrule
-$[6]\times[7]\times[8]$ & $f=R1,\ t=R2,\ dice=1,$   & true      \\
+$[6]\times[7]\times[8]\times[10]$ & $f=R1,\ t=R2,\ dice=1,$   & true      \\
                         & $player=BLACK,$           &           \\
                         & $num(R2)=1,col(R2)=RED$   &           \\
+\midrule
+$[6]\times[7]\times[12]\times[11]$ & $f=B1,\ t=B2,\ dice=1,$   & true      \\
+                        & $player=RED,$           &           \\
+                        & $num(B2)=0$             &           \\
+\midrule
+$[6]\times[7]\times[13]\times[11]$ & $f=B1,\ t=B2,\ dice=1,$   & true      \\
+                        & $player=RED,$           &           \\
+                        & $num(B2)=2, col(R2)=RED$             &           \\
 \bottomrule
 \end{tabular}
+
+\subsection{Coverage og disjointness}
+Vi er rimlig sikker paa at have fuldt coverage da vi har 
+gaaet alle dimensioner igennem og fundet alle EC. Vi er 
+rimlig sikker da vi har brugt systematic testing processen.
+
+Vi mener at have disjunkte EC'er, da vi ikke lige kunne
+finde et eksempel der modbeviste det.
+
+\subsection{Boundary Values}
+Vi har lavet 2 testcases saa antal brikker af oPlayer paa t location
+er baade 1 og 2 som er lige paa og lige under
+graensevaridien. Vi kigger paa terningen og felterne som en
+maengde, og de har ingen graensevaerdier, da specifikationen ikke
+definere hvad der sker for vaerdier uden for maengden.
 
 \section{Bar Moves}
 Vi bruger samme tabel fra foer, bare med disse aendringer:
@@ -111,7 +137,16 @@ $[3]$ & [3] [3a]; \\
 \midrule
 $[8]$ & f $\notin$ \{bar\} $\wedge$ "[8]" [8a]; \\
       & f $\in$ \{bar\} $\wedge$ num(bar) $>$ 0 $\wedge$ t $\in$
-        \{"opposite innerfield"\} [8b] \\
+        \{"opposite innerfield"\} $\wedge$ col(t) = oPlayer $\wedge$
+        num(t) =1 [8b] \\
+\midrule
+$[12]$ & f $\notin$ \{bar\} $\wedge$ "[12]" [12a]; \\
+      & f $\in$ \{bar\} $\wedge$ num(bar) $>$ 0 $\wedge$ t $\in$
+        \{"opposite innerfield"\} $\wedge$ num(t)=0 [12b] \\
+\midrule
+$[13]$ & f $\notin$ \{bar\} $\wedge$ "[13]" [13a]; \\
+      & f $\in$ \{bar\} $\wedge$ num(bar) $>$ 0 $\wedge$ t $\in$
+        \{"opposite innerfield"\} $\wedge$ col(t)=player [13b] \\
 
 \bottomrule
 \end{tabular}
@@ -123,24 +158,47 @@ Udvidelse fra tabellen fra (\ref{1:testcases}).
 \begin{tabular}{c|c|c}
 AEkvialensklasse        & Test                      & Output    \\
 \toprule
-$[1]$                   & $f=bar$                   & false     \\
+$[1b]$                   & $f=bar$                   & true     \\
 \midrule
-$[2]$                   & $f=R1,\ t=R3,$            & false     \\
-                        & $dice=5$                  &           \\
+$[3b]$                   & $f=R1,\ t=R3,$            & false     \\
+                        & $dice=2, num(bar)=7$                  &           \\
 \midrule
-$[3]$                   & $num(bar)=3$              & false     \\
+$[6b]\times[8b]\times[11]$  & $f=R\_BAR,\ t=B2,\ dice=2,$   & true      \\
+                        & $player=RED,$           &           \\
+                        & $num(B2)=2, col(B2)=BLACK$             &
+                        \\
 \midrule
-$[4]$                   & $col(R1)=BLACK,$          & false     \\
-                        & $player=RED,\ f=R1$       &           \\
-\midrule
-$[5]$                   & $col(R6)=Red,\ num(R6)=6$ & false     \\
-                        & $player=B,\ t=R6$         &           \\
-\midrule
-$[6]\times[7]\times[8]$ & $f=R1,\ t=R2,\ dice=1,$   & true      \\
+$[6b]\times[12b]\times[10]$  & $f=B\_BAR,\ t=R2,\ dice=2,$   & true      \\
                         & $player=BLACK,$           &           \\
-                        & $num(R2)=1,col(R2)=RED$   &           \\
+                        & $num(B2)=0$             &
+                        \\
+\midrule
+$[6b]\times[13b]\times[11]$  & $f=R\_BAR,\ t=B2,\ dice=2,$   & true      \\
+                        & $player=RED,$           &           \\
+                        & $num(B2)=2, col(B2)=RED$             &
+                        \\
 \bottomrule
 \end{tabular}
+
+\subsection{Coverage og disjointness}
+Samme overvejelser som fra Standard Moves.
+
+\subsection{Boundary Values}
+Vi har ikke udfoert noget med Bar Moves der aendrede vores boundary values.
+
+
+\section{Sammenligning}
+Vi har glemt at teste for begge farver i naesten alle 
+tilfaelde, dette kommer af at vi har kigget paa det som
+white-box testing fordi vi brugte tdd processen og saa
+det som en triviel implementation.
+
+Vi har de fleste af Standard Moves testene med, selv om
+mange af dem er blandet sammen i enkelte testsekvenser.
+
+Ved bar moves har vi ikke testet for moves fra bar til 
+hvor man slaar hjem, eller gaar til en plads med egne 
+checkers paa.
 
 
 \end{document}
